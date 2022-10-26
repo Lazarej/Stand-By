@@ -1,20 +1,112 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useState, useEffect, useCallback } from "react";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import HomeScreen from "./pages/connected/Home";
+import SignupScreen from "./pages/notConnected/Signup";
+
+function DetailsScreen({ route, navigation }) {
+  const { itemId, otherParam, isSignedIn } = route.params;
+
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>itemId: {itemId}</Text>
+      <Text>otherParam: {otherParam}</Text>
+      <Text>Details Screen {isSignedIn}</Text>
+      <Button
+        title="Go to Details... again"
+        onPress={() => navigation.navigate("Details")}
+      />
+      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Button
+        title="change"
+        onPress={() => {
+          isSignedIn = !isSignedIn;
+          console.log(isSignedIn);
+        }}
+      ></Button>
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [isSignedIn, setIsSignIn] = useState(false);
+
+  const [fontsLoaded] = useFonts({
+    RobotoB: require("./assets/fonts/RobotoB.ttf"),
+    Roboto: require("./assets/fonts/Roboto.ttf"),
+  });
+
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  const changeState = () => {
+    setIsSignIn((prev) => !prev);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer onReady={onLayoutRootView}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShadowVisible: false,
+          headerTintColor: "red",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        {isSignedIn ? (
+          <>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ title: "" }}
+            />
+            <Stack.Screen
+              name="Details"
+              component={DetailsScreen}
+              initialParams={{ isSignedIn }}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Signup"
+              component={SignupScreen}
+              options={{ title: "" }}
+            
+            />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "red",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
