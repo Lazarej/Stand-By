@@ -5,7 +5,9 @@ export default function Wrapper (props){
        <View style={{ flex: 1,
         backgroundColor: '#fff',
         paddingHorizontal:'8%',
-        paddingV: props.paddingV}}>
+        paddingVertical: props.paddingV,
+        paddingTop: props.paddingT,
+        paddingB: props.paddingB}}>
            {props.children}
        </View>
     )

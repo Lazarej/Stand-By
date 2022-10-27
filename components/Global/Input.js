@@ -23,21 +23,22 @@ export default function GlobalInput(props) {
 const styles = StyleSheet.create({
   inputCont: {
     width: "100%",
-    height: 100,
+    height: 85,
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-end",
+
   },
 
   label: {
     fontFamily: "RobotoB",
-    fontSize: 19,
+    fontSize: 17,
     marginBottom: 2,
   },
 
   input: {
     backgroundColor: "#F8F8F8",
     width: "100%",
-    height: 50,
+    height: 45,
     borderRadius: 13,
     paddingLeft: 10,
   },

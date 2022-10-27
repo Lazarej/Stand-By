@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity,Text, View } from 'react-native';
 import GlobalStyles from '../../style/GlobalStyles';
 
-export default function BasicButton(props) {
+export default function GlobalButton(props) {
 
     return(
         <TouchableOpacity onPress={props.onPress} style={styles.appButtonContainer}>
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     appButtonText: {
       fontSize: 14,
       color: "#fff",
-      fontWeight: "bold",
+      fontFamily:'RobotoB',
       alignSelf: "center",
       textTransform: "uppercase"
     }

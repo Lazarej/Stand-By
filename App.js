@@ -6,6 +6,9 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import HomeScreen from "./pages/connected/Home";
 import SignupScreen from "./pages/notConnected/Signup";
+import ForgotPasswordScreen from "./pages/notConnected/ForgotPassword";
+import RegisterScreen from "./pages/notConnected/Register";
+import GlobalStyles from "./style/GlobalStyles";
 
 function DetailsScreen({ route, navigation }) {
   const { itemId, otherParam, isSignedIn } = route.params;
@@ -39,7 +42,8 @@ export default function App() {
 
   const [fontsLoaded] = useFonts({
     RobotoB: require("./assets/fonts/RobotoB.ttf"),
-    Roboto: require("./assets/fonts/Roboto.ttf"),
+    RobotoN: require("./assets/fonts/RobotoN.ttf"),
+    RobotoL: require("./assets/fonts/RobotoL.ttf"),
   });
 
   useEffect(() => {
@@ -68,7 +72,7 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           headerShadowVisible: false,
-          headerTintColor: "red",
+          headerTintColor: GlobalStyles.primary.color,
           headerTitleStyle: {
             fontWeight: "bold",
           },
@@ -92,7 +96,21 @@ export default function App() {
             <Stack.Screen
               name="Signup"
               component={SignupScreen}
+              options={{ title: "",
+            headerShown:false }}
+            
+            />
+            <Stack.Screen
+              name="ForgotPassword"
+              component={ForgotPasswordScreen}
               options={{ title: "" }}
+            
+            />
+            <Stack.Screen
+              name="Register"
+              component={RegisterScreen}
+              options={{ title: "" ,
+              headerShown:false }}
             
             />
           </>

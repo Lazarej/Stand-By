@@ -16,9 +16,10 @@ export default StyleSheet.create({
   },
 
   text:{
-    fontSize: RFPercentage(2.1),
-    fontFamily:'Roboto',
+    fontSize: RFPercentage(2.3),
+    fontFamily:'RobotoN',
     color:'#AAAAAA'
+    
     
   }
 });
