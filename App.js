@@ -5,41 +5,21 @@ import { useState, useEffect, useCallback } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import HomeScreen from "./pages/connected/Home";
-import SignupScreen from "./pages/notConnected/Signup";
+import LoginScreen from "./pages/notConnected/Login";
 import ForgotPasswordScreen from "./pages/notConnected/ForgotPassword";
-import RegisterScreen from "./pages/notConnected/Register";
+import SignupScreen from "./pages/notConnected/Signup";
 import GlobalStyles from "./style/GlobalStyles";
+import {UserStore,UserContext} from "./store/User"
+import { useContext } from "react";
 
-function DetailsScreen({ route, navigation }) {
-  const { itemId, otherParam, isSignedIn } = route.params;
-
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>itemId: {itemId}</Text>
-      <Text>otherParam: {otherParam}</Text>
-      <Text>Details Screen {isSignedIn}</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() => navigation.navigate("Details")}
-      />
-      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button
-        title="change"
-        onPress={() => {
-          isSignedIn = !isSignedIn;
-          console.log(isSignedIn);
-        }}
-      ></Button>
-    </View>
-  );
-}
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [isSignedIn, setIsSignIn] = useState(false);
-
+ 
+  const [test , setTest] = useState(false)
+  const {user} = useContext(UserContext)
+  console.log('app',user)
   const [fontsLoaded] = useFonts({
     RobotoB: require("./assets/fonts/RobotoB.ttf"),
     RobotoN: require("./assets/fonts/RobotoN.ttf"),
@@ -68,7 +48,8 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer onReady={onLayoutRootView}>
+      <UserStore>
+        <NavigationContainer onReady={onLayoutRootView}>
       <Stack.Navigator
         screenOptions={{
           headerShadowVisible: false,
@@ -78,24 +59,20 @@ export default function App() {
           },
         }}
       >
-        {isSignedIn ? (
+        {user ? (
           <>
             <Stack.Screen
               name="Home"
               component={HomeScreen}
               options={{ title: "" }}
             />
-            <Stack.Screen
-              name="Details"
-              component={DetailsScreen}
-              initialParams={{ isSignedIn }}
-            />
+
           </>
         ) : (
           <>
             <Stack.Screen
-              name="Signup"
-              component={SignupScreen}
+              name="Login"
+              component={LoginScreen}
               options={{ title: "",
             headerShown:false }}
             
@@ -107,8 +84,8 @@ export default function App() {
             
             />
             <Stack.Screen
-              name="Register"
-              component={RegisterScreen}
+              name="Signup"
+              component={SignupScreen}
               options={{ title: "" ,
               headerShown:false }}
             
@@ -117,6 +94,8 @@ export default function App() {
         )}
       </Stack.Navigator>
     </NavigationContainer>
+      </UserStore>
+
   );
 }
 

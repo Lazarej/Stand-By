@@ -5,14 +5,26 @@ import GlobalInput from "./Input";
 
 export default function GlobalForm(props) {
   const form = Object.keys(props)
-    .filter((key) => key !== "children" && key !=='textButton')
+    .filter((key) => key !== "children" && key !=='textButton' && key !=='function')
     .reduce((obj, key) => {
       return Object.assign(obj, {
         [key]: props[key],
       });
     }, {});
 
+  
+
   const [inputs, setInputs] = useState(form);
+
+   const buttonFunction = (e)=>{
+    e.preventDefault();
+   const select = Object.values(inputs).map(input => {  
+  return {[input.name]: input.value,}
+  })
+  const newObj = Object.assign({}, ...select );
+  console.log('newObject', newObj)
+  props.function(newObj)
+   }
 
 
   return (
@@ -36,7 +48,7 @@ export default function GlobalForm(props) {
       ))}
       {props.children}
       </View>
-      <GlobalButton title={props.textButton}></GlobalButton>
+      <GlobalButton title={props.textButton} onPress={buttonFunction}></GlobalButton>
     </View>
   );
 }

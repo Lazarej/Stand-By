@@ -22,6 +22,8 @@
     },
     "android": {
       "softwareKeyboardLayoutMode": "pan",
+      "usesCleartextTraffic": true,
+      "useNextNotificationsApi": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
