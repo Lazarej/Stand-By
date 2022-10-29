@@ -1,18 +1,31 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const UserContext = createContext({});
 
 export const UserStore = ({children}) => {
-  const [user, setUser] = useState( async () => {
-    const us = await AsyncStorage.getItem('appliUser')
-    console.log('dz',us)
-    return !us ? null : await JSON.parse(us);
-    
-  });
+  const [user, setUser] = useState({});
 
-  console.log('',user)
+  useEffect(()=>{
+      getUser()
+      
+  },[])
+
+  const getUser = () =>{
+    try {
+      AsyncStorage.getItem('appliUser')
+      .then(value =>{
+        if(value != null){
+          setUser(JSON.parse(value))
+        }
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log('dqdqz',user)
 
   const saveUser = async (value) => {
     console.log('before set',value, 'USER', user)
@@ -33,7 +46,7 @@ export const UserStore = ({children}) => {
           username: value.email,
           email: value.email,
           password: value.password,
-          
+          phone: value.phone
         },
         
       );
@@ -49,15 +62,15 @@ export const UserStore = ({children}) => {
     
   };
 
-  const login = async (email, password) => {
-    console.log(email);
-    console.log(password);
+  const login = async (value) => {
+    console.log(value.email);
+    console.log(value.password);
     try {
       const response = await axios.post(
-        "http://localhost:1337/api/auth/local",
+        "http://192.168.0.50:1337/api/auth/local",
         {
-          identifier: email,
-          password: password,
+          identifier: value.email,
+          password: value.password,
         }
       );
       saveUser({
@@ -70,8 +83,14 @@ export const UserStore = ({children}) => {
     }
   };
 
-  const logout = () => {
-    saveUser({});
+  const logout = async () => {
+    try {
+      await AsyncStorage.removeItem('appliUser')
+      console.log( await AsyncStorage.getItem('appliUser'))
+      setUser(prev => prev = {})
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const value = {

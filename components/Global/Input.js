@@ -16,6 +16,7 @@ export default function GlobalInput(props) {
         value={props.value}
         placeholder={props.placeholder}
       ></TextInput>
+      {props.inputError ? <Text style={{fontSize:10}}>{props.errorText}</Text> : null }
     </View>
   );
 }
@@ -23,7 +24,6 @@ export default function GlobalInput(props) {
 const styles = StyleSheet.create({
   inputCont: {
     width: "100%",
-    height: 85,
     flexDirection: "column",
     justifyContent: "flex-end",
 

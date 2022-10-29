@@ -17,6 +17,8 @@ export default function LoginScreen() {
 
   const form = [
     {
+      inputError:false,
+      errorText:'Vous devez entrer une adresse email valide',
       name:'email',
       key:0,
       type:'email-address',
@@ -25,7 +27,10 @@ export default function LoginScreen() {
       label:'E-mail',
       secure:false
     },
-    { name:'password',
+    { 
+      inputError:false,
+      errorText:'Votre mot de passe doit commencer par une majuscule et avoir au moins un chiffre',
+      name:'password',
       key:1,
       value:'',
       placeholder:'mot de passe',
@@ -43,7 +48,7 @@ export default function LoginScreen() {
         </Text>
       </View>
       <View style={styles.formCont}>
-        <GlobalForm {...form} textButton={'Se connecter'}>
+        <GlobalForm {...form} textButton={'Se connecter'} function={login}>
         <View style={styles.infoForm}>
           <View style={styles.toggleCont}>
              <Switch trackColor={{ false: '#FFBFAE', true: GlobalStyles.primary.color }}

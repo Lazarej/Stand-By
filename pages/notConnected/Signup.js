@@ -9,11 +9,13 @@ import { UserContext } from "../../store/User";
 
 export default function SignupScreen() {
 
-  const {signup} = useContext(UserContext)
+  const {user,signup} = useContext(UserContext)
   const [saveUser, setSaveUser] = useState(false);
-
+  console.log('dza', user)
   const form = [
     {
+      inputError:false,
+      errorText:'Vous devez entrer une adresse email valide',
       name:'email',
       key: 0,
       type:'email-address',
@@ -23,6 +25,8 @@ export default function SignupScreen() {
       secure: false,
     },
     {
+      inputError:false,
+      errorText:'Votre mot de passe doit commencer par une majuscule et avoir au moins un chiffre',
       name:'password',
       key: 1,
       value: "",
@@ -31,6 +35,8 @@ export default function SignupScreen() {
       secure: true,
     },
     {
+      inputError:false,
+      errorText:'Le contenu de ce champ doit etre identique a votre mot de passe',
       name:'repeatPassword',
       key: 2,
       value: "",
@@ -39,6 +45,8 @@ export default function SignupScreen() {
       secure: false,
     },
     {
+      inputError:false,
+      errorText:'Vous devez entrer un numéro valide',
       name:'phone',
       key: 3,
       type:'phone-pad',
@@ -54,7 +62,6 @@ export default function SignupScreen() {
       <View style={{flex:3}}>
         <Text style={GlobalStyles.title}>S'inscrire</Text>
         <Text style={GlobalStyles.text}>
-          Completer cette étape pour accédez à nos services !
         </Text>
       </View>
       <View style={{flex:10}}>
