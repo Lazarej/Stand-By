@@ -42,7 +42,7 @@ export default function SignupScreen() {
       value: "",
       placeholder: "répéter le mot de passe",
       label: "Sécuriser le mot de passe",
-      secure: false,
+      secure: true,
     },
     {
       inputError:false,
