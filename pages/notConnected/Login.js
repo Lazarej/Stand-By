@@ -8,6 +8,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import GlobalForm from "../../components/Global/Form";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
+import TitleCont from "../../components/Global/TitleCont";
 
 export default function LoginScreen() {
 
@@ -42,10 +43,7 @@ export default function LoginScreen() {
   return (
     <Wrapper paddingV={100}>
       <View style={{ flex: 2,}}>
-        <Text style={GlobalStyles.title}>Se connecter</Text>
-        <Text style={GlobalStyles.text}>
-          Completer cette étape pour accédez à nos services !
-        </Text>
+        <TitleCont title={"Se connecter"} text={"Completer cette étape pour accédez à nos services !"}></TitleCont>
       </View>
       <View style={styles.formCont}>
         <GlobalForm {...form} textButton={'Se connecter'} function={login}>

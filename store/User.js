@@ -1,11 +1,13 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export const UserContext = createContext({});
 
 export const UserStore = ({children}) => {
   const [user, setUser] = useState({});
+
 
   useEffect(()=>{
       getUser()
@@ -25,7 +27,7 @@ export const UserStore = ({children}) => {
       console.log(error)
     }
   }
-  console.log('dqdqz',user)
+
 
   const saveUser = async (value) => {
     console.log('before set',value, 'USER', user)
@@ -50,8 +52,7 @@ export const UserStore = ({children}) => {
         },
         
       );
-      console.log('czd',response.data.user, response.data.jwt) 
-      saveUser({
+      await saveUser({
         token: response.data.jwt,
         login: true,
         ...response.data.user,
@@ -63,20 +64,26 @@ export const UserStore = ({children}) => {
   };
 
   const login = async (value) => {
-    console.log(value.email);
-    console.log(value.password);
     try {
       const response = await axios.post(
-        "http://192.168.0.50:1337/api/auth/local",
+        "http://192.168.0.50:1337/api/auth/local?populate=*",
         {
           identifier: value.email,
           password: value.password,
         }
       );
+      console.log('login response',response.data.user)
+      const userPop = await axios.get('http://192.168.0.50:1337/api/users/me?populate=*',{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${response.data.jwt}`,
+        },
+      })
+      console.log('userpop',userPop.data)
       saveUser({
         token: response.data.jwt,
         login: true,
-        ...response.data.user,
+        ...userPop.data,
       });
     } catch (error) {
       console.error(error);
@@ -86,7 +93,19 @@ export const UserStore = ({children}) => {
   const logout = async () => {
     try {
       await AsyncStorage.removeItem('appliUser')
-      console.log( await AsyncStorage.getItem('appliUser'))
+      await axios.put(
+        'http://192.168.0.50:1337/api/users/20',
+        {
+          interests:[...user.interests] 
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+    
       setUser(prev => prev = {})
     } catch (error) {
       console.log(error)

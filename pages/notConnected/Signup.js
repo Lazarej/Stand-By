@@ -1,17 +1,17 @@
 import Wrapper from "../../components/Global/Wrapper";
-import { Button, StyleSheet, Text, View, Switch } from "react-native";
+import {StyleSheet, Text, View, Switch } from "react-native";
 import GlobalStyles from "../../style/GlobalStyles";
 import GlobalForm from "../../components/Global/Form";
 import { Link } from "@react-navigation/native";
 import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
+import TitleCont from "../../components/Global/TitleCont";
 
 export default function SignupScreen() {
 
-  const {user,signup} = useContext(UserContext)
+  const {signup} = useContext(UserContext)
   const [saveUser, setSaveUser] = useState(false);
-  console.log('dza', user)
   const form = [
     {
       inputError:false,
@@ -60,9 +60,7 @@ export default function SignupScreen() {
   return (
     <Wrapper paddingT={100}>
       <View style={{flex:3}}>
-        <Text style={GlobalStyles.title}>S'inscrire</Text>
-        <Text style={GlobalStyles.text}>
-        </Text>
+        <TitleCont title={"S'inscrire"} text={"Completer cette étape vous créer  un compte sur la platforme !"}></TitleCont>
       </View>
       <View style={{flex:10}}>
         <GlobalForm {...form} textButton={"S'inscrire"} function={signup}>

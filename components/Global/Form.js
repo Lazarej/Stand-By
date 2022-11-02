@@ -45,7 +45,9 @@ export default function GlobalForm(props) {
   const validate =  (newObj) => {
     x = false
     Object.values(state).map((value)=> {
+      
       if (value.name === "email") {
+        value.inputError = false;
        if (!validEmail.test(value.value)){
         value.inputError = true;
         x = true
@@ -53,6 +55,7 @@ export default function GlobalForm(props) {
         }
       }
       if (value.name === "password") {
+        value.inputError = false;
         if (!validPassword.test(value.value)) {
           value.inputError = true;
           x = true
@@ -60,6 +63,7 @@ export default function GlobalForm(props) {
         }
       }
       if (value.name === "repeatPassword") {
+        value.inputError = false;
         if (newObj.repeatPassword !== newObj.password) {
           value.inputError = true;
           x = true
@@ -67,6 +71,7 @@ export default function GlobalForm(props) {
         }
       }
       if (value.name === "phone") {
+        value.inputError = false;
         if (!validPhone.test(value.value)) {
           value.inputError = true;
           x = true

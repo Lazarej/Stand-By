@@ -10,13 +10,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useContext } from "react";
 import {UserContext} from "../store/User"
 import {  useEffect, useCallback } from "react";
+import InterestScreen from "../pages/connected/UserInterest";
 
 const Stack = createNativeStackNavigator();
 
 export default function Navigation (){
 
     const {user} = useContext(UserContext)
-
+    console.log('tcheck',user)
     const [fontsLoaded] = useFonts({
         RobotoB: require("../assets/fonts/RobotoB.ttf"),
         RobotoN: require("../assets/fonts/RobotoN.ttf"),
@@ -54,13 +55,25 @@ export default function Navigation (){
           }}
         >
           {user.login ? (
+            
             <>
-              <Stack.Screen
+            {
+              user.interests ? (
+                <Stack.Screen
                 name="Home"
                 component={HomeScreen}
                 options={{ title: "" }}
               />
-  
+            
+              ) :(
+               
+              <Stack.Screen
+              name="Interest"
+              component={InterestScreen}
+              options={{ title: "" }}
+            />
+              )
+            }
             </>
           ) : (
             <>
