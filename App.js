@@ -7,15 +7,6 @@ import Navigation from "./router/navigation";
 
 
 export default function App() {
- 
-  const [test , setTest] = useState(false)
-  
-  
-  
-
-  const changeState = () => {
-    setIsSignIn((prev) => !prev);
-  };
 
   return (
       <UserStore>

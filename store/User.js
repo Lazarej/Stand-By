@@ -30,9 +30,7 @@ export const UserStore = ({children}) => {
 
 
   const saveUser = async (value) => {
-    console.log('before set',value, 'USER', user)
     setUser((prev) => (prev = value));
-    console.log('after set',user)
     try {
       await AsyncStorage.setItem("appliUser", JSON.stringify(value));
     } catch (error) {
@@ -72,14 +70,12 @@ export const UserStore = ({children}) => {
           password: value.password,
         }
       );
-      console.log('login response',response.data.user)
       const userPop = await axios.get('http://192.168.0.50:1337/api/users/me?populate=*',{
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${response.data.jwt}`,
         },
       })
-      console.log('userpop',userPop.data)
       saveUser({
         token: response.data.jwt,
         login: true,

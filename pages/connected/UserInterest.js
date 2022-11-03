@@ -52,7 +52,6 @@ export default function InterestScreen() {
     const interests = interestState.filter((interest) => {
       return interest.selected === true;
     });
-    console.log("filtereed", interests);
     saveUser({
       ...user,
       interests: interests,

@@ -11,6 +11,7 @@ import { useContext } from "react";
 import {UserContext} from "../store/User"
 import {  useEffect, useCallback } from "react";
 import InterestScreen from "../pages/connected/UserInterest";
+import BottomTab from "./BottomTab";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,11 +61,11 @@ export default function Navigation (){
             {
               user.interests ? (
                 <Stack.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{ title: "" }}
+                name="Tab"
+                component={BottomTab}
+                options={{ headerShown: false }}
               />
-            
+              
               ) :(
                
               <Stack.Screen
