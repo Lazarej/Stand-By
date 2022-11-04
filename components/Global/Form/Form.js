@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useRef, useState } from "react";
 import { View, Text, Button, Alert } from "react-native";
-import { validEmail, validPassword, validPhone } from "../../regex/regex";
-import GlobalButton from "./Button";
+import { validEmail, validPassword, validPhone } from "../../../regex/regex";
+import GlobalButton from "../Button/Button";
 import GlobalInput from "./Input";
 
 export default function GlobalForm(props) {

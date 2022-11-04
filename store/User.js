@@ -62,6 +62,7 @@ export const UserStore = ({children}) => {
   };
 
   const login = async (value) => {
+    console.log(value)
     try {
       const response = await axios.post(
         "http://192.168.0.50:1337/api/auth/local?populate=*",

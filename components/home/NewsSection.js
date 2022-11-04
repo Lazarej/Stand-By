@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import axios from "axios";
-import NewsCard from "../Global/NewsCard";
+import NewsCard from "../Global/Card/NewsCard";
 
 export default function NewsSection (){
 
@@ -35,30 +35,22 @@ export default function NewsSection (){
           };
           getData();
     },[user])
-
-    
-
-    
-
-    console.log('test', newsState)
     
     return(
-       <Wrapper paddingV={60}>
         <View style={styles.container}>
         <View style={styles.sectionHeader}>
             <Text style={GlobalStyles.title}>Quoi de neuf ?</Text>
             <Link style={styles.headerLink} to={'/NewsLetter'}>Tout voir</Link>
         </View>
-        <View style={styles.newsContainer}>
+        <View>
            {
             Object.values(newsState).map((e)=>(
-                <NewsCard key={e.id} title={e.attributes.title} text={e.attributes.text} image={e.attributes.image.data.attributes.url}></NewsCard>
+                <NewsCard element={e} key={e.id} id={e.id} title={e.attributes.title} text={e.attributes.text} image={e.attributes.image.data.attributes.url}></NewsCard>
             ))
            }
 
         </View>
        </View>
-       </Wrapper>
     )
 }
 
@@ -69,19 +61,18 @@ const styles = StyleSheet.create({
 
     },
     sectionHeader:{
+        marginTop:60,
+        marginBottom:30,
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'baseline'
     },
 
     headerLink:{
-        fontFamily:'RobotoB',
+        fontWeight:'bold',
         color:GlobalStyles.primary.color,
-        fontSize: RFPercentage(2.4)
+        fontSize: RFPercentage(2.1)
 
     },
-    newsContainer:{
-        
-    }
 
   })   

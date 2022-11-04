@@ -18,7 +18,6 @@ const Stack = createNativeStackNavigator();
 export default function Navigation (){
 
     const {user} = useContext(UserContext)
-    console.log('tcheck',user)
     const [fontsLoaded] = useFonts({
         RobotoB: require("../assets/fonts/RobotoB.ttf"),
         RobotoN: require("../assets/fonts/RobotoN.ttf"),

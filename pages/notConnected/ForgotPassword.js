@@ -1,7 +1,7 @@
 import Wrapper from "../../components/Global/Wrapper";
 import { TextInput, View, Text, StyleSheet } from "react-native";
 import GlobalStyles from "../../style/GlobalStyles";
-import GlobalForm from "../../components/Global/Form";
+import GlobalForm from "../../components/Global/Form/Form";
 import TitleCont from "../../components/Global/TitleCont";
 
 export default function ForgotPasswordScreen() {

@@ -5,7 +5,7 @@ import TitleCont from "../../components/Global/TitleCont";
 import Wrapper from "../../components/Global/Wrapper";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
-import GlobalButton from "../../components/Global/Button";
+import GlobalButton from "../../components/Global/Button/Button";
 import GlobalStyles from "../../style/GlobalStyles";
 
 export default function InterestScreen() {

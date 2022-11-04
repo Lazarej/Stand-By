@@ -1,11 +1,11 @@
 import { Link } from "@react-navigation/native";
 import { useState } from "react";
 import { Text, StyleSheet, View, Switch } from "react-native";
-import GlobalInput from "../../components/Global/Input";
+import GlobalInput from "../../components/Global/Form/Input";
 import Wrapper from "../../components/Global/Wrapper";
 import GlobalStyles from "../../style/GlobalStyles";
 import { FontAwesome } from '@expo/vector-icons';
-import GlobalForm from "../../components/Global/Form";
+import GlobalForm from "../../components/Global/Form/Form";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import TitleCont from "../../components/Global/TitleCont";

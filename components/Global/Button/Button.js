@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity,Text, View } from 'react-native';
-import GlobalStyles from '../../style/GlobalStyles';
+import GlobalStyles from '../../../style/GlobalStyles';
 
 export default function GlobalButton(props) {
 

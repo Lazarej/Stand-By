@@ -1,7 +1,7 @@
 import Wrapper from "../../components/Global/Wrapper";
 import {StyleSheet, Text, View, Switch } from "react-native";
 import GlobalStyles from "../../style/GlobalStyles";
-import GlobalForm from "../../components/Global/Form";
+import GlobalForm from "../../components/Global/Form/Form";
 import { Link } from "@react-navigation/native";
 import { useState } from "react";
 import { useContext } from "react";
