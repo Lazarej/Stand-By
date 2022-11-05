@@ -30,14 +30,9 @@ export default function GlobalForm(props) {
     const newObj = Object.assign({}, ...select);
     e.preventDefault();
     const test = validate(newObj)
-     console.log(test)
-    console.log(state.error,'conditioning start')
     if (test === true) {
-      setError(true)
-      console.log('nonononon')
-      
+      setError(true)   
     } else{
-      console.log('on peut y aller')
       props.function(newObj)
     }
   };

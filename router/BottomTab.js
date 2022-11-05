@@ -67,7 +67,7 @@ export default function BottomTab() {
         name="Favorite"
         component={FavoriteScreen}
         options={{
-        headerShown: false ,
+          title:'Favorits',
           tabBarIcon: ({color}) => (
             <MaterialIcons name="favorite-outline" size={28} color={color}  />
           ),
@@ -77,7 +77,7 @@ export default function BottomTab() {
         name="Search"
         component={SearchScreen}
         options={{
-        headerShown: false ,
+          title:'Recherche',
           tabBarIcon: ({color}) => (
             <AntDesign name="search1" size={26} color={color} />
           ),

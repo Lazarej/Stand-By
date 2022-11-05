@@ -5,21 +5,20 @@ import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import axios from "axios";
 
-
-const FirstRoute = () => (
-    <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
-  );
-  
-  const SecondRoute = () => (
-    <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
-  );
-  
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-  });
-
 export default function ArticleScreen (){
+
+    const FirstRoute = () => (
+        <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
+      );
+      
+      const SecondRoute = () => (
+        <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
+      );
+      
+      const renderScene = SceneMap({
+        first: FirstRoute,
+        second: SecondRoute,
+      });
    
     const layout = useWindowDimensions();
     const { user } = useContext(UserContext);
