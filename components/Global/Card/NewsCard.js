@@ -4,6 +4,7 @@ import LikeButton from "../Button/LikeButton";
 export default function NewsCard(props) {
   return (
     <View style={styles.newContainer}>
+        <View style={styles.container}>
         <View style={styles.partLeft} >
         <Image
         style={styles.image}
@@ -12,6 +13,7 @@ export default function NewsCard(props) {
       <Text style={styles.title}>{props.title}</Text>
     </View>
     <LikeButton id={props.id } element={props.element}></LikeButton>
+        </View>
     </View>
   );
 }
@@ -20,11 +22,20 @@ export default function NewsCard(props) {
 const styles = StyleSheet.create({
     newContainer:{
         width: "100%",
-        height: 100,
-       
+        height: 95,
+        backgroundColor:'#fff',
         paddingTop:10,  
-        flexDirection:'row',
-        justifyContent:'space-between'       
+        borderColor:'#F4F4F4',
+        borderWidth:1,
+        marginBottom:20,
+        borderRadius:15,
+          
+    },
+
+    container:{
+      marginHorizontal:10,
+      flexDirection:'row',
+      justifyContent:'space-between'     
     },
 
     partLeft:{
@@ -32,8 +43,8 @@ const styles = StyleSheet.create({
     },
 
     image:{
-        height:85,
-        width:85,
+        height:75,
+        width:75,
         marginRight:10,      
         resizeMode:'cover',
         borderRadius:15

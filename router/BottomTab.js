@@ -9,6 +9,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import {RFPercentage} from "react-native-responsive-fontsize";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,11 +18,19 @@ export default function BottomTab() {
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
+        headerTitleStyle:{
+          fontSize: RFPercentage(3.5),
+          fontFamily:'RobotoB',
+          textTransform: 'uppercase',
+          
+        },
+        headerTitleAlign:'center',
         tabBarInactiveTintColor: 'black',
         tabBarActiveTintColor: GlobalStyles.primary.backgroundColor,
         tabBarShowLabel:false,
         tabBarStyle: { paddingHorizontal:25,
-        height:60 },
+        height:60,
+       },
       }}
     >
       <Tab.Screen
@@ -38,7 +47,7 @@ export default function BottomTab() {
         name="NewsLetter"
         component={NewsLetterScreen}
         options={{
-        headerShown: false ,
+        title:'NewsLetter',
           tabBarIcon: ({color}) => (
             <FontAwesome name="paper-plane-o" size={24} color={color}/>
           ),
@@ -48,7 +57,7 @@ export default function BottomTab() {
         name="Article"
         component={ArticleScreen}
         options={{
-        headerShown: false ,
+          title:'Articles',
           tabBarIcon: ({color}) => (
             <Ionicons name="ios-newspaper-outline" size={28} color={color} />
           ),
