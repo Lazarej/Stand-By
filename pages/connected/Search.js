@@ -1,50 +1,141 @@
-import {Text, View,} from "react-native";
-import GlobalButton from "../../components/Global/Button/Button";
+import {Text, View,FlatList} from "react-native";
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import axios from "axios";
 import Wrapper from "../../components/Global/Wrapper";
 import GlobalInput from "../../components/Global/Form/Input";
+import GlobalStyles from "../../style/GlobalStyles";
+import NewsCard from "../../components/Global/Card/NewsCard";
+import ArticlesCard from "../../components/Global/Card/ArticlesCard";
 
 export default function SearchScreen (){
 
     const {user,logout} = useContext(UserContext)
 
-    const [search, setSearch] = useState()
-    const [result, setResult] = useState([])
+    const [search, setSearch] = useState('')
+    const [result, setResult] = useState({
+        news:[],
+        articles:[]
+    })
+    const [index, setIndex] = useState(0);
+    const [routes] = useState([
+      { key: 'first', title: 'News' },
+      { key: 'second', title: 'Articles' },
+    ]);
+
+    const oneNews = ({item}) =>{
+        return(
+            <NewsCard element={item} key={item.id} id={item.id} title={item.attributes.title} text={item.attributes.text} image={item.attributes.image.data.attributes.url}></NewsCard>
+        )
+    }
+
+    const oneArticle = ({item}) =>{
+        return(
+            <ArticlesCard element={item} key={item.id} id={item.id} title={item.attributes.title} text={item.attributes.text} image={item.attributes.image.data.attributes.url}></ArticlesCard>
+        )
+    }
+
+    const NewsRoute = () => (
+        <View>
+            {
+            result.news.length === 0 ?
+            <View style={{height:'100%' ,width:'100%', justifyContent:'center', alignItems:'center',}}>
+                <Text style={{textTransform:'uppercase', fontFamily:'RobotoN', color:'#AAAAAA', fontSize:18}}>Aucun résultat</Text>
+            </View> :
+            <FlatList 
+            style={{paddingTop:20,}}
+
+            showsVerticalScrollIndicator={false}
+            data={result.news}
+            renderItem={oneNews}
+            /> 
+           }
+        </View>
+      );
+      
+      const ArticleRoute = () => (
+        <View>
+               {
+                result.articles.length === 0 ?
+                <View style={{height:'100%' ,width:'100%', justifyContent:'center', alignItems:'center',}}>
+                    <Text style={{textTransform:'uppercase', fontFamily:'RobotoN', color:'#AAAAAA', fontSize:18}}>Aucun résultat</Text>
+                </View> :
+                <FlatList 
+                style={{paddingTop:20,}}
+    
+                showsVerticalScrollIndicator={false}
+                data={result.articles}
+                renderItem={oneArticle}
+                /> 
+               }
+        </View>
+      );
+      
+      const renderTabBar = props => (
+        <TabBar
+          {...props}
+         
+          indicatorStyle={{ backgroundColor: GlobalStyles.primary.color}}
+          style={{ backgroundColor: '#fff', elevation:0, height:45 }}
+          renderLabel={({ route }) => (
+            <View>
+                <Text style={{ fontSize:16,
+                   color: route.key === props.navigationState.routes[props.navigationState.index].key ?
+                   GlobalStyles.primary.color : '#AAAAAA'}}>
+                    {route.title}
+                </Text>
+            </View>
+        )}
+        />
+      );
+
+      const renderScene = SceneMap({
+        first: NewsRoute,
+        second: ArticleRoute,
+      });
+      
     const getData = async () => {
+        console.log('value', search.length)
+       if(search.length === 0){
+        setResult((prev) => ((prev) = {news: [], articles:  []}));
+       }else{
         try {
-          const article = await axios.get(
-            `http://192.168.0.50:1337/api/articles?filters[title][$contains]=${search}`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${user.token}`,
-              },
-            }
-          );
-          const news = await axios.get(
-            `http://192.168.0.50:1337/api/news?filters[title][$contains]=${search}`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${user.token}`,
-              },
-            }
-          );
-          
-          const data = [...article.data.data, ...news.data.data];
-          console.log('base result', data)
-        setResult((prev) => ((prev) = (data)));
-        } catch (error) {
-            console.error(error)
-        }
+            const articleResponse = await axios.get(
+              `http://192.168.0.50:1337/api/articles?filters[title][$contains]=${search}&populate=*`,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${user.token}`,
+                },
+              }
+            );
+            const newsResponse = await axios.get(
+              `http://192.168.0.50:1337/api/news?filters[title][$contains]=${search}&populate=*`,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${user.token}`,
+                },
+              }
+            );
+            
+            const news = newsResponse.data.data;
+            const articles = articleResponse.data.data;
+            
+          setResult((prev) => ((prev) = {news: news, articles:  articles}));
+          } catch (error) {
+              console.error(error)
+          }
+       }
       };
 
     useEffect(()=>{     
           getData();
     },[search])
+
+    console.log('base result', result)
 
     return(
         
@@ -57,11 +148,14 @@ export default function SearchScreen (){
                  onChangeText={(text) => setSearch(text)}
                />
                </View>
-               {
-                result.map((e)=>(
-                    <Text>{e.attributes.title}</Text> 
-                ))
-               }
+               <TabView
+        navigationState={{ index, routes }}
+        renderTabBar={renderTabBar}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: '100%' }}
+      />
+               
             </Wrapper>
         
     )
