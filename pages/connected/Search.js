@@ -76,7 +76,7 @@ export default function SearchScreen (){
       const renderTabBar = props => (
         <TabBar
           {...props}
-         
+          
           indicatorStyle={{ backgroundColor: GlobalStyles.primary.color}}
           style={{ backgroundColor: '#fff', elevation:0, height:45 }}
           renderLabel={({ route }) => (
