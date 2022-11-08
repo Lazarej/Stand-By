@@ -2,6 +2,7 @@ import { View,StyleSheet, Text, Image } from "react-native";
 import LikeButton from "../Button/LikeButton";
 
 export default function NewsCard(props) {
+  console.log('newsCard' , props.element)  
   return (
     <View style={styles.newContainer}>
         <View style={styles.container}>

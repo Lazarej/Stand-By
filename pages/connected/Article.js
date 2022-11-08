@@ -1,5 +1,5 @@
-import {Text, View,useWindowDimensions } from "react-native";
-import { TabView, SceneMap , TabBar, FlatList} from 'react-native-tab-view';
+import {Text, View,useWindowDimensions ,FlatList} from "react-native";
+import { TabView, SceneMap , TabBar} from 'react-native-tab-view';
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
@@ -18,11 +18,13 @@ export default function ArticleScreen (){
 
   const FilterView = (props) => (
     <Wrapper>
-      {
-        props.data.map((article)=>(
-          <Text key={article.id}>{article.attributes.title}</Text>
-        ))
-      }
+      <FlatList 
+            style={{paddingTop:20,}}
+
+            showsVerticalScrollIndicator={false}
+            data={props.data}
+            renderItem={oneArticle}
+            />
     </Wrapper>
   );
 
@@ -30,6 +32,7 @@ export default function ArticleScreen (){
     <View style={{marginLeft:'8%', overflow:'hidden'}}>
       <TabBar
       {...props}
+      bounces={true}
       
       indicatorStyle={{ backgroundColor: GlobalStyles.primary.color}}
       scrollEnabled={true}
@@ -59,6 +62,7 @@ const [articlesState, setArticlesState] = useState([]);
 
 
 const renderScene = ({ route }) => {
+
   if(route.key === routes[index].key){
     return <FilterView data={articlesState}/>
   }
@@ -86,7 +90,6 @@ const getUserArticles = async()=>{
     } catch (error) {
         console.error(error)
     }
-    console.log('AIEAIEAIE',articlesState)
   })
 }
 
@@ -152,9 +155,10 @@ return (
     <TabView
     navigationState={{ index, routes }}
     renderScene={renderScene}
+   
     renderTabBar={renderTabBar}
     onIndexChange={setIndex}
-    initialLayout={{ width: layout.width }}
+    initialLayout={{ width:  layout.width }}
   />
  </View>
 );

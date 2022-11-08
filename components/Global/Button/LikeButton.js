@@ -12,8 +12,9 @@ export default function LikeButton (props){
     useEffect(()=>{
         const  isLike = ()=>{
             Object.values(user.favorites).map((fav)=>{
-                console.log('nhnh',fav.id)
+                console.log('nhnh',fav)
                 if(fav.id === props.id){
+                    console.log(props.element, 'is true' ,fav.id, props.id)
                    setlikeState(true)
                 }
                })
@@ -36,7 +37,7 @@ export default function LikeButton (props){
             favorites: [
                 
                     ...user.favorites,
-                    {...newLike}
+                    {...newLike, id: props.id}
                 
             ]
         })
