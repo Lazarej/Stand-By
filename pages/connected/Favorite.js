@@ -17,7 +17,7 @@ export default function FavoriteScreen (){
     const oneNews = ({item}) =>{
         console.log(item)
         return(
-            <NewsCard element={item} key={item.id} id={item.id} title={item.title} text={item.text} image={item.image.data.attributes.url}></NewsCard>
+            <NewsCard element={item} key={item.id} id={item.id} title={item.attributes.title} text={item.attributes.text} image={item.attributes.image.data.attributes.url}></NewsCard>
         )
     }
 

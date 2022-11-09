@@ -5,46 +5,51 @@ import { UserContext } from "../../../store/User";
 import GlobalStyles from '../../../style/GlobalStyles';
 
 export default function LikeButton (props){
-
     const {user, saveUser} = useContext(UserContext)
     const [likeState, setlikeState] = useState(false)
 
-    useEffect(()=>{
-        const  isLike = ()=>{
-            Object.values(user.favorites).map((fav)=>{
-                console.log('nhnh',fav)
-                if(fav.id === props.id){
-                    console.log(props.element, 'is true' ,fav.id, props.id)
-                   setlikeState(true)
-                }
-               })
+    const checkLike = () =>{
+        const filter = user.favorites.filter((fav)=>{
+               return fav.id === props.id 
+        })
+        console.log('filter',filter)
+        if(filter.length !== 0){
+            setlikeState(true)
         }
-        isLike()
-    },[user])
-
-    const like = () =>{
-       if(likeState === true){
-        const newArray = user.favorites.filter((fav) => fav.id !== props.id)
-        saveUser({
-            ...user,
-            favorites: newArray
-        })
-        setlikeState(false)
-       }else{  
-        const newLike = props.element
-        saveUser({
-            ...user,
-            favorites: [
-                
-                    ...user.favorites,
-                    {...newLike, id: props.id}
-                
-            ]
-        })
-        setlikeState(true)
-        console.log('favvvv',user.favorites)
-       }
     }
+
+    useEffect(()=>{
+       checkLike()
+       return() =>{
+        setlikeState(false)
+       }
+    },[user.favorites])
+    
+    const like = () =>{
+           if(likeState !== true){
+            saveUser(               
+                {
+                 ...user,
+                 favorites: [...user.favorites, props.element]
+                }             
+             )
+             
+           }else{
+           const removeFav =  user.favorites.filter((fav)=>{
+                return fav.id !== props.id 
+         })
+
+         saveUser(               
+            {
+             ...user,
+             favorites: removeFav
+            }             
+         )
+         
+
+           }
+    }
+ 
     
      return(
         <TouchableOpacity onPress={like} >
