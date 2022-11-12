@@ -14,14 +14,14 @@ export default function LikeButton (props){
         })
         console.log('filter',filter)
         if(filter.length !== 0){
-            setlikeState(true)
+            setlikeState(prev => prev = true)
         }
     }
 
     useEffect(()=>{
        checkLike()
        return() =>{
-        setlikeState(false)
+        setlikeState(prev => prev = false)
        }
     },[user.favorites])
     

@@ -4,6 +4,14 @@ import Wrapper from "../../components/Global/Wrapper";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import NewsCard from "../../components/Global/Card/NewsCard";
+import UserFavCategories from "../../components/favorites/UserFavCatergories";
+
+const oneNews = ({item}) =>{
+    console.log(item)
+    return(
+        <NewsCard element={item} key={item.id} id={item.id} title={item.attributes.title} text={item.attributes.text} image={item.attributes.image.data.attributes.url}></NewsCard>
+    )
+}
 
 export default function FavoriteScreen (){
 
@@ -14,15 +22,11 @@ export default function FavoriteScreen (){
         setFavoritesState(prev => prev = user.favorites)
     },[user.favorites])
 
-    const oneNews = ({item}) =>{
-        console.log(item)
-        return(
-            <NewsCard element={item} key={item.id} id={item.id} title={item.attributes.title} text={item.attributes.text} image={item.attributes.image.data.attributes.url}></NewsCard>
-        )
-    }
+    
 
     return(
         <Wrapper>
+            <UserFavCategories/>
             <FlatList 
             style={{paddingTop:20,}}
 
