@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
       width: '100%',
       height:50,
       backgroundColor: GlobalStyles.primary.backgroundColor,
-      borderRadius: 15,
+      borderRadius: 7,
       justifyContent:'center',   
     },
     appButtonText: {
