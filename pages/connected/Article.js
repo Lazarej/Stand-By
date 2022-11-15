@@ -8,6 +8,7 @@ import axios from "axios";
 import Wrapper from "../../components/Global/Wrapper";
 import ArticlesCard from "../../components/Global/Card/ArticlesCard";
 import Loader from "../../components/Global/Loader";
+import NoResult from "../../components/Global/NoResult";
 
 export default function ArticleScreen() {
   const oneArticle = ({ item }) => {
@@ -30,6 +31,11 @@ export default function ArticleScreen() {
         {isLoading ? (
           <Loader></Loader>
         ) : (
+          props.data.length === 0 ?
+          <NoResult
+          title={"Oups, pas encore d'article dans cette catégorie"}
+          />
+          :
           <FlatList
             style={{ paddingTop: 20 }}
             showsVerticalScrollIndicator={false}
@@ -164,7 +170,6 @@ export default function ArticleScreen() {
   };
 
   useEffect(() => {
-    console.log(isLoading);
     getInterests();
     if (index === 0) {
       getUserArticles();

@@ -34,7 +34,7 @@ export default function NewsSection (){
             }
           };
           getData();
-    },[user])
+    },[])
     
     return(
         <View style={styles.container}>

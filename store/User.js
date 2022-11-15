@@ -30,7 +30,6 @@ export const UserStore = ({children}) => {
 
 
   const saveUser = async (value) => {
-    console.log('saveValue',value)
     setUser((prev) => (prev = value));
     try {
       await AsyncStorage.setItem("appliUser", JSON.stringify(value));

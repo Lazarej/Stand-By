@@ -12,7 +12,6 @@ export default function LikeButton (props){
         const filter = user.favorites.filter((fav)=>{
                return fav.id === props.id 
         })
-        console.log('filter',filter)
         if(filter.length !== 0){
             setlikeState(prev => prev = true)
         }

@@ -18,7 +18,7 @@ export default function UserCategories(props) {
   const [newcategorie, setNewCategorie] = useState({
     value: "",
     color: "",
-    newsId:[]
+    newsId:[],
   });
 
   const catColors = [
@@ -33,7 +33,6 @@ export default function UserCategories(props) {
   ];
 
   useEffect(() => {
-    console.log("render", validation);
     return () => {
       setValidation({
         error: false,
@@ -42,9 +41,8 @@ export default function UserCategories(props) {
       setNewCategorie({
         value: "",
         color: "",
-        newsId:[]
+        newsId:[],
       });
-      console.log("return");
     };
   }, [index]);
 
@@ -57,10 +55,8 @@ export default function UserCategories(props) {
   const createCat = async () => {
     let bool = false;
     const isTrue = validate(bool);
-    console.log("isTrue", isTrue);
 
     if (isTrue !== true) {
-      console.log("not equal to true", validation);
       if (user.userLikesCategories !== undefined) {
         saveUser({
           ...user,
@@ -83,7 +79,6 @@ export default function UserCategories(props) {
       (newcategorie.value.length < 25 && newcategorie.value.length >= 2) ===
       false
     ) {
-      console.log("name");
       errorData.push({
         id: "name",
         message:
@@ -96,7 +91,6 @@ export default function UserCategories(props) {
         (cat) => cat["value"] === newcategorie.value
       )
     ) {
-      console.log("deja assigner");
       errorData.push({
         id: "name",
         message: "Le nom de cette categorie a déja été assigner",
@@ -104,14 +98,12 @@ export default function UserCategories(props) {
     }
 
     if (newcategorie.color.length <= 0) {
-      console.log("colors");
       errorData.push({
         id: "colors",
         message: "Vous devez selectionner une couleur",
       });
     }
     if (errorData.length !== 0) {
-      console.log("oui", validation);
       bool = true;
       setValidation(
         (prev) =>
@@ -148,9 +140,8 @@ export default function UserCategories(props) {
             >
               {user.userLikesCategories ? (
                 user.userLikesCategories.map((cat) => (
-                  <TouchableOpacity onPress={() => props.function(cat)} style={{width: "100%",}}>
+                  <TouchableOpacity onPress={() => props.function(cat)} style={{width: "100%",}}  key={cat.color}>
                     <View
-                    key={cat.color}
                     style={{
                       backgroundColor: cat.color,
                       height: 40,

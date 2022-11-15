@@ -9,6 +9,7 @@ import GlobalInput from "../../components/Global/Form/Input";
 import GlobalStyles from "../../style/GlobalStyles";
 import NewsCard from "../../components/Global/Card/NewsCard";
 import ArticlesCard from "../../components/Global/Card/ArticlesCard";
+import NoResult from "../../components/Global/NoResult";
 
 export default function SearchScreen (){
 
@@ -41,9 +42,7 @@ export default function SearchScreen (){
         <View>
             {
             result.news.length === 0 ?
-            <View style={{height:'100%' ,width:'100%', justifyContent:'center', alignItems:'center',}}>
-                <Text style={{textTransform:'uppercase', fontFamily:'RobotoN', color:'#AAAAAA', fontSize:18}}>Aucun résultat</Text>
-            </View> :
+            <NoResult title={'Aucun résultat'} /> :
             <FlatList 
             style={{paddingTop:20,}}
 
@@ -59,9 +58,7 @@ export default function SearchScreen (){
         <View>
                {
                 result.articles.length === 0 ?
-                <View style={{height:'100%' ,width:'100%', justifyContent:'center', alignItems:'center',}}>
-                    <Text style={{textTransform:'uppercase', fontFamily:'RobotoN', color:'#AAAAAA', fontSize:18}}>Aucun résultat</Text>
-                </View> :
+                <NoResult title={'Aucun résultat'} />  :
                 <FlatList 
                 style={{paddingTop:20,}}
     

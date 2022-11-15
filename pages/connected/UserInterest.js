@@ -31,7 +31,7 @@ export default function InterestScreen() {
       } catch (error) {}
     };
     getData();
-  }, [user]);
+  }, []);
 
   const toggle = (value) => {
     const select = interestState.map((e) => {
