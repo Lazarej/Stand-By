@@ -12,14 +12,7 @@ export default function NewsCard(props) {
   const { user, saveUser } = useContext(UserContext);
   const [newsCat , setNewsCat] = useState({})
 
-  console.log(newsCat.value)
-
   useEffect(()=>{
-
-      // saveUser({
-      //   ...user,
-      //   userLikesCategories:[]
-      // })
       IsOnCategorie();
   },[user.userLikesCategories])
 
@@ -57,8 +50,6 @@ export default function NewsCard(props) {
         }
       }),
     };
-
-    console.log('newArray',newArray.userLikesCategories)
     saveUser(newArray)
   };
   return (

@@ -1,8 +1,6 @@
 import { Link } from "@react-navigation/native";
 import { View,StyleSheet, Text } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import GlobalStyles from "../../style/GlobalStyles";
-import Wrapper from "../Global/Wrapper";
 import {RFPercentage} from "react-native-responsive-fontsize";
 import { useEffect, useState } from "react";
 import { useContext } from "react";

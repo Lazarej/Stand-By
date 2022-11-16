@@ -1,42 +1,109 @@
-import { useEffect, useState,  } from "react";
-import {FlatList, } from "react-native";
-import Wrapper from "../../components/Global/Wrapper";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import NewsCard from "../../components/Global/Card/NewsCard";
-import UserFavCategories from "../../components/favorites/UserFavCatergories";
- 
+import GlobalStyles from "../../style/GlobalStyles";
+import { View, useWindowDimensions } from "react-native";
+import { TabView } from "react-native-tab-view";
+import ArticlesCard from "../../components/Global/Card/ArticlesCard";
+import Loader from "../../components/Global/Loader";
+import RenderScene from "../../components/Global/GlobalTab/RenderScene";
+import RenderTabBar from "../../components/Global/GlobalTab/RenderTabBar";
 
-const oneNews = ({item}) =>{
-    console.log(item)
-    return(
-        <NewsCard element={item} key={item.id} id={item.id} title={item.attributes.title} text={item.attributes.text} image={item.attributes.image.data.attributes.url}/>
+export default function FavoriteScreen() {
+  const layout = useWindowDimensions();
+  const { user } = useContext(UserContext);
+  const [favoritesState, setFavoritesState] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [routes, setRoutes] = useState([
+    {
+      key: "userInterests",
+      title: "Pour vous",
+      color: GlobalStyles.primary.color,
+    },
+  ]);
+  const [isLoading, setLoading] = useState(true);
 
-    )
-}
+  useEffect(() => {
+    getUserCat();
+    if (index === 0) {
+      setFavoritesState((prev) => (prev = user.favorites));
+      setLoading(false);
+    } else {
+      getCatLike();
+    }
+    return () => {
+      setFavoritesState((prev) => (prev = []));
+      setLoading((prev) => (prev = true));
+    };
+  }, [index , user,]);
 
-export default function FavoriteScreen (){
+  const getCatLike = async () => {
+    let catFav = [];
+    const selectedView = user.userLikesCategories.find((categorie) => {
+      return categorie.value === routes[index].key;
+    });
 
-    const {user} = useContext(UserContext)
-    const [favoritesState, setFavoritesState] = useState([])
+    await selectedView.newsId.map((d) => {
+      user.favorites.map((f) => {
+        if (f.id === d) {
+          catFav.push(f);
+        }
+      });
+    });
 
-    useEffect(()=>{
-        setFavoritesState(prev => prev = user.favorites)
-    },[user.favorites])
+    setFavoritesState((prev) => (prev = catFav));
+    setLoading(false);
+  };
 
-    
+  const getUserCat = async () => {
+    try {
+      const data = await user.userLikesCategories;
+      const routesValue = data.map((categorie) => {
+        return {
+          key: categorie.value,
+          title: categorie.value,
+          color: categorie.color,
+        };
+      });
+      const set = [routes[0], ...routesValue];
+      setRoutes((prev) => (prev = set));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    return(
-        <Wrapper>
-            <UserFavCategories/>
-            <FlatList 
-            style={{paddingTop:20,}}
-
-            showsVerticalScrollIndicator={false}
+  return (
+    <View style={{ flex: 1, backgroundColor: "#fff" }}>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={({ route }) => (
+          <RenderScene
+            index={index}
+            routes={routes}
+            route={route}
+            isLoading={isLoading}
             data={favoritesState}
-            renderItem={oneNews}
-            />
-
-        </Wrapper>
-    )
+            component={({ item }) => (
+              <NewsCard
+                element={item}
+                key={item.id}
+                id={item.id}
+                title={item.attributes.title}
+                text={item.attributes.text}
+                image={item.attributes.image.data.attributes.url}
+              />
+            )}
+            loader={<Loader />}
+            noResult={
+              "Oups nous n'avons pas encore de contenu pour cette catégorie"
+            }
+          />
+        )}
+        renderTabBar={(props) => <RenderTabBar {...props} />}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+      />
+    </View>
+  );
 }
