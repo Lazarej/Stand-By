@@ -1,62 +1,61 @@
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 import { useContext, useEffect, useState } from "react";
-import { TouchableOpacity , Text} from 'react-native';
+import { TouchableOpacity, Text } from "react-native";
 import { UserContext } from "../../../store/User";
-import GlobalStyles from '../../../style/GlobalStyles';
+import GlobalStyles from "../../../style/GlobalStyles";
 
-export default function LikeButton (props){
-    const {user, saveUser} = useContext(UserContext)
-    const [likeState, setlikeState] = useState(false)
+export default function LikeButton(props) {
+  const { user, saveUser } = useContext(UserContext);
+  const [likeState, setlikeState] = useState(false);
 
-    const checkLike = () =>{
-        const filter = user.favorites.filter((fav)=>{
-               return fav.id === props.id 
-        })
-        if(filter.length !== 0){
-            setlikeState(prev => prev = true)
-        }
-    }
-
-    useEffect(()=>{
-       checkLike()
-       return() =>{
-        setlikeState(prev => prev = false)
-       }
-    },[user.favorites])
+  useEffect(() => {
     
-    const like = () =>{
-           if(likeState !== true){
-            saveUser(               
-                {
-                 ...user,
-                 favorites: [...user.favorites, props.element]
-                }             
-             )
-             
-           }else{
-           const removeFav =  user.favorites.filter((fav)=>{
-                return fav.id !== props.id 
-         })
+  }, [user.favorites]);
 
-         saveUser(               
-            {
-             ...user,
-             favorites: removeFav
-            }             
-         )
-         
+  const like = () => {
+    if (props.like !== true) {
+    //   saveUser({
+    //     ...user,
+    //     favorites: [...user.favorites, props.element],
+    //   });
+    }else{ 
 
-           }
+      const removeFav = user.favorites.filter((fav) => {
+        console.log(fav)
+        return fav.id !== props.id;
+      });
+      const removeCat = user.userLikesCategories.map((cat)=>{
+        if(cat.newsId.includes(props.id)){
+           const filter = cat.newsId.filter((id)=>{
+                return id !== props.id
+              })
+            return {
+                ...cat,
+                newsId: filter
+            } 
+          }else{
+            return cat
+          }
+      })
+    //   saveUser({
+    //     ...user,
+    //     favorites: removeFav,
+    //     userLikesCategories: removeCat
+    //   });
     }
- 
-    
-     return(
-        <TouchableOpacity onPress={like} >
-        {
-            likeState ?
-            <Ionicons name="heart-sharp" size={24} color={GlobalStyles.primary.color}/>: <Ionicons name="heart-outline" size={24} color="black" /> 
-        }
-        
-  </TouchableOpacity>
-     )
+  };
+
+  return (
+    <TouchableOpacity onPress={like}>
+      {props.like ? (
+        <Ionicons
+          name="heart-sharp"
+          size={props.size}
+          color={GlobalStyles.primary.color}
+        />
+      ) : (
+        <Ionicons name="heart-outline" size={props.size} color="black" />
+      )}
+    </TouchableOpacity>
+  );
 }

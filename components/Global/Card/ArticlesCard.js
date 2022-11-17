@@ -1,10 +1,22 @@
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import GlobalStyles from "../../../style/GlobalStyles";
 import {RFPercentage} from "react-native-responsive-fontsize";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ArticlesCard(props) {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity 
+    onPress={() => navigation.navigate('NewsDetails', {
+      image: props.image,
+      title: props.title,
+      text: props.text,
+      id: props.id,
+      from:'article'
+    })}
+    >
+      <View style={styles.container}>
       <Image
         resizeMode="cover"
         style={styles.image}
@@ -19,6 +31,7 @@ export default function ArticlesCard(props) {
         </View>
       </View>
     </View>
+    </TouchableOpacity>
   );
 }
 

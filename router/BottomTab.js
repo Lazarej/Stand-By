@@ -21,8 +21,7 @@ export default function BottomTab() {
         headerTitleStyle:{
           fontSize: RFPercentage(3.5),
           fontFamily:'RobotoB',
-          textTransform: 'uppercase',
-          
+          textTransform: 'uppercase',       
         },
         headerTitleAlign:'center',
         tabBarInactiveTintColor: 'black',

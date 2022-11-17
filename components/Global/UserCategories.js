@@ -69,7 +69,7 @@ export default function UserCategories(props) {
         });
       }
       setIndex(0);
-      console.log(validation.error);
+      console.log(index)
     }
   };
 
@@ -256,7 +256,7 @@ export default function UserCategories(props) {
             style={styles.addRow}
             onPress={() => setIndex((prev) => prev - 1)}
           >
-            <Text style={styles.addRowText}>Retour aubool catégories</Text>
+            <Text style={styles.addRowText}>Retour aux catégories</Text>
             <Ionicons
               name="arrow-back-circle-outline"
               size={24}

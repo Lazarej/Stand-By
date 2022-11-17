@@ -18,7 +18,7 @@ export default function FavoriteScreen() {
   const [routes, setRoutes] = useState([
     {
       key: "userInterests",
-      title: "Pour vous",
+      title: "Tous",
       color: GlobalStyles.primary.color,
     },
   ]);
@@ -36,7 +36,7 @@ export default function FavoriteScreen() {
       setFavoritesState((prev) => (prev = []));
       setLoading((prev) => (prev = true));
     };
-  }, [index , user,]);
+  }, [index, user.favorites]);
 
   const getCatLike = async () => {
     let catFav = [];

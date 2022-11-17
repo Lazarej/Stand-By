@@ -8,98 +8,98 @@ import SignupScreen from "../pages/notConnected/Signup";
 import GlobalStyles from "../style/GlobalStyles";
 import { NavigationContainer } from "@react-navigation/native";
 import { useContext } from "react";
-import {UserContext} from "../store/User"
-import {  useEffect, useCallback } from "react";
+import { UserContext } from "../store/User";
+import { useEffect, useCallback } from "react";
 import InterestScreen from "../pages/connected/UserInterest";
 import BottomTab from "./BottomTab";
+import NewsDetails from "../pages/connected/NewsDetails";
+import ArticlesDetails from "../pages/connected/ArticlesDetails";
 
 const Stack = createNativeStackNavigator();
 
-export default function Navigation (){
+export default function Navigation() {
+  const { user } = useContext(UserContext);
+  const [fontsLoaded] = useFonts({
+    RobotoB: require("../assets/fonts/RobotoB.ttf"),
+    RobotoN: require("../assets/fonts/RobotoN.ttf"),
+    RobotoL: require("../assets/fonts/RobotoL.ttf"),
+  });
 
-    const {user} = useContext(UserContext)
-    const [fontsLoaded] = useFonts({
-        RobotoB: require("../assets/fonts/RobotoB.ttf"),
-        RobotoN: require("../assets/fonts/RobotoN.ttf"),
-        RobotoL: require("../assets/fonts/RobotoL.ttf"),
-      });
-    
-      useEffect(() => {
-        async function prepare() {
-          await SplashScreen.preventAutoHideAsync();
-          
-        }
-        prepare();
-      }, []);
-    
-    
-      const onLayoutRootView = useCallback(async () => {
-        if (fontsLoaded) {
-          await SplashScreen.hideAsync();
-        }
-      }, [fontsLoaded]);
-    
-      if (!fontsLoaded) {
-        return null;
-      }
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
 
-    return(
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return (
     <NavigationContainer onReady={onLayoutRootView}>
-        <Stack.Navigator
-          screenOptions={{
-            headerShadowVisible: false,
-            headerTintColor: GlobalStyles.primary.color,
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
-          }}
-        >
-          {user.login ? (
-            
-            <>
-            {
-              user.interests ? (
-                <Stack.Screen
+      <Stack.Navigator
+        screenOptions={{
+          headerShadowVisible: false,
+          headerTintColor: GlobalStyles.primary.color,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        {user.login ? (
+          <>
+            {user.interests ? (
+              <Stack.Screen
                 name="Tab"
                 component={BottomTab}
                 options={{ headerShown: false }}
               />
-              
-              ) :(
-               
+            ) : (
               <Stack.Screen
-              name="Interest"
-              component={InterestScreen}
+                name="Interest"
+                component={InterestScreen}
+                options={{ title: "" }}
+              />
+            )}
+            <Stack.Screen
+              name="NewsDetails"
+              component={NewsDetails}
+              options={{  title:"",
+              headerShown: false }}
+            />
+            <Stack.Screen
+              name="ArticlesDetails"
+              component={ArticlesDetails}
+              options={{ title:"" }}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ title: "", headerShown: false }}
+            />
+            <Stack.Screen
+              name="ForgotPassword"
+              component={ForgotPasswordScreen}
               options={{ title: "" }}
             />
-              )
-            }
-            </>
-          ) : (
-            <>
-              <Stack.Screen
-                name="Login"
-                component={LoginScreen}
-                options={{ title: "",
-              headerShown:false }}
-              
-              />
-              <Stack.Screen
-                name="ForgotPassword"
-                component={ForgotPasswordScreen}
-                options={{ title: "" }}
-              
-              />
-              <Stack.Screen
-                name="Signup"
-                component={SignupScreen}
-                options={{ title: "" ,
-                headerShown:false }}
-              
-              />
-            </>
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
-    )
+            <Stack.Screen
+              name="Signup"
+              component={SignupScreen}
+              options={{ title: "", headerShown: false }}
+            />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
