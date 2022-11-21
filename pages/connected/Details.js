@@ -12,8 +12,10 @@ import Wrapper from "../../components/Global/Wrapper";
 import GlobalStyles from "../../style/GlobalStyles";
 import { Ionicons } from "@expo/vector-icons";
 import LikeButton from "../../components/Global/Button/LikeButton";
+import OtherArticle from "../../components/details/OtherArticle";
 
-export default function NewsDetails({ navigation }) {
+
+export default function Details({ navigation }) {
      const route = useRoute();
 
   return (
@@ -32,23 +34,33 @@ export default function NewsDetails({ navigation }) {
             color={GlobalStyles.primary.color}
           />
         </TouchableOpacity>
+        {
+          route.params.from === 'news' ?
+          <View  style={styles.likeButton}>
+        <LikeButton  size={24} id={route.params.id} element={route.params.element}></LikeButton>
+        </View> : null
+        }
       </ImageBackground>
       <Wrapper>
-        <View style={{ marginVertical: 40 , justifyContent:'space-between', flexDirection:'row' , alignItems:'center'}}>
-          <Text style={{ ...GlobalStyles.title, fontSize: RFPercentage(4.8) }}>
+        <View style={{ marginVertical: 40 , justifyContent:'space-between', flexDirection:'row' , }}>
+          <Text style={{ ...GlobalStyles.title, fontSize: RFPercentage(4.8), width:'90%'}}>
             {route.params.title}
           </Text>
-       
+          
         </View>
         <Text
           style={{
             ...GlobalStyles.text,
             fontSize: RFPercentage(2.5),
-            marginBottom: 40,
+            marginBottom: 60,
           }}
         >
           {route.params.text}
         </Text>
+        {
+          route.params.from ? 
+          <OtherArticle interest={route.params.interest} id={route.params.id}/> : null
+        }
       </Wrapper>
     </ScrollView>
   );
@@ -68,6 +80,18 @@ const styles = StyleSheet.create({
     width: 40,
     top: 50,
     left: 20,
+    backgroundColor: "#fff",
+    position: "absolute",
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  likeButton: {
+    height: 40,
+    width: 40,
+    top: 50,
+    right: 20,
     backgroundColor: "#fff",
     position: "absolute",
     borderRadius: 50,

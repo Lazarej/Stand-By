@@ -8,12 +8,13 @@ export default function ArticlesCard(props) {
 
   return (
     <TouchableOpacity 
-    onPress={() => navigation.navigate('NewsDetails', {
+    onPress={() => navigation.navigate('Details', {
       image: props.image,
       title: props.title,
       text: props.text,
       id: props.id,
-      from:'article'
+      from:'article',
+      interest: props.interest
     })}
     >
       <View style={styles.container}>

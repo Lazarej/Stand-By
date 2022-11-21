@@ -38,7 +38,6 @@ export default function ArticleSection (){
    };
 
     useEffect(()=>{
-      console.log('render') 
           getData();
           return () => {
              setArticlesState(prev => prev = [])
@@ -54,7 +53,7 @@ export default function ArticleSection (){
            <View>
               {
                 articlesState.map((article)=>(
-                  <ArticlesCard key={article.id} title={article.attributes.title} text={article.attributes.text} image={article.attributes.image.data.attributes.url}></ArticlesCard>
+                  <ArticlesCard interest={article.attributes.interet} id={article.id} key={article.id} title={article.attributes.title} text={article.attributes.text} image={article.attributes.image.data.attributes.url}></ArticlesCard>
                 ))
               }
            </View>

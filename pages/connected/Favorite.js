@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import NewsCard from "../../components/Global/Card/NewsCard";
 import GlobalStyles from "../../style/GlobalStyles";
 import { View, useWindowDimensions } from "react-native";
 import { TabView } from "react-native-tab-view";
-import ArticlesCard from "../../components/Global/Card/ArticlesCard";
+
 import Loader from "../../components/Global/Loader";
 import RenderScene from "../../components/Global/GlobalTab/RenderScene";
 import RenderTabBar from "../../components/Global/GlobalTab/RenderTabBar";

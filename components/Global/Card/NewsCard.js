@@ -7,22 +7,27 @@ import CatButton from "../Button/CatButton";
 import { useNavigation } from "@react-navigation/native";
 
 export default function NewsCard(props) {
-  const { user} = useContext(UserContext);
+  const { user, saveUser} = useContext(UserContext);
   const [categorie , setCategorie] = useState({})
   const [likeState, setlikeState] = useState(false);
   const navigation = useNavigation();
 
-
   useEffect(()=>{ 
-      checkLike();
+    // saveUser({
+    //   ...user,
+    //   favorites: [],
+    // });
+      checkLike();  
       IsOnCategorie();
-  },[user.userLikesCategories, user.favorites])
+      // console.log(props.id ,likeState, 're render bbbbbbbbbb')
+  },[user.userLikesCategories])
 
   const checkLike = () => {
     const isLiked = user.favorites.some((fav) => {
       return fav.id === props.id;
     });
       setlikeState((prev) => (prev = isLiked));
+      
   };
 
   const IsOnCategorie = () =>{
@@ -31,14 +36,17 @@ export default function NewsCard(props) {
      })
      setCategorie(prev => prev = {...filter[0]})
   }
+
+ 
+
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('NewsDetails',{
+    <TouchableOpacity onPress={() => navigation.navigate('Details',{
        image: props.image,
        title: props.title,
        text: props.text,
        id: props.id,
        from:'news',
-       isLiked: likeState
+       element: props.element
     })}>
       <View style={styles.newContainer}>
       <View style={styles.container}>
@@ -62,7 +70,7 @@ export default function NewsCard(props) {
         <View
           style={{ justifyContent: "space-between", alignItems: "flex-end" }}
         >
-          <LikeButton size={24} id={props.id} element={props.element} like={likeState}></LikeButton>
+          <LikeButton  size={24} id={props.id} element={props.element}></LikeButton>
           {
             likeState ? <CatButton id={props.id}/> : null
           }

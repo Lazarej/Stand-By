@@ -27,6 +27,7 @@ export default function HomeScreen({ navigation }) {
       >
         <Feather
           style={{ marginLeft: "10%" }}
+          onPress={() => navigation.navigate('Test')}
           name="menu"
           size={44}
           color="#fff"

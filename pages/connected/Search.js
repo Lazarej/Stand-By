@@ -34,7 +34,7 @@ export default function SearchScreen (){
 
     const oneArticle = ({item}) =>{
         return(
-            <ArticlesCard element={item} key={item.id} id={item.id} title={item.attributes.title} text={item.attributes.text} image={item.attributes.image.data.attributes.url}></ArticlesCard>
+            <ArticlesCard interest={item.attributes.interet} key={item.id} id={item.id} title={item.attributes.title} text={item.attributes.text} image={item.attributes.image.data.attributes.url}></ArticlesCard>
         )
     }
 

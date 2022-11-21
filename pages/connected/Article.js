@@ -131,6 +131,7 @@ export default function ArticleScreen() {
                 title={item.attributes.title}
                 text={item.attributes.text}
                 image={item.attributes.image.data.attributes.url}
+                interest={item.attributes.interet}
               />
             )}
             loader={<Loader />}
