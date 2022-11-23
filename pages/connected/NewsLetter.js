@@ -41,10 +41,6 @@ export default function NewsLetterScreen() {
           <NewsCard
             element={item}
             key={item.id}
-            id={item.id}
-            title={item.attributes.title}
-            text={item.attributes.text}
-            image={item.attributes.image.data.attributes.url}
           ></NewsCard>
         )}
       />

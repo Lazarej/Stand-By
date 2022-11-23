@@ -9,25 +9,26 @@ export default function ArticlesCard(props) {
   return (
     <TouchableOpacity 
     onPress={() => navigation.navigate('Details', {
-      image: props.image,
-      title: props.title,
-      text: props.text,
-      id: props.id,
+      image: props.article.attributes.image.data.attributes.url,
+      title: props.article.attributes.title,
+      text: props.article.attributes.text,
+      id: props.article.id,
+      questions: props.article.attributes.questions,
       from:'article',
-      interest: props.interest
+      interest: props.article.attributes.interet
     })}
     >
       <View style={styles.container}>
       <Image
         resizeMode="cover"
         style={styles.image}
-        source={{ uri: `http://192.168.0.50:1337${props.image}` }}
+        source={{ uri: `http://192.168.0.50:1337${props.article.attributes.image.data.attributes.url}` }}
       />
       <View style={styles.infoCont}>
         <View style={{marginLeft:10}}>
-        <Text style={styles.infoContTitle}>{props.title}</Text>
+        <Text style={styles.infoContTitle}>{props.article.attributes.title}</Text>
         <Text style={{...GlobalStyles.text, fontSize:RFPercentage(2.3)}}>
-          {props.text.substring(0, 79)}...
+          {props.article.attributes.text.substring(0, 79)}...
         </Text>
         </View>
       </View>

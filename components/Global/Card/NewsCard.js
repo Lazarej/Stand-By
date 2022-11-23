@@ -19,12 +19,12 @@ export default function NewsCard(props) {
     // });
       checkLike();  
       IsOnCategorie();
-      // console.log(props.id ,likeState, 're render bbbbbbbbbb')
+      // console.log(props.element.id ,likeState, 're render bbbbbbbbbb')
   },[user.userLikesCategories])
 
   const checkLike = () => {
     const isLiked = user.favorites.some((fav) => {
-      return fav.id === props.id;
+      return fav.id === props.element.id;
     });
       setlikeState((prev) => (prev = isLiked));
       
@@ -32,7 +32,7 @@ export default function NewsCard(props) {
 
   const IsOnCategorie = () =>{
     const filter = user.userLikesCategories.filter((e)=>{
-      return e.newsId.find(item => item === props.id)
+      return e.newsId.find(item => item === props.element.id)
      })
      setCategorie(prev => prev = {...filter[0]})
   }
@@ -41,10 +41,11 @@ export default function NewsCard(props) {
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Details',{
-       image: props.image,
-       title: props.title,
-       text: props.text,
-       id: props.id,
+       image: props.element.attributes.image.data.attributes.url,
+       title: props.element.attributes.title,
+       text: props.element.attributes.text,
+       id: props.element.id,
+       questions:props.element.attributes.question,
        from:'news',
        element: props.element
     })}>
@@ -53,10 +54,10 @@ export default function NewsCard(props) {
         <View style={styles.partLeft}>
           <Image
             style={styles.image}
-            source={{ uri: `http://192.168.0.50:1337${props.image}` }}
+            source={{ uri: `http://192.168.0.50:1337${props.element.attributes.image.data.attributes.url}` }}
           />
           <View style={{justifyContent:'space-between', alignItems:'baseline'}}>
-          <Text style={styles.title}>{props.title}</Text>
+          <Text style={styles.title}>{props.element.attributes.title}</Text>
           {
             categorie.value ?
             <View style={{ paddingHorizontal:5, paddingVertical:2 , flexDirection:'row', alignItems:'center'}}>
@@ -70,9 +71,9 @@ export default function NewsCard(props) {
         <View
           style={{ justifyContent: "space-between", alignItems: "flex-end" }}
         >
-          <LikeButton  size={24} id={props.id} element={props.element}></LikeButton>
+          <LikeButton  size={24} id={props.element.id} element={props.element}></LikeButton>
           {
-            likeState ? <CatButton id={props.id}/> : null
+            likeState ? <CatButton id={props.element.id}/> : null
           }
         </View>
       </View>

@@ -13,11 +13,11 @@ import GlobalStyles from "../../style/GlobalStyles";
 import { Ionicons } from "@expo/vector-icons";
 import LikeButton from "../../components/Global/Button/LikeButton";
 import OtherArticle from "../../components/details/OtherArticle";
+import Qsm from "../../components/details/Qsm";
 
 
 export default function Details({ navigation }) {
      const route = useRoute();
-
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
       <ImageBackground
@@ -58,7 +58,11 @@ export default function Details({ navigation }) {
           {route.params.text}
         </Text>
         {
-          route.params.from ? 
+          route.params.questions.length !== 0 ? 
+          <Qsm questions={route.params.questions}/> :null
+        }
+        {
+          route.params.from === 'article'? 
           <OtherArticle interest={route.params.interest} id={route.params.id}/> : null
         }
       </Wrapper>

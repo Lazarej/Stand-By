@@ -20,28 +20,7 @@ export default function UserFavCategories() {
         style={styles.button}
         onPress={() => setIsOpen((prev) => !prev)}
       >
-        <Text
-          style={
-            isOpen
-              ? { ...styles.text, color: GlobalStyles.primary.color }
-              : { ...styles.text }
-          }
-        >
-          Catégories
-        </Text>
-        <AntDesign
-          name="right"
-          size={24}
-          style={
-            isOpen
-              ? {
-                  marginTop: 5,
-                  color: GlobalStyles.primary.color,
-                  transform: [{ rotate: "90deg" }],
-                }
-              : { marginTop: 5, color: "black" }
-          }
-        />
+      
       </TouchableOpacity>
       <ModalGlobal isOpen={isOpen} close={() =>setIsOpen(!isOpen)}>
       <UserCategories title={'Catégories'}/> 
