@@ -5,7 +5,6 @@ import NewsCard from "../../components/Global/Card/NewsCard";
 import GlobalStyles from "../../style/GlobalStyles";
 import { View, useWindowDimensions } from "react-native";
 import { TabView } from "react-native-tab-view";
-
 import Loader from "../../components/Global/Loader";
 import RenderScene from "../../components/Global/GlobalTab/RenderScene";
 import RenderTabBar from "../../components/Global/GlobalTab/RenderTabBar";

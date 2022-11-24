@@ -10,6 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import {RFPercentage} from "react-native-responsive-fontsize";
+import Drawer from './Drawer';
 
 const Tab = createBottomTabNavigator();
 

@@ -14,8 +14,12 @@ import InterestScreen from "../pages/connected/UserInterest";
 import BottomTab from "./BottomTab";
 import Details from "../pages/connected/Details";
 import Test from "../pages/connected/Test";
+import Drawer from "./Drawer";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import NewsCard from "../components/Global/Card/NewsCard";
 
 const Stack = createNativeStackNavigator();
+const SharedStack = createSharedElementStackNavigator();
 
 export default function Navigation() {
   const { user } = useContext(UserContext);
@@ -57,7 +61,7 @@ export default function Navigation() {
           <>
             {user.interests ? (
               <Stack.Screen
-                name="Tab"
+                name="BottomTab"
                 component={BottomTab}
                 options={{ headerShown: false }}
               />
@@ -68,12 +72,23 @@ export default function Navigation() {
                 options={{ title: "" }}
               />
             )}
-            <Stack.Screen
+            <SharedStack.Screen
+              name="NewsCard"
+              component={NewsCard}
+              options={{  title:"",
+              headerShown: false }}
+
+            />
+            <SharedStack.Screen
               name="Details"
               component={Details}
               options={{  title:"",
               headerShown: false }}
+              sharedElements={(route) =>{
+                return[route.params.id]
+              }}
             />
+            
             <Stack.Screen
               name="Test"
               component={Test}

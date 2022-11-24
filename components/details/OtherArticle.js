@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, Text} from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
@@ -25,8 +25,8 @@ export default function OtherArticle(props) {
           },
         }
       );
-      const data = await response.data.data.filter((e) =>{
-        return e.id !== props.id
+      const data = await response.data.data.filter((e) => {
+        return e.id !== props.id;
       });
       const shuffled = [...data].sort(() => 0.5 - Math.random());
       const slice = shuffled.slice(0, 2);
@@ -38,33 +38,27 @@ export default function OtherArticle(props) {
 
   return (
     <>
-    {
-        randomArticle.length !== 0 ?
+      {randomArticle.length !== 0 ? (
         <View style={styles.container}>
-        <View>
-            <Text style={{...GlobalStyles.title, marginBottom:30}}>Décrouvrez nos articles semblable</Text>
+          <View>
+            <Text style={{ ...GlobalStyles.title, marginBottom: 30 }}>
+              Décrouvrez nos articles semblable
+            </Text>
+          </View>
+          {randomArticle.map((article) => (
+            <ArticlesCard article={article} key={article.id} />
+          ))}
         </View>
-      {randomArticle.map((article) => (
-        <ArticlesCard
-          interest={article.attributes.interet}
-          key={article.id}
-          title={article.attributes.title}
-          text={article.attributes.text}
-          image={article.attributes.image.data.attributes.url}
-        />
-      ))}
-    </View> : null
-    }
+      ) : null}
     </>
   );
 }
 
-const styles  = StyleSheet.create({
-
-    container:{
-        paddingTop:60,
-      borderTopWidth:1,
-      borderTopColor:"#E6E6E6",
-      marginBottom:60
-    }
-})
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 60,
+    borderTopWidth: 1,
+    borderTopColor: "#E6E6E6",
+    marginBottom: 60,
+  },
+});

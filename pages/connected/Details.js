@@ -1,6 +1,6 @@
 import { useRoute } from "@react-navigation/native";
 import {
-  ImageBackground,
+  Image,
   View,
   StyleSheet,
   Text,
@@ -14,17 +14,17 @@ import { Ionicons } from "@expo/vector-icons";
 import LikeButton from "../../components/Global/Button/LikeButton";
 import OtherArticle from "../../components/details/OtherArticle";
 import Qsm from "../../components/details/Qsm";
+import {
+  SharedElement,
+} from 'react-native-shared-element';
 
 
 export default function Details({ navigation }) {
      const route = useRoute();
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
-      <ImageBackground
-        style={styles.image}
-        source={{ uri: `http://192.168.0.50:1337${route.params.image}` }}
-      >
-        <TouchableOpacity
+      <View style={styles.iconCont}>
+      <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
@@ -40,7 +40,15 @@ export default function Details({ navigation }) {
         <LikeButton  size={24} id={route.params.id} element={route.params.element}></LikeButton>
         </View> : null
         }
-      </ImageBackground>
+      </View>
+      <SharedElement id={route.params.id}>
+      <Image
+        style={styles.image}
+        source={{ uri: `http://192.168.0.50:1337${route.params.image}` }}
+      >
+       
+      </Image>
+      </SharedElement>
       <Wrapper>
         <View style={{ marginVertical: 40 , justifyContent:'space-between', flexDirection:'row' , }}>
           <Text style={{ ...GlobalStyles.title, fontSize: RFPercentage(4.8), width:'90%'}}>
@@ -70,7 +78,18 @@ export default function Details({ navigation }) {
   );
 }
 
+Details.sharedElements = (navigation, otherNavigation, showing) => {
+  const id = navigation.getParam('id')
+  return [id]
+  
+}
+
 const styles = StyleSheet.create({
+  iconCont:{
+  width:'100%',
+  zIndex:10,
+  },
+
   image: {
     height: 350,
     width: "100%",
