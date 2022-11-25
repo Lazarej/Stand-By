@@ -13,6 +13,7 @@ export default function ModalGlobal(props){
         animationType="fade"
         transparent={true}
         visible={props.isOpen}
+        statusBarTranslucent
       >
         <View style={styles.modal}>
           <View style={styles.categoriesContainer}>

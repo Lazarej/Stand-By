@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../store/User";
 import CatButton from "../Button/CatButton";
 import { useNavigation } from "@react-navigation/native";
-import { SharedElement } from "react-native-shared-element";
+import { SharedElement } from 'react-navigation-shared-element';
 
 export default function NewsCard(props) {
   const { user, saveUser} = useContext(UserContext);
@@ -53,7 +53,7 @@ export default function NewsCard(props) {
       <View style={styles.newContainer}>
       <View style={styles.container}>
         <View style={styles.partLeft}>
-          <SharedElement id={props.element.id}>
+          <SharedElement id={props.element.attributes.image.data.attributes.url}>
           <Image
             style={styles.image}
             source={{ uri: `http://192.168.0.50:1337${props.element.attributes.image.data.attributes.url}` }}

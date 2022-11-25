@@ -1,15 +1,17 @@
 import { Text, View, ScrollView, StyleSheet } from "react-native";
 import Wrapper from "../../components/Global/Wrapper";
 import GlobalStyles from "../../style/GlobalStyles";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../store/User";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Feather } from "@expo/vector-icons";
 import NewsSection from "../../components/home/NewsSection";
 import ArticleSection from "../../components/home/ArticleSection";
+import Drawer from "../../components/home/Drawer"
+export default function HomeScreen() {
 
-export default function HomeScreen({ navigation }) {
-  const { user, logout } = useContext(UserContext);
+  useEffect(()=>{
+  },[])
 
   return (
     <ScrollView
@@ -25,13 +27,7 @@ export default function HomeScreen({ navigation }) {
           backgroundColor: GlobalStyles.primary.backgroundColor,
         }}
       >
-        <Feather
-          style={{ marginLeft: "10%" }}
-          onPress={() => navigation.navigate('Test')}
-          name="menu"
-          size={44}
-          color="#fff"
-        />
+        <Drawer/>
         <View style={styles.titleContentCont}>
           <Text style={styles.tilteText}>Les</Text>
           <Text style={styles.tilteText}>News</Text>

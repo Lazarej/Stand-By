@@ -3,14 +3,13 @@ import GlobalStyles from "../../../style/GlobalStyles";
 import {RFPercentage} from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
-import { SharedElement } from "react-native-shared-element";
+import { SharedElement } from 'react-navigation-shared-element';
 
 export default function ArticlesCard(props) {
   const navigation = useNavigation();
 
   useEffect(()=>{
-    console.log('article',props.article.attributes)
-  })
+  },[])
 
   return (
     <TouchableOpacity 
@@ -25,7 +24,7 @@ export default function ArticlesCard(props) {
     })}
     >
       <View style={styles.container}>
-      <SharedElement id={props.article.id}>
+      <SharedElement id={props.article.attributes.image.data.attributes.url}>
       <Image
         resizeMode="cover"
         style={styles.image}
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    flex: 1,
+    height:100,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },

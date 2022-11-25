@@ -1,7 +1,7 @@
+import 'react-native-gesture-handler';
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "../pages/connected/Home";
+
 import LoginScreen from "../pages/notConnected/Login";
 import ForgotPasswordScreen from "../pages/notConnected/ForgotPassword";
 import SignupScreen from "../pages/notConnected/Signup";
@@ -13,13 +13,9 @@ import { useEffect, useCallback } from "react";
 import InterestScreen from "../pages/connected/UserInterest";
 import BottomTab from "./BottomTab";
 import Details from "../pages/connected/Details";
-import Test from "../pages/connected/Test";
-import Drawer from "./Drawer";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element";
-import NewsCard from "../components/Global/Card/NewsCard";
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
-const Stack = createNativeStackNavigator();
-const SharedStack = createSharedElementStackNavigator();
+const Stack = createSharedElementStackNavigator();
 
 export default function Navigation() {
   const { user } = useContext(UserContext);
@@ -51,6 +47,7 @@ export default function Navigation() {
       <Stack.Navigator
         screenOptions={{
           headerShadowVisible: false,
+          headerStatusBarHeight: 0,
           headerTintColor: GlobalStyles.primary.color,
           headerTitleStyle: {
             fontWeight: "bold",
@@ -72,28 +69,26 @@ export default function Navigation() {
                 options={{ title: "" }}
               />
             )}
-            <SharedStack.Screen
+            {/* <SharedStack.Screen
               name="NewsCard"
               component={NewsCard}
               options={{  title:"",
               headerShown: false }}
 
-            />
-            <SharedStack.Screen
+            /> */}
+            <Stack.Screen
               name="Details"
               component={Details}
               options={{  title:"",
               headerShown: false }}
-              sharedElements={(route) =>{
-                return[route.params.id]
-              }}
+              
             />
             
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Test"
               component={Test}
               options={{ title:"" }}
-            />
+            /> */}
           </>
         ) : (
           <>

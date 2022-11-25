@@ -37,7 +37,6 @@ export default function ArticleSection() {
 
   useEffect(() => {
     getData();
-    console.log(articlesState);
     return () => {
       setArticlesState((prev) => (prev = []));
     };

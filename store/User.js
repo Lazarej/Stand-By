@@ -39,6 +39,7 @@ export const UserStore = ({children}) => {
   };
 
   const signup = async (value) => {
+    console.log(value)
     try {
       const response = await axios.post(
         "http://192.168.0.50:1337/api/auth/local/register",
@@ -50,13 +51,14 @@ export const UserStore = ({children}) => {
         },
         
       );
-      await saveUser({
-        token: response.data.jwt,
-        login: true,
-        ...response.data.user,
-      });
+      console.log('signup',response)
+      // await saveUser({
+      //   token: response.data.jwt,
+      //   login: true,
+      //   ...response.data.user,
+      // });
     } catch (e) {
-      console.log(e);
+      console.error(e.response);
     }
     
   };
@@ -77,11 +79,12 @@ export const UserStore = ({children}) => {
           Authorization: `Bearer ${response.data.jwt}`,
         },
       })
-      saveUser({
-        token: response.data.jwt,
-        login: true,
-        ...userPop.data,
-      });
+      console.log('login data',userPop)
+      // saveUser({
+      //   token: response.data.jwt,
+      //   login: true,
+      //   ...userPop.data,
+      // });
     } catch (error) {
       console.error(error);
     }
@@ -91,9 +94,11 @@ export const UserStore = ({children}) => {
     try {
       await AsyncStorage.removeItem('appliUser')
       await axios.put(
-        'http://192.168.0.50:1337/api/users/20',
+        `http://192.168.0.50:1337/api/users/${user.id}`,
         {
-          interests:[...user.interests] 
+          interests:[...user.interests],
+          favorites :[...user.favorites],
+          userLikesCategories:[...user.userLikesCategories]
         },
         {
           headers: {

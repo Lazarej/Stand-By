@@ -24,6 +24,7 @@ export default function FavoriteScreen() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log(user.favorites)
     getUserCat();
     if (index === 0) {
       setFavoritesState((prev) => (prev = user.favorites));
@@ -35,7 +36,7 @@ export default function FavoriteScreen() {
       setFavoritesState((prev) => (prev = []));
       setLoading((prev) => (prev = true));
     };
-  }, [index, user.favorites]);
+  }, [index, user.favorites,user.userLikesCategories ]);
 
   const getCatLike = async () => {
     let catFav = [];
@@ -87,10 +88,6 @@ export default function FavoriteScreen() {
               <NewsCard
                 element={item}
                 key={item.id}
-                id={item.id}
-                title={item.attributes.title}
-                text={item.attributes.text}
-                image={item.attributes.image.data.attributes.url}
               />
             )}
             loader={<Loader />}

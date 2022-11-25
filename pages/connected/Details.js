@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Animated
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import Wrapper from "../../components/Global/Wrapper";
@@ -14,16 +15,33 @@ import { Ionicons } from "@expo/vector-icons";
 import LikeButton from "../../components/Global/Button/LikeButton";
 import OtherArticle from "../../components/details/OtherArticle";
 import Qsm from "../../components/details/Qsm";
-import {
-  SharedElement,
-} from 'react-native-shared-element';
+import { SharedElement } from 'react-navigation-shared-element';
+import { useEffect, useRef } from "react";
 
 
 export default function Details({ navigation }) {
-     const route = useRoute();
+  
+  const route = useRoute();
+  const opacity = useRef(new Animated.Value(0)).current
+
+  useEffect(()=>{
+
+    Animation()
+  },[])
+  const Animation = () =>{
+       Animated.timing(opacity,{
+        toValue:1,
+        duration:300,
+        delay:400,
+        useNativeDriver:true
+       }).start()
+  }    
+
+
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
-      <View style={styles.iconCont}>
+      <Animated.View style={{...styles.iconCont, opacity: opacity}}>
       <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
@@ -40,8 +58,8 @@ export default function Details({ navigation }) {
         <LikeButton  size={24} id={route.params.id} element={route.params.element}></LikeButton>
         </View> : null
         }
-      </View>
-      <SharedElement id={route.params.id}>
+      </Animated.View>
+      <SharedElement id={route.params.image}>
       <Image
         style={styles.image}
         source={{ uri: `http://192.168.0.50:1337${route.params.image}` }}
@@ -50,21 +68,23 @@ export default function Details({ navigation }) {
       </Image>
       </SharedElement>
       <Wrapper>
-        <View style={{ marginVertical: 40 , justifyContent:'space-between', flexDirection:'row' , }}>
-          <Text style={{ ...GlobalStyles.title, fontSize: RFPercentage(4.8), width:'90%'}}>
+      <SharedElement id={route.params.title}>
+      <View style={{ marginVertical: 40 , justifyContent:'space-between', flexDirection:'row' , }}>
+          <Animated.Text style={{ ...GlobalStyles.title, fontSize: RFPercentage(4.8), width:'90%', opacity: opacity}}>
             {route.params.title}
-          </Text>
-          
+          </Animated.Text>       
         </View>
-        <Text
+      </SharedElement>
+        <Animated.Text
           style={{
             ...GlobalStyles.text,
             fontSize: RFPercentage(2.5),
             marginBottom: 60,
+            opacity:opacity
           }}
         >
           {route.params.text}
-        </Text>
+        </Animated.Text>
         {
           route.params.questions.length !== 0 ? 
           <Qsm questions={route.params.questions}/> :null
@@ -78,9 +98,11 @@ export default function Details({ navigation }) {
   );
 }
 
-Details.sharedElements = (navigation, otherNavigation, showing) => {
-  const id = navigation.getParam('id')
-  return [id]
+Details.sharedElements = (route) => {
+  return [{
+    id: route.params.image,
+  },
+]
   
 }
 
@@ -95,7 +117,6 @@ const styles = StyleSheet.create({
     width: "100%",
     marginRight: 10,
     resizeMode: "cover",
-    borderRadius: 15,
   },
 
   backButton: {
