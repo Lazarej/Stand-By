@@ -32,7 +32,7 @@ export default function Details({ navigation }) {
        Animated.timing(opacity,{
         toValue:1,
         duration:300,
-        delay:400,
+        delay:100,
         useNativeDriver:true
        }).start()
   }    
@@ -68,23 +68,21 @@ export default function Details({ navigation }) {
       </Image>
       </SharedElement>
       <Wrapper>
-      <SharedElement id={route.params.title}>
-      <View style={{ marginVertical: 40 , justifyContent:'space-between', flexDirection:'row' , }}>
-          <Animated.Text style={{ ...GlobalStyles.title, fontSize: RFPercentage(4.8), width:'90%', opacity: opacity}}>
+        <Animated.View style={{opacity:opacity}}>
+        <View style={{ marginVertical: 40 , justifyContent:'space-between', flexDirection:'row' , }}>
+          <Text style={{ ...GlobalStyles.title, fontSize: RFPercentage(4.8), width:'90%'}}>
             {route.params.title}
-          </Animated.Text>       
+          </Text>       
         </View>
-      </SharedElement>
-        <Animated.Text
+        <Text
           style={{
             ...GlobalStyles.text,
             fontSize: RFPercentage(2.5),
             marginBottom: 60,
-            opacity:opacity
           }}
         >
           {route.params.text}
-        </Animated.Text>
+        </Text>
         {
           route.params.questions.length !== 0 ? 
           <Qsm questions={route.params.questions}/> :null
@@ -93,6 +91,7 @@ export default function Details({ navigation }) {
           route.params.from === 'article'? 
           <OtherArticle interest={route.params.interest} id={route.params.id}/> : null
         }
+        </Animated.View>
       </Wrapper>
     </ScrollView>
   );

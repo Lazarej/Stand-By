@@ -26,6 +26,7 @@ export default function Navigation() {
   });
 
   useEffect(() => {
+    console.log(user)
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
     }

@@ -11,20 +11,23 @@ export default function LikeButton(props) {
 
 
   useEffect(() =>{
-        //  const Liked = ()=>{
-        //   const isLiked = user.favorites.some((fav) => {
-        //       return fav.id === props.id;
-        //     });
-        //       setlikeState((prev) => (prev = isLiked));
-        //  }
+         const Liked = ()=>{
+          if(user.favorites){
+            const isLiked = user.favorites.some((fav) => {
+              return fav.id === props.id;
+            });
+              setlikeState((prev) => (prev = isLiked));
+          }
+         }
 
-        //  Liked()
+         Liked()
             
 
   })
 
   const Like = () => {
       if (likeState !== true) {
+        console.log('props', props.element)
         saveUser({
           ...user,
           favorites: [...user.favorites, props.element],

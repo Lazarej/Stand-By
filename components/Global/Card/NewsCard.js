@@ -14,13 +14,14 @@ export default function NewsCard(props) {
   const navigation = useNavigation();
 
   useEffect(()=>{ 
-    // saveUser({
-    //   ...user,
-    //   favorites: [],
-    // });
+    console.log('user', user)
+    saveUser({
+      ...user,
+      favorites: [],
+    });
       checkLike();  
       IsOnCategorie();
-      // console.log(props.element.id ,likeState, 're render bbbbbbbbbb')
+      console.log(props.element.id ,likeState, 're render bbbbbbbbbb')
   },[user.userLikesCategories])
 
   const checkLike = () => {

@@ -16,7 +16,7 @@ export default function ArticleSection() {
     user.interests.map(async (interest) => {
       try {
         const response = await axios.get(
-          `http://192.168.0.50:1337/api/articles?populate=*&filters[interet][type][$contains]=${interest.type}`,
+          `http://192.168.0.50:1337/api/articles?populate=*&filters[interet][type][$contains]=${interest.attributes.type}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -36,6 +36,7 @@ export default function ArticleSection() {
   };
 
   useEffect(() => {
+    
     getData();
     return () => {
       setArticlesState((prev) => (prev = []));

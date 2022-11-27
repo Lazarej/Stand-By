@@ -10,8 +10,7 @@ export const UserStore = ({children}) => {
 
 
   useEffect(()=>{
-      getUser()
-      
+      getUser()     
   },[])
 
   const getUser = () =>{
@@ -42,7 +41,7 @@ export const UserStore = ({children}) => {
     console.log(value)
     try {
       const response = await axios.post(
-        "http://192.168.0.50:1337/api/auth/local/register",
+        "http://192.168.0.50:1337/api/auth/local/register?populate=*",
         {
           username: value.email,
           email: value.email,
@@ -51,14 +50,15 @@ export const UserStore = ({children}) => {
         },
         
       );
-      console.log('signup',response)
-      // await saveUser({
-      //   token: response.data.jwt,
-      //   login: true,
-      //   ...response.data.user,
-      // });
+      await saveUser({
+        ...response.data.user,
+        token: response.data.jwt,
+        login: true,
+        userLikesCategories:[],
+        favorites:[], 
+      });
     } catch (e) {
-      console.error(e.response);
+      console.error(e);
     }
     
   };
@@ -80,11 +80,11 @@ export const UserStore = ({children}) => {
         },
       })
       console.log('login data',userPop)
-      // saveUser({
-      //   token: response.data.jwt,
-      //   login: true,
-      //   ...userPop.data,
-      // });
+      saveUser({
+        token: response.data.jwt,
+        login: true,
+        ...userPop.data,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -96,9 +96,9 @@ export const UserStore = ({children}) => {
       await axios.put(
         `http://192.168.0.50:1337/api/users/${user.id}`,
         {
-          interests:[...user.interests],
-          favorites :[...user.favorites],
-          userLikesCategories:[...user.userLikesCategories]
+          interests: user.interests,
+          favorites : user.favorites,
+          userLikesCategories: user.userLikesCategories
         },
         {
           headers: {

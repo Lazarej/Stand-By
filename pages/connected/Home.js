@@ -11,6 +11,7 @@ import Drawer from "../../components/home/Drawer"
 export default function HomeScreen() {
 
   useEffect(()=>{
+  
   },[])
 
   return (

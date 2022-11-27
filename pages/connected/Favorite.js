@@ -25,6 +25,7 @@ export default function FavoriteScreen() {
 
   useEffect(() => {
     console.log(user.favorites)
+    console.log('userCat',user.userLikesCategories)
     getUserCat();
     if (index === 0) {
       setFavoritesState((prev) => (prev = user.favorites));
@@ -92,7 +93,7 @@ export default function FavoriteScreen() {
             )}
             loader={<Loader />}
             noResult={
-              "Oups nous n'avons pas encore de contenu pour cette catégorie"
+              "Aucun favorits pour le moment"
             }
           />
         )}
