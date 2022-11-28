@@ -14,15 +14,10 @@ export default function NewsCard(props) {
   const navigation = useNavigation();
 
   useEffect(()=>{ 
-    console.log('user', user)
-    saveUser({
-      ...user,
-      favorites: [],
-    });
       checkLike();  
       IsOnCategorie();
       console.log(props.element.id ,likeState, 're render bbbbbbbbbb')
-  },[user.userLikesCategories])
+  },[user.userLikesCategories, user.favorites])
 
   const checkLike = () => {
     const isLiked = user.favorites.some((fav) => {
@@ -49,6 +44,7 @@ export default function NewsCard(props) {
        id: props.element.id,
        questions:props.element.attributes.questions,
        from:'news',
+       categorie: categorie,
        element: props.element
     })}>
       <View style={styles.newContainer}>
@@ -64,9 +60,10 @@ export default function NewsCard(props) {
           <Text style={styles.title}>{props.element.attributes.title}</Text>
           {
             categorie.value ?
-            <View style={{ paddingHorizontal:5, paddingVertical:2 , flexDirection:'row', alignItems:'center'}}>
-             <Text style={{fontFamily:'RobotoN', fontSize:13, marginRight:7}}>{categorie.value}</Text>
-             <View style={{backgroundColor: categorie.color, width:14,  height:14, borderRadius:10,borderWidth:0.8, marginTop:3}}></View>
+            <View style={{ paddingHorizontal:5, paddingVertical:3 , flexDirection:'row', alignItems:'center' , borderWidth:1, borderColor:'#AAAAAA' ,borderRadius:15 }}>
+             
+             <View style={{backgroundColor: categorie.color, width:14,  height:14, borderRadius:10}}></View>
+             <Text style={{fontFamily:'RobotoN', fontSize:13, marginHorizontal:7}}>{categorie.value}</Text>
           </View> :
           null
           }

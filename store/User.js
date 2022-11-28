@@ -35,10 +35,10 @@ export const UserStore = ({children}) => {
     } catch (error) {
       console.error(error)
     }
+    console.log(user)
   };
 
   const signup = async (value) => {
-    console.log(value)
     try {
       const response = await axios.post(
         "http://192.168.0.50:1337/api/auth/local/register?populate=*",

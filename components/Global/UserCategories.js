@@ -136,35 +136,41 @@ export default function UserCategories(props) {
               <Text style={styles.modalText}>{props.title}</Text>
             </View>
             <View
-              style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
+              style={{ marginTop: 20,  flexWrap: "wrap" }}
             >
               {user.userLikesCategories ? (
                 user.userLikesCategories.map((cat) => (
-                  <TouchableOpacity onPress={() => props.function(cat)} style={{width: "100%",}}  key={cat.color}>
+                  <TouchableOpacity onPress={() => props.function(cat)} style={{width: "100%",flexDirection: "column", justifyContent:'center', alignItems:'center',}}  key={cat.color}>
                     <View
                     style={{
-                      backgroundColor: cat.color,
                       height: 40,
                       flexDirection: "row",
-                      borderRadius: 5,
+                      borderRadius: 25,
                       padding: 5,
                       width: "100%",
+                      borderWidth:1,
+                      borderColor:'#AAAAAA',
                       alignItems: "center",
                       justifyContent: "space-between",
                       margin: 5,
                     }}
                   >
-                    <Text
-                      style={{
-                        color: "#fff",
-                        fontFamily: "RobotoN",
-                        marginLeft: 10,
-                      }}
-                    >
-                      {cat.value}
-                    </Text>
-                    <TouchableOpacity onPress={() => removeCat(cat)}>
-                      <Ionicons name="close-outline" size={24} color="#fff" />
+                    <View style={{flexDirection:'row'}}>
+                    <View style={{marginHorizontal:7 ,backgroundColor:cat.color, height:20, width:20, borderRadius:25 ,}}>
+
+</View>
+<Text
+  style={{
+    color: "black",
+    fontFamily: "Roboto",
+    marginLeft: 10,
+  }}
+>
+  {cat.value}
+</Text>
+                    </View>
+                    <TouchableOpacity style={{marginRight:2}} onPress={() => removeCat(cat)}>
+                      <Ionicons name="close-outline" size={24} color="#000" />
                     </TouchableOpacity>
                   </View>
                   </TouchableOpacity>
@@ -191,6 +197,7 @@ export default function UserCategories(props) {
           <GlobalInput
             id={"name"}
             type={"text"}
+            label={"Nom de la catégorie"}
             placeholder={"nom de la catégorie"}
             value={newcategorie.value}
             onChangeText={(text) =>
@@ -230,12 +237,11 @@ export default function UserCategories(props) {
                       catColor === newcategorie.color
                         ? {
                             ...styles.colorContainer,
-                            borderColor: "#BDBDBD",
-                            borderWidth: 1,
                             backgroundColor: catColor,
                           }
                         : {
                             ...styles.colorContainer,
+                            opacity:0.5,
                             backgroundColor: catColor,
                           }
                     }
@@ -273,6 +279,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     height: "100%",
     width: "100%",
+    paddingTop:40,
     justifyContent: "space-between",
   },
 

@@ -25,14 +25,14 @@ export default function Details({ navigation }) {
   const opacity = useRef(new Animated.Value(0)).current
 
   useEffect(()=>{
-
+      console.log(route.params.categorie.value)
     Animation()
   },[])
   const Animation = () =>{
        Animated.timing(opacity,{
         toValue:1,
         duration:300,
-        delay:100,
+        delay:50,
         useNativeDriver:true
        }).start()
   }    
@@ -69,10 +69,19 @@ export default function Details({ navigation }) {
       </SharedElement>
       <Wrapper>
         <Animated.View style={{opacity:opacity}}>
-        <View style={{ marginVertical: 40 , justifyContent:'space-between', flexDirection:'row' , }}>
-          <Text style={{ ...GlobalStyles.title, fontSize: RFPercentage(4.8), width:'90%'}}>
+        <View style={{ marginVertical: 40 , justifyContent:'space-between' , alignItems:'baseline'}}>
+          <Text style={{ ...GlobalStyles.title, fontSize: RFPercentage(4.8), width:'90%', marginBottom:10}}>
             {route.params.title}
-          </Text>       
+          </Text>    
+          {
+            route.params.categorie.value ?
+            <View style={{width:'auto', paddingHorizontal:5, paddingVertical:3 , flexDirection:'row', alignItems:'center' , borderWidth:1, borderColor:'#AAAAAA' ,borderRadius:15 }}>
+             
+             <View style={{backgroundColor: route.params.categorie.color, width:14,  height:14, borderRadius:10}}></View>
+             <Text style={{fontFamily:'RobotoN', fontSize:13, marginHorizontal:7}}>{route.params.categorie.value}</Text>
+          </View> :
+          null
+          }   
         </View>
         <Text
           style={{

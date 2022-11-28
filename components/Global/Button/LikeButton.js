@@ -20,17 +20,16 @@ export default function LikeButton(props) {
           }
          }
 
-         Liked()
-            
-
+         Liked();
   })
 
   const Like = () => {
       if (likeState !== true) {
-        console.log('props', props.element)
-        saveUser({
+        const newFavArray = [...user.favorites, props.element]
+        saveUser({   
           ...user,
-          favorites: [...user.favorites, props.element],
+          favorites: newFavArray,
+         
         });
       }else{ 
 
