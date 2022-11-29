@@ -31,7 +31,7 @@ export default function ArticleScreen() {
       user.interests.map(async (interest) => {
         try {
           const response = await axios.get(
-            `http://192.168.0.50:1337/api/articles?populate=*&filters[interet][type][$contains]=${interest.attributes.type}`,
+            `http://192.168.0.50:1337/api/articles?populate=*&filters[interet][type][$contains]=${interest.type}`,
             {
               headers: {
                 "Content-Type": "application/json",

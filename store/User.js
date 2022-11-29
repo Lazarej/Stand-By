@@ -1,13 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 export const UserContext = createContext({});
 
 export const UserStore = ({children}) => {
   const [user, setUser] = useState({});
-
 
   useEffect(()=>{
       getUser()     
@@ -107,7 +105,6 @@ export const UserStore = ({children}) => {
           },
         }
       );
-    
       setUser(prev => prev = {})
     } catch (error) {
       console.log(error)

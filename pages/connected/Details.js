@@ -25,7 +25,6 @@ export default function Details({ navigation }) {
   const opacity = useRef(new Animated.Value(0)).current
 
   useEffect(()=>{
-      console.log(route.params.categorie.value)
     Animation()
   },[])
   const Animation = () =>{
@@ -74,7 +73,7 @@ export default function Details({ navigation }) {
             {route.params.title}
           </Text>    
           {
-            route.params.categorie.value ?
+            route.params.categorie.value && route.params.from === 'news' ?
             <View style={{width:'auto', paddingHorizontal:5, paddingVertical:3 , flexDirection:'row', alignItems:'center' , borderWidth:1, borderColor:'#AAAAAA' ,borderRadius:15 }}>
              
              <View style={{backgroundColor: route.params.categorie.color, width:14,  height:14, borderRadius:10}}></View>

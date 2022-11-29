@@ -16,7 +16,6 @@ export default function NewsCard(props) {
   useEffect(()=>{ 
       checkLike();  
       IsOnCategorie();
-      console.log(props.element.id ,likeState, 're render bbbbbbbbbb')
   },[user.userLikesCategories, user.favorites])
 
   const checkLike = () => {

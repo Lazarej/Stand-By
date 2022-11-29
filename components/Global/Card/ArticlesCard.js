@@ -20,6 +20,7 @@ export default function ArticlesCard(props) {
       id: props.article.id,
       questions: props.article.attributes.questions,
       from:'article',
+      categorie: props.article.attributes.interet.data.attributes.type ,
       interest: props.article.attributes.interet
     })}
     >

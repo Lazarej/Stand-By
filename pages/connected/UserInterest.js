@@ -25,7 +25,7 @@ export default function InterestScreen() {
           }
         );
         const addSelected = response.data.data.map((e) => {
-          return { ...e, selected: false };
+          return { ...e.attributes, id: e.id, selected: false };
         });
         setinterestState((prev) => (prev = addSelected));
       } catch (error) {}
@@ -46,6 +46,7 @@ export default function InterestScreen() {
       }
     });
     setinterestState((prev) => (prev = select));
+    console.log(interestState)
   };
 
   const updateInterest = () => {
@@ -75,7 +76,7 @@ export default function InterestScreen() {
             }
             onPress={() => toggle(interest.id)}
           >
-            <Text style={styles.toggleText}>{interest.attributes.type}</Text>
+            <Text style={styles.toggleText}>{interest.type}</Text>
           </TouchableOpacity>
         ))}
       </View>
