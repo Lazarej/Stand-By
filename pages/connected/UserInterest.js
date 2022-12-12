@@ -7,31 +7,49 @@ import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import GlobalButton from "../../components/Global/Button/Button";
 import GlobalStyles from "../../style/GlobalStyles";
+import { _URL } from "../../globalVar/url";
 
 export default function InterestScreen() {
   const { user, saveUser } = useContext(UserContext);
   const [interestState, setinterestState] = useState([]);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(
-          "http://192.168.0.50:1337/api/interets",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
-        const addSelected = response.data.data.map((e) => {
-          return { ...e.attributes, id: e.id, selected: false };
-        });
-        setinterestState((prev) => (prev = addSelected));
-      } catch (error) {}
-    };
     getData();
   }, []);
+
+  const userAlreadyHaveData = (data) => {
+    if (user.interests.length !== 0) {
+      const userInterests = data.map((interest) => {
+        const userInterest = user.interests.find(
+          (obj) => obj.id === interest.id
+        );
+        if (userInterest !== undefined) {
+          return {
+            ...userInterest,
+            selected: true,
+          };
+        } else {
+          return interest;
+        }
+      });
+      setinterestState((prev) => (prev = userInterests));
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(`${_URL}/api/interets`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const addSelected = response.data.data.map((e) => {
+        return { ...e.attributes, id: e.id, selected: false };
+      });
+      userAlreadyHaveData(addSelected);
+    } catch (error) {}
+  };
 
   const toggle = (value) => {
     const select = interestState.map((e) => {
@@ -46,7 +64,6 @@ export default function InterestScreen() {
       }
     });
     setinterestState((prev) => (prev = select));
-    console.log(interestState)
   };
 
   const updateInterest = () => {
@@ -76,7 +93,15 @@ export default function InterestScreen() {
             }
             onPress={() => toggle(interest.id)}
           >
-            <Text style={styles.toggleText}>{interest.type}</Text>
+            <Text
+              style={
+                interest.selected === true
+                  ? { fontSize: 14, fontFamily: "RobotoN", color: "white" }
+                  : { fontSize: 14, fontFamily: "RobotoN", color: "black" }
+              }
+            >
+              {interest.type}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -113,9 +138,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: GlobalStyles.primary.backgroundColor,
     alignItems: "center",
-  },
-  toggleText: {
-    fontSize: 14,
-    fontFamily: "RobotoN",
   },
 });

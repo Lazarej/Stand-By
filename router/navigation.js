@@ -1,4 +1,4 @@
-import 'react-native-gesture-handler';
+import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -13,7 +13,7 @@ import { useEffect, useCallback } from "react";
 import InterestScreen from "../pages/connected/UserInterest";
 import BottomTab from "./BottomTab";
 import Details from "../pages/connected/Details";
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
 const Stack = createSharedElementStackNavigator();
 
@@ -26,7 +26,6 @@ export default function Navigation() {
   });
 
   useEffect(() => {
-    console.log(user)
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
     }
@@ -48,7 +47,8 @@ export default function Navigation() {
       <Stack.Navigator
         screenOptions={{
           headerShadowVisible: false,
-          headerStatusBarHeight: 0,
+          initialRouteName: "BottomTab",
+          headerStatusBarHeight: 40,
           headerTintColor: GlobalStyles.primary.color,
           headerTitleStyle: {
             fontWeight: "bold",
@@ -70,21 +70,19 @@ export default function Navigation() {
                 options={{ title: "" }}
               />
             )}
-            {/* <SharedStack.Screen
-              name="NewsCard"
-              component={NewsCard}
-              options={{  title:"",
-              headerShown: false }}
 
-            /> */}
+            <Stack.Screen
+              name="InterestOnLog"
+              component={InterestScreen}
+              options={{ title: "" }}
+            />
+
             <Stack.Screen
               name="Details"
               component={Details}
-              options={{  title:"",
-              headerShown: false }}
-              
+              options={{ title: "", headerShown: false }}
             />
-            
+
             {/* <Stack.Screen
               name="Test"
               component={Test}

@@ -33,7 +33,7 @@ export default function Loader(){
             <Animated.View style={{height:'100%', width:100 , transform:[{translateX: loaderAnim,}, {rotate:'-160deg'}]}}>
             <LinearGradient           
             style={{height:'120%', width:100}}
-            colors={['transparent', 'rgba(255,255,255,0.8)' , 'transparent']}
+            colors={['rgba(255,255,255,0)', 'rgba(255,255,255,0.8)' , 'rgba(255,255,255,0)']}
             start={{ x: 0, y: 1 }}
             end={{ x: 1, y: 1 }}
             locations={[0.1,0.5,0.9]}
@@ -47,7 +47,7 @@ export default function Loader(){
             <Animated.View style={{height:'100%', width:100 , transform:[{translateX: loaderAnim},{rotate:'-160deg'}]}}>
             <LinearGradient           
             style={{height:'100%', width:100}}
-            colors={['transparent', 'rgba(255,255,255,0.8)' , 'transparent']}
+            colors={['rgba(255,255,255,0)', 'rgba(255,255,255,0.8)' , 'rgba(255,255,255,0)']}
             start={{ x: 0, y: 1 }}
             end={{ x: 1, y: 1 }}
             locations={[0.1,0.5,0.9]}

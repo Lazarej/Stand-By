@@ -10,6 +10,7 @@ import GlobalStyles from "../../style/GlobalStyles";
 import NewsCard from "../../components/Global/Card/NewsCard";
 import ArticlesCard from "../../components/Global/Card/ArticlesCard";
 import NoResult from "../../components/Global/NoResult";
+import { _URL } from "../../globalVar/url";
 
 export default function SearchScreen() {
   const { user, logout } = useContext(UserContext);
@@ -110,7 +111,7 @@ export default function SearchScreen() {
     } else {
       try {
         const articleResponse = await axios.get(
-          `http://192.168.0.50:1337/api/articles?filters[title][$contains]=${search}&populate=*`,
+          `${_URL}/api/articles?filters[title][$contains]=${search}&populate=*`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -119,7 +120,7 @@ export default function SearchScreen() {
           }
         );
         const newsResponse = await axios.get(
-          `http://192.168.0.50:1337/api/news?filters[title][$contains]=${search}&populate=*`,
+          `${_URL}/api/news?filters[title][$contains]=${search}&populate=*`,
           {
             headers: {
               "Content-Type": "application/json",

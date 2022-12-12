@@ -17,6 +17,7 @@ import OtherArticle from "../../components/details/OtherArticle";
 import Qsm from "../../components/details/Qsm";
 import { SharedElement } from 'react-navigation-shared-element';
 import { useEffect, useRef } from "react";
+import { _URL } from "../../globalVar/url";
 
 
 export default function Details({ navigation }) {
@@ -61,7 +62,7 @@ export default function Details({ navigation }) {
       <SharedElement id={route.params.image}>
       <Image
         style={styles.image}
-        source={{ uri: `http://192.168.0.50:1337${route.params.image}` }}
+        source={{ uri: `${_URL}${route.params.image}` }}
       >
        
       </Image>

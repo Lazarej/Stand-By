@@ -13,48 +13,9 @@ import {RFPercentage} from "react-native-responsive-fontsize";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 import Details from '../pages/connected/Details';
 
-const name = 'custom'
+
 
 const Tab = createBottomTabNavigator();
-
-const Stack = createSharedElementStackNavigator({
-});
-
-
-const Stack1Screen = () => (
-  <Stack.Navigator>
-    <Stack.Screen name={name} options={{ headerShown: false }} component={HomeScreen} />
-    <Stack.Screen name="Detail" component={Details} />
-  </Stack.Navigator>
-);
-
-const Stack2Screen = () => (
-  <Stack.Navigator>
-    <Stack.Screen name={name} options={{ headerShown: false }} component={NewsLetterScreen} />
-    <Stack.Screen name="Detail" component={Details} />
-  </Stack.Navigator>
-);
-
-const Stack3Screen = () => (
-  <Stack.Navigator>
-    <Stack.Screen name={name} options={{ headerShown: false }} component={ArticleScreen} />
-    <Stack.Screen name="Detail" component={Details} />
-  </Stack.Navigator>
-);
-
-const Stack4Screen = () => (
-  <Stack.Navigator>
-    <Stack.Screen name={name} options={{ headerShown: false }} component={FavoriteScreen} />
-    <Stack.Screen name="Detail" component={Details} />
-  </Stack.Navigator>
-);
-
-const Stack5Screen = () => (
-  <Stack.Navigator>
-    <Stack.Screen name={name} options={{ headerShown: false }} component={SearchScreen} />
-    <Stack.Screen name="Detail" component={Details} />
-  </Stack.Navigator>
-);
 
 export default function BottomTab() {
 
@@ -78,7 +39,7 @@ export default function BottomTab() {
     >
       <Tab.Screen
         name="Home"
-        component={Stack1Screen}
+        component={HomeScreen}
         options={{
         headerShown: false ,
           tabBarIcon: ({color}) => (
@@ -88,7 +49,7 @@ export default function BottomTab() {
       />
       <Tab.Screen
         name="NewsLetter"
-        component={Stack2Screen}
+        component={NewsLetterScreen}
         options={{
         title:'NewsLetter',
           tabBarIcon: ({color}) => (
@@ -98,7 +59,7 @@ export default function BottomTab() {
       />
       <Tab.Screen
         name="Article"
-        component={Stack3Screen}
+        component={ArticleScreen}
         options={{
           title:'Articles',
          
@@ -109,7 +70,7 @@ export default function BottomTab() {
       />
       <Tab.Screen
         name="Favorite"
-        component={Stack4Screen}
+        component={FavoriteScreen}
         options={{
           title:'Favorits',
           tabBarIcon: ({color}) => (
@@ -119,7 +80,7 @@ export default function BottomTab() {
       />
       <Tab.Screen
         name="Search"
-        component={Stack5Screen}
+        component={SearchScreen}
         options={{
           title:'Recherche',
           tabBarIcon: ({color}) => (

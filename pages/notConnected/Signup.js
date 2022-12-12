@@ -65,13 +65,6 @@ export default function SignupScreen() {
       <View style={{flex:10}}>
         <GlobalForm {...form} textButton={"S'inscrire"} function={signup}>
         <View style={styles.infoForm}>
-          <View style={styles.toggleCont}>
-             <Switch trackColor={{ false: '#FFBFAE', true: GlobalStyles.primary.color }}
-        thumbColor={'#fff'}
-        onValueChange={() => setSaveUser(prev => !prev)}
-        value={saveUser}></Switch>
-        <Text style={saveUser ? {color: GlobalStyles.primary.color, fontFamily:'RobotoN'}: {color:'#FFBFAE' , fontFamily:'RobotoN'}}>Se souvenir de moi</Text>
-          </View>
         </View>
         </GlobalForm>
       </View>
@@ -108,11 +101,6 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:'center'
        },
-     
-       toggleCont:{
-          flexDirection:'row',
-          alignItems:'center'
-     
-       },
+    
      
   });

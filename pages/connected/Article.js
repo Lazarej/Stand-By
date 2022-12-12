@@ -9,6 +9,7 @@ import ArticlesCard from "../../components/Global/Card/ArticlesCard";
 import Loader from "../../components/Global/Loader";
 import RenderScene from "../../components/Global/GlobalTab/RenderScene";
 import RenderTabBar from "../../components/Global/GlobalTab/RenderTabBar";
+import { _URL } from "../../globalVar/url";
 
 export default function ArticleScreen() {
 
@@ -31,7 +32,7 @@ export default function ArticleScreen() {
       user.interests.map(async (interest) => {
         try {
           const response = await axios.get(
-            `http://192.168.0.50:1337/api/articles?populate=*&filters[interet][type][$contains]=${interest.type}`,
+            `${_URL}/api/articles?populate=*&filters[interet][type][$contains]=${interest.type}`,
             {
               headers: {
                 "Content-Type": "application/json",
@@ -58,7 +59,7 @@ export default function ArticleScreen() {
     console.log(index);
     try {
       const response = await axios.get(
-        `http://192.168.0.50:1337/api/articles?populate=*&filters[interet][type][$contains]=${routes[index].key}`,
+        `${_URL}/api/articles?populate=*&filters[interet][type][$contains]=${routes[index].key}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -77,7 +78,7 @@ export default function ArticleScreen() {
   const getInterests = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.0.50:1337/api/interets?populate=*`,
+        `${_URL}/api/interets?populate=*`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -93,6 +94,7 @@ export default function ArticleScreen() {
           color: GlobalStyles.primary.color,
         };
       });
+      console.log(routesValue , data, response)
       const set = [routes[0], ...routesValue];
       setRoutes((prev) => (prev = set));
     } catch (error) {

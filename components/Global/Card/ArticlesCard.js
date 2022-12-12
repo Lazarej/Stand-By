@@ -4,6 +4,7 @@ import {RFPercentage} from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import { SharedElement } from 'react-navigation-shared-element';
+import { _URL } from "../../../globalVar/url";
 
 export default function ArticlesCard(props) {
   const navigation = useNavigation();
@@ -29,7 +30,7 @@ export default function ArticlesCard(props) {
       <Image
         resizeMode="cover"
         style={styles.image}
-        source={{ uri: `http://192.168.0.50:1337${props.article.attributes.image.data.attributes.url}` }}
+        source={{ uri: `${_URL}${props.article.attributes.image.data.attributes.url}` }}
       />
       </SharedElement>
       <View style={styles.infoCont}>

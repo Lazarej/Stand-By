@@ -7,17 +7,17 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import axios from "axios";
+import { _URL } from "../../globalVar/url";
 
 export default function ArticleSection() {
   const { user } = useContext(UserContext);
   const [articlesState, setArticlesState] = useState([]);
 
   const getData = () => {
-    console.log(user.interests)
     user.interests.map(async (interest) => {
       try {
         const response = await axios.get(
-          `http://192.168.0.50:1337/api/articles?populate=*&filters[interet][type][$contains]=${interest.type}`,
+          `${_URL}/api/articles?populate=*&filters[interet][type][$contains]=${interest.type}`,
           {
             headers: {
               "Content-Type": "application/json",

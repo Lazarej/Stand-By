@@ -13,6 +13,8 @@ import { Ionicons } from "@expo/vector-icons";
 import GlobalStyles from "../../style/GlobalStyles";
 import { UserContext } from "../../store/User";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { Link } from "@react-navigation/native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 export default function Drawer() {
@@ -66,8 +68,9 @@ export default function Drawer() {
               transform: [{ translateX: SlideIn }],
             }}
           >
+            <View>
             <View style={styles.drawerHeader}>
-              <View style={styles.drawerHeaderLogo}>
+              <View style={{width:100}}>
                 <TouchableOpacity
                   style={{marginLeft:10}}
                   onPress={() => SlideOutAnim()}
@@ -79,7 +82,16 @@ export default function Drawer() {
                   />
                 </TouchableOpacity>
               </View>
+              
             </View>
+            <View style={styles.drawerBody}>
+            <View style={styles.rowLink}>
+            <MaterialCommunityIcons style={styles.icon} name="checkbox-multiple-blank" size={24} color="black" />
+            <Link style={styles.drawerLink} to={'/InterestOnLog'}>Vos intéréts</Link>
+            </View>
+            </View>
+            </View>
+            
             <TouchableOpacity onPress={logout} style={{width:'100%', justifyContent:'center', height:80 , alignItems:'center'}}>
             <Text style={styles.deconnexion}>Déconnexion</Text>
             </TouchableOpacity>
@@ -113,13 +125,29 @@ const styles = StyleSheet.create({
     height: 100,
     width: "100%",
   },
+  
 
-  drawerHeaderLogo: {
-    width: "100%",
+  drawerBody:{
+    width:'100%',
+    paddingHorizontal:15,
+    paddingVertical:50
+  },
+
+  rowLink:{
+    flexDirection:'row',
+  },
+
+  drawerLink:{
+    fontFamily:'Roboto',
+    fontSize:RFPercentage(2.7)
+  },
+
+  icon:{
+    marginRight:20
   },
 
   deconnexion:{
     color:GlobalStyles.primary.color,
-    fontSize: RFPercentage(2.6)
+    fontSize: RFPercentage(2.9)
   }
 });

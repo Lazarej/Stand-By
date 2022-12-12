@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useRef, useState } from "react";
 import { View, Text, Button, Alert } from "react-native";
-import { validEmail, validPassword, validPhone } from "../../../regex/regex";
+import { validEmail, validPassword, validPhone } from "../../../globalVar/regex";
 import GlobalButton from "../Button/Button";
 import GlobalInput from "./Input";
 
@@ -80,7 +80,7 @@ export default function GlobalForm(props) {
 
   return (
     <View style={{ justifyContent: "center", width: "100%" }}>
-      <View style={{ marginBottom: 40 }}>
+      <View style={{ marginBottom: 20 }}>
         {Object.values(state).map((input) => (
           <GlobalInput
             type={input.type}
