@@ -74,7 +74,7 @@ export default function NewsCard(props) {
         >
           <LikeButton  size={24} id={props.element.id} element={props.element}></LikeButton>
           {
-            likeState ? <CatButton id={props.element.id}/> : null
+            likeState ? <CatButton id={props.element.id}  title={props.element.attributes.title}/> : null
           }
         </View>
       </View>

@@ -5,6 +5,7 @@ import {
     StyleSheet
   } from "react-native";
   import { Ionicons } from "@expo/vector-icons";
+  import {  Snackbar } from 'react-native-paper';
 
 export default function ModalGlobal(props){
 
@@ -26,6 +27,13 @@ export default function ModalGlobal(props){
            {props.children}
           </View>
         </View>
+        <Snackbar
+    visible={props.snackBar.visible}
+    onDismiss={props.onDismiss}
+    duration={1500} 
+   >
+    {props.snackBar.message}
+  </Snackbar>
       </Modal>
     )
 }

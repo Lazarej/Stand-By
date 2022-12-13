@@ -8,10 +8,15 @@ import { UserContext } from "../../store/User";
 import GlobalButton from "../../components/Global/Button/Button";
 import GlobalStyles from "../../style/GlobalStyles";
 import { _URL } from "../../globalVar/url";
+import {  Snackbar } from 'react-native-paper';
 
 export default function InterestScreen() {
   const { user, saveUser } = useContext(UserContext);
   const [interestState, setinterestState] = useState([]);
+  const [snackBar, setSnackBar] = useState({
+    visible:false,
+    message:''
+  })
 
   useEffect(() => {
     getData();
@@ -70,13 +75,26 @@ export default function InterestScreen() {
     const interests = interestState.filter((interest) => {
       return interest.selected === true;
     });
-    saveUser({
-      ...user,
-      interests: interests,
-    });
+    if(interests.length === 0){
+      setSnackBar(prev => prev = {
+        visible:true,
+        message:'Vous devez choisir au moins un intéret'
+      }) 
+    }else{
+      saveUser({
+        ...user,
+        interests: interests,
+      });
+      setSnackBar(prev => prev = {
+        visible:true,
+        message:'Vos intérets ont etait mis a jour'
+      })
+    }
+    
   };
 
   return (
+    <>
     <Wrapper>
       <TitleCont
         title={"Vos centres d'intéret"}
@@ -106,7 +124,19 @@ export default function InterestScreen() {
         ))}
       </View>
       <GlobalButton title={"Continuer"} onPress={updateInterest}></GlobalButton>
+      
     </Wrapper>
+    <Snackbar
+    visible={snackBar.visible}
+    onDismiss={() => setSnackBar(prev => prev = {
+      ...snackBar,
+      visible:false
+    })}
+    duration={2000} 
+   >
+    {snackBar.message}
+  </Snackbar>
+    </>
   );
 }
 
@@ -116,6 +146,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
+    minHeight:500
   },
 
   toggle: {

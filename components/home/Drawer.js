@@ -15,6 +15,7 @@ import { UserContext } from "../../store/User";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Link } from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { color } from "react-native-reanimated";
 
 
 export default function Drawer() {
@@ -86,7 +87,7 @@ export default function Drawer() {
             </View>
             <View style={styles.drawerBody}>
             <View style={styles.rowLink}>
-            <MaterialCommunityIcons style={styles.icon} name="checkbox-multiple-blank" size={24} color="black" />
+            <MaterialCommunityIcons style={styles.icon} name="checkbox-multiple-blank" size={24} color="#AAAAAA" />
             <Link style={styles.drawerLink} to={'/InterestOnLog'}>Vos intéréts</Link>
             </View>
             </View>
@@ -139,7 +140,8 @@ const styles = StyleSheet.create({
 
   drawerLink:{
     fontFamily:'Roboto',
-    fontSize:RFPercentage(2.7)
+    fontSize:RFPercentage(2.7),
+    color:'#AAAAAA'
   },
 
   icon:{

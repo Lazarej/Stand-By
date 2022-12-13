@@ -6,10 +6,15 @@ import { UserContext } from "../../../store/User";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 
+
 export default function CatButton (props){
 
     const { user, saveUser } = useContext(UserContext);
     const [isOpen, setIsOpen] = useState(false);
+    const [snackBar, setSnackBar] = useState({
+      visible:false,
+      message:''
+    })
 
     const addToCat = (e) => {
         console.log('element',e)
@@ -17,6 +22,10 @@ export default function CatButton (props){
           ...user,
           userLikesCategories: user.userLikesCategories.map((obj) => {
             if(obj.newsId.includes(props.id) && obj.value !== e.value){
+              setSnackBar(prev => prev = {
+                visible:true,
+                message:`"${props.title}" est maintenant dans la categorie "${e.value}"`
+              })
                const newNewsId = obj.newsId.filter((id) =>{
                 return id !== props.id
                })
@@ -26,7 +35,7 @@ export default function CatButton (props){
               };
             }
             if (obj.value === e.value && obj.newsId.includes(props.id) === false ) {
-              console.log('we add this because no categorie here' , obj)
+              
               return {
                 ...obj,
                 newsId: [...obj.newsId, props.id],
@@ -46,10 +55,15 @@ export default function CatButton (props){
         <TouchableOpacity onPress={() => setIsOpen((prev) => !prev)}>
             <Entypo name="add-to-list" size={18} color="black" />
           </TouchableOpacity>
-          <ModalGlobal isOpen={isOpen} close={() => setIsOpen(!isOpen)}>
+          <ModalGlobal isOpen={isOpen} close={() => setIsOpen(!isOpen)} snackBar={snackBar}
+            onDismiss={() => setSnackBar(prev => prev = {
+              ...snackBar,
+              visible:false
+            })}>
           <UserCategories
             title={"Ajouter une catégorie a la news"}
             function={addToCat}
+            
           />
         </ModalGlobal>
        </>

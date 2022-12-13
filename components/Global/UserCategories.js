@@ -8,6 +8,7 @@ import GlobalButton from "../Global/Button/Button";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 
+
 export default function UserCategories(props) {
   const { user, saveUser } = useContext(UserContext);
   const [index, setIndex] = useState(0);
@@ -20,6 +21,7 @@ export default function UserCategories(props) {
     color: "",
     newsId: [],
   });
+
 
   const catColors = [
     "#ffb3ba",
@@ -286,6 +288,7 @@ export default function UserCategories(props) {
           </TouchableOpacity>
         </View>
       )}
+    
     </>
   );
 }
