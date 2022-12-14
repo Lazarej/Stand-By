@@ -43,6 +43,9 @@ export default function NewsCard(props) {
        text: props.element.attributes.text,
        id: props.element.id,
        questions:props.element.attributes.questions,
+       signataire: props.element.attributes.signataire,
+       duree: props.element.attributes.duree,
+       date: props.element.attributes.date,
        from:'news',
        categorie: categorie,
        element: props.element

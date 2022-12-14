@@ -10,6 +10,7 @@ export default function ArticlesCard(props) {
   const navigation = useNavigation();
 
   useEffect(()=>{
+   
   },[])
 
   return (
@@ -20,6 +21,9 @@ export default function ArticlesCard(props) {
       text: props.article.attributes.text,
       id: props.article.id,
       questions: props.article.attributes.questions,
+      signataire: props.article.attributes.signataire,
+      duree: props.article.attributes.duree,
+      date: props.article.attributes.date,
       from:'article',
       categorie: props.article.attributes.interet.data.attributes.type ,
       interest: props.article.attributes.interet

@@ -18,6 +18,7 @@ import Qsm from "../../components/details/Qsm";
 import { SharedElement } from 'react-navigation-shared-element';
 import { useEffect, useRef } from "react";
 import { _URL } from "../../globalVar/url";
+import Signataire from "../../components/details/Signataire";
 
 
 export default function Details({ navigation }) {
@@ -27,6 +28,7 @@ export default function Details({ navigation }) {
 
   useEffect(()=>{
     Animation()
+    
   },[])
   const Animation = () =>{
        Animated.timing(opacity,{
@@ -72,16 +74,19 @@ export default function Details({ navigation }) {
         <View style={{ marginVertical: 40 , justifyContent:'space-between' , alignItems:'baseline'}}>
           <Text style={{ ...GlobalStyles.title, fontSize: RFPercentage(4.8), width:'90%', marginBottom:10}}>
             {route.params.title}
-          </Text>    
+          </Text> 
+          
           {
             route.params.categorie.value && route.params.from === 'news' ?
-            <View style={{width:'auto', paddingHorizontal:5, paddingVertical:3 , flexDirection:'row', alignItems:'center' , borderWidth:1, borderColor:'#AAAAAA' ,borderRadius:15 }}>
+            <View style={{width:'auto', marginBottom:20 , paddingHorizontal:5, paddingVertical:3 , flexDirection:'row', alignItems:'center' , borderWidth:1, borderColor:'#AAAAAA' ,borderRadius:15 }}>
              
              <View style={{backgroundColor: route.params.categorie.color, width:14,  height:14, borderRadius:10}}></View>
              <Text style={{fontFamily:'RobotoN', fontSize:13, marginHorizontal:7}}>{route.params.categorie.value}</Text>
           </View> :
           null
-          }   
+          } 
+          <Text >Durée : <Text style={{fontWeight:'600'}}>{route.params.duree}</Text></Text>   
+          <Text>Fait le : <Text style={{fontWeight:'600'}}>{route.params.date}</Text></Text>     
         </View>
         <Text
           style={{
@@ -92,6 +97,10 @@ export default function Details({ navigation }) {
         >
           {route.params.text}
         </Text>
+         {
+          route.params.signataire.data && 
+          <Signataire id={route.params.signataire.data.id} image={route.params.image}/>
+         }
         {
           route.params.questions.length !== 0 ? 
           <Qsm questions={route.params.questions}/> :null
