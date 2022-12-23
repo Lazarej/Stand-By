@@ -10,10 +10,11 @@ import axios from "axios";
 import { _URL } from "../../globalVar/url";
 
 export default function ArticleSection() {
-  const { user } = useContext(UserContext);
+  const { user, } = useContext(UserContext);
   const [articlesState, setArticlesState] = useState([]);
 
   const getData = () => {
+    
     user.interests.map(async (interest) => {
       try {
         const response = await axios.get(
@@ -26,6 +27,7 @@ export default function ArticleSection() {
           }
         );
         const data = await response.data.data[0];
+        console.log(data)
         if (data !== undefined) {
           setArticlesState((prev) => [...prev, data]);
         }

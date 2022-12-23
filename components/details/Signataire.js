@@ -14,7 +14,6 @@ export default function Signataire (props) {
     const { user, saveUser } = useContext(UserContext);
     
     useEffect(()=>{
-        console.log(state.attributes.image.data.attributes.url, props.image)
         getSignataire();
         
     },[])

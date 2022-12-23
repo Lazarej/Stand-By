@@ -11,7 +11,6 @@ import Drawer from "../../components/home/Drawer"
 export default function HomeScreen() {
 
   useEffect(()=>{
-  
   },[])
 
   return (
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: RFPercentage(9),
     textTransform: "uppercase",
-    lineHeight: 58,
+    lineHeight: RFPercentage(8.8),
     letterSpacing: -3,
   },
 

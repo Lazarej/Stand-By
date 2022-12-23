@@ -90,6 +90,7 @@ export const UserStore = ({children}) => {
   };
 
   const logout = async () => {
+    console.log(user.token)
     try {
       await AsyncStorage.removeItem('appliUser')
       await axios.put(
@@ -111,7 +112,7 @@ export const UserStore = ({children}) => {
         favorites:[], 
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   };
 

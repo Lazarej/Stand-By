@@ -16,8 +16,9 @@ export default function CatButton (props){
       message:''
     })
 
+     
+
     const addToCat = (e) => {
-        console.log('element',e)
         const newArray = {
           ...user,
           userLikesCategories: user.userLikesCategories.map((obj) => {

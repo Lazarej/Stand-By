@@ -40,7 +40,7 @@ export default function ArticlesCard(props) {
       <View style={styles.infoCont}>
         <View style={{marginLeft:10}}>
         <Text style={styles.infoContTitle}>{props.article.attributes.title}</Text>
-        <Text style={{...GlobalStyles.text, fontSize:RFPercentage(2.3)}}>
+        <Text style={{...GlobalStyles.text, fontSize:16}}>
           {props.article.attributes.text.substring(0, 79)}...
         </Text>
         </View>

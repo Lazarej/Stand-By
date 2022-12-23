@@ -17,6 +17,8 @@ import Details from '../pages/connected/Details';
 
 const Tab = createBottomTabNavigator();
 
+
+
 export default function BottomTab() {
 
   return (
@@ -33,7 +35,7 @@ export default function BottomTab() {
         tabBarActiveTintColor: GlobalStyles.primary.backgroundColor,
         tabBarShowLabel:false,
         tabBarStyle: { paddingHorizontal:25,
-        height:60,
+        height:'10%',
        },
       }}
     >

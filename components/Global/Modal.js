@@ -19,7 +19,7 @@ export default function ModalGlobal(props){
         <View style={styles.modal}>
           <View style={styles.categoriesContainer}>
             <TouchableOpacity
-              style={{ position: "absolute", top: 10, right: 10 }}
+              style={{ position: "absolute", zIndex:10, top: 10, right: 10 }}
               onPress={props.close}
             >
               <Ionicons name="close-outline" size={34} color="black" />

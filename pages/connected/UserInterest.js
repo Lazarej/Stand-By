@@ -20,20 +20,26 @@ export default function InterestScreen() {
 
   useEffect(() => {
     getData();
+    console.log('interestState',interestState)
   }, []);
 
   const userAlreadyHaveData = (data) => {
+    console.log(user.interests)
+
     if (user.interests.length !== 0) {
+      console.log('!== 0')
       const userInterests = data.map((interest) => {
         const userInterest = user.interests.find(
           (obj) => obj.id === interest.id
         );
         if (userInterest !== undefined) {
+          console.log('pipi')
           return {
             ...userInterest,
             selected: true,
           };
         } else {
+          console.log('fezf')
           return interest;
         }
       });
@@ -52,7 +58,12 @@ export default function InterestScreen() {
       const addSelected = response.data.data.map((e) => {
         return { ...e.attributes, id: e.id, selected: false };
       });
-      userAlreadyHaveData(addSelected);
+
+      if(user.interests === undefined){
+        setinterestState((prev) => (prev = addSelected ));
+      }else{
+        userAlreadyHaveData(addSelected);
+      }
     } catch (error) {}
   };
 
@@ -103,6 +114,7 @@ export default function InterestScreen() {
         }
       ></TitleCont>
       <View style={styles.toggleCont}>
+        <View style={styles.interestCont}>
         {interestState.map((interest) => (
           <TouchableOpacity
             key={interest.id}
@@ -122,8 +134,10 @@ export default function InterestScreen() {
             </Text>
           </TouchableOpacity>
         ))}
+        </View>
+        <GlobalButton  title={"Continuer"} onPress={updateInterest}></GlobalButton>      
       </View>
-      <GlobalButton title={"Continuer"} onPress={updateInterest}></GlobalButton>
+      
       
     </Wrapper>
     <Snackbar
@@ -142,11 +156,18 @@ export default function InterestScreen() {
 
 const styles = StyleSheet.create({
   toggleCont: {
+   
+    flex:1,
+    justifyContent:'space-between',
+    marginBottom:70
+    
+  },
+
+  interestCont:{
     paddingVertical: 50,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    minHeight:500
   },
 
   toggle: {

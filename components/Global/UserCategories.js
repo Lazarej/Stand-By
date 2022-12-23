@@ -142,37 +142,15 @@ export default function UserCategories(props) {
                 user.userLikesCategories.map((cat) => (
                   <TouchableOpacity
                     onPress={() => props.function(cat)}
-                    style={{
-                      width: "100%",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
+                    style={styles.rowCat}
                     key={cat.color}
                   >
                     <View
-                      style={{
-                        height: 40,
-                        flexDirection: "row",
-                        borderRadius: 25,
-                        padding: 5,
-                        width: "100%",
-                        borderWidth: 1,
-                        borderColor: "#AAAAAA",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        margin: 5,
-                      }}
+                      style={styles.catCont}
                     >
                       <View style={{ flexDirection: "row" }}>
                         <View
-                          style={{
-                            marginHorizontal: 7,
-                            backgroundColor: cat.color,
-                            height: 20,
-                            width: 20,
-                            borderRadius: 25,
-                          }}
+                          style={{...styles.catValue ,  backgroundColor: cat.color}}
                         ></View>
                         <Text
                           style={{
@@ -184,7 +162,7 @@ export default function UserCategories(props) {
                         </Text>
                       </View>
                       <TouchableOpacity
-                        style={{ marginRight: 2 }}
+                        style={{ marginRight: 2  }}
                         onPress={() => removeCat(cat)}
                       >
                         <Ionicons name="close-outline" size={24} color="#000" />
@@ -310,6 +288,33 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
+  },
+
+  rowCat:{
+    width: "100%",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  catCont:{
+    height: 40,
+    flexDirection: "row",
+    borderRadius: 25,
+    padding: 5,
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "#AAAAAA",
+    alignItems: "center",
+    justifyContent: "space-between",
+    margin: 5,
+  },
+
+  catValue:{
+    marginHorizontal: 7,
+    height: 20,
+    width: 20,
+    borderRadius: 25,
   },
 
   addRowText: {
