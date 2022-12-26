@@ -14,6 +14,7 @@ import InterestScreen from "../pages/connected/UserInterest";
 import BottomTab from "./BottomTab";
 import Details from "../pages/connected/Details";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import Constants from "expo-constants";
 
 const Stack = createSharedElementStackNavigator();
 
@@ -26,6 +27,7 @@ export default function Navigation() {
   });
 
   useEffect(() => {
+    console.log('dfzazf',Constants.manifest.splash)
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
     }

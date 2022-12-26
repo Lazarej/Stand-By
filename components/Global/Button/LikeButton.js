@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { memo, useContext, useEffect, useState } from "react";
-import { TouchableOpacity, Text } from "react-native";
+import { memo, useContext, useEffect, useState, } from "react";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import { UserContext } from "../../../store/User";
 import GlobalStyles from "../../../style/GlobalStyles";
 
@@ -58,7 +58,7 @@ export default function LikeButton(props) {
     };
 
    return(
-      <TouchableOpacity onPress={Like}>
+      <TouchableOpacity style={styles.cont} onPress={Like}>
     {likeState ? (
       <Ionicons
         name="heart-sharp"
@@ -71,3 +71,16 @@ export default function LikeButton(props) {
   </TouchableOpacity>
    )
 }
+
+const styles = StyleSheet.create({
+  cont:{
+    display: 'flex' ,
+    height: 30, 
+    width:40, 
+    paddingTop:2,
+    alignItems:'center',
+    justifyContent:'center'
+
+  }
+
+})

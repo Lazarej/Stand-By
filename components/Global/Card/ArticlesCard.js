@@ -10,7 +10,7 @@ export default function ArticlesCard(props) {
   const navigation = useNavigation();
 
   useEffect(()=>{
-   
+   console.log('props',props.article.attributes)
   },[])
 
   return (
@@ -41,7 +41,7 @@ export default function ArticlesCard(props) {
         <View style={{marginLeft:10}}>
         <Text style={styles.infoContTitle}>{props.article.attributes.title}</Text>
         <Text style={{...GlobalStyles.text, fontSize:16}}>
-          {props.article.attributes.text.substring(0, 79)}...
+          {props.article.attributes.text[0].text.substring(0, 79)}...
         </Text>
         </View>
       </View>

@@ -24,14 +24,14 @@ export default function UserCategories(props) {
 
 
   const catColors = [
-    "#ffb3ba",
-    "#ffc9de",
-    "#ffdfba",
-    "#ffffba",
-    "#fcf4dd",
-    "#baffc9",
-    "#bae1ff",
-    "#fcc2ff",
+    "#6A0136",
+    "#0B5351",
+    "#7A4B34",
+    "#757575",
+    "#E1C300",
+    "#DD6000",
+    "#02499c",
+    "#B5050B",
   ];
 
   useEffect(() => {
@@ -229,7 +229,7 @@ export default function UserCategories(props) {
                 >
                   <View
                     style={
-                      catColor === newcategorie.color
+                      catColor === newcategorie.color || newcategorie.color.length === 0
                         ? {
                             ...styles.colorContainer,
                             backgroundColor: catColor,
