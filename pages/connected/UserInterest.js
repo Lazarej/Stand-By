@@ -20,26 +20,22 @@ export default function InterestScreen() {
 
   useEffect(() => {
     getData();
-    console.log('interestState',interestState)
   }, []);
 
   const userAlreadyHaveData = (data) => {
     console.log(user.interests)
 
     if (user.interests.length !== 0) {
-      console.log('!== 0')
       const userInterests = data.map((interest) => {
         const userInterest = user.interests.find(
           (obj) => obj.id === interest.id
         );
         if (userInterest !== undefined) {
-          console.log('pipi')
           return {
             ...userInterest,
             selected: true,
           };
         } else {
-          console.log('fezf')
           return interest;
         }
       });

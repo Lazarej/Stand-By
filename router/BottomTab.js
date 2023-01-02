@@ -5,13 +5,14 @@ import NewsLetterScreen from "../pages/connected/NewsLetter";
 import ArticleScreen from "../pages/connected/Article";
 import FavoriteScreen from "../pages/connected/Favorite";
 import SearchScreen from "../pages/connected/Search";
-import { AntDesign } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import {RFPercentage} from "react-native-responsive-fontsize";
+import { AntDesign } from '@expo/vector-icons'; 
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 import Details from '../pages/connected/Details';
+import Modules from '../pages/connected/videos/Modules';
 
 
 
@@ -82,11 +83,11 @@ export default function BottomTab() {
       />
       <Tab.Screen
         name="Search"
-        component={SearchScreen}
+        component={Modules}
         options={{
-          title:'Recherche',
+          headerShown: false ,
           tabBarIcon: ({color}) => (
-            <AntDesign name="search1" size={26} color={color} />
+            <MaterialIcons name="ondemand-video" size={28} color={color} />
           ),
         }}
       />

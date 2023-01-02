@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState , useContext} from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import {
   Animated,
   Text,
@@ -14,9 +14,8 @@ import GlobalStyles from "../../style/GlobalStyles";
 import { UserContext } from "../../store/User";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Link } from "@react-navigation/native";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { color } from "react-native-reanimated";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from '@expo/vector-icons'; 
 
 export default function Drawer() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,8 +23,7 @@ export default function Drawer() {
   const layout = Math.floor(useWindowDimensions().width - 80);
   const SlideIn = useRef(new Animated.Value(-layout)).current;
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   const SlideInAnim = () => {
     setIsOpen((prev) => (prev = !prev));
@@ -70,31 +68,56 @@ export default function Drawer() {
             }}
           >
             <View>
-            <View style={styles.drawerHeader}>
-              <View style={{width:100}}>
-                <TouchableOpacity
-                  style={{marginLeft:10}}
-                  onPress={() => SlideOutAnim()}
-                >
-                  <Ionicons
-                    name="arrow-back-outline"
-                    size={30}
-                    color={GlobalStyles.primary.color}
-                  />
-                </TouchableOpacity>
+              <View style={styles.drawerHeader}>
+                <View style={{ width: 100 }}>
+                  <TouchableOpacity
+                    style={{ marginLeft: 10 }}
+                    onPress={() => SlideOutAnim()}
+                  >
+                    <Ionicons
+                      name="arrow-back-outline"
+                      size={30}
+                      color={GlobalStyles.primary.color}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
-              
+              <View style={styles.drawerBody}>      
+                <View style={styles.rowLink}>
+                  <AntDesign
+                    style={styles.icon}
+                    name="search1"
+                    size={24}
+                    color="#AAAAAA"
+                  />
+                  <Link style={styles.drawerLink} to={"/search"}>
+                    Recherche...
+                  </Link>
+                </View>
+                <View style={styles.rowLink}>
+                  <MaterialCommunityIcons
+                    style={styles.icon}
+                    name="checkbox-multiple-blank"
+                    size={24}
+                    color="#AAAAAA"
+                  />
+                  <Link style={styles.drawerLink} to={"/InterestOnLog"}>
+                    Vos intéréts
+                  </Link>
+                </View>
+              </View>
             </View>
-            <View style={styles.drawerBody}>
-            <View style={styles.rowLink}>
-            <MaterialCommunityIcons style={styles.icon} name="checkbox-multiple-blank" size={24} color="#AAAAAA" />
-            <Link style={styles.drawerLink} to={'/InterestOnLog'}>Vos intéréts</Link>
-            </View>
-            </View>
-            </View>
-            
-            <TouchableOpacity onPress={logout} style={{width:'100%', justifyContent:'center', height:80 , alignItems:'center'}}>
-            <Text style={styles.deconnexion}>Déconnexion</Text>
+
+            <TouchableOpacity
+              onPress={logout}
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                height: 80,
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.deconnexion}>Déconnexion</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -115,7 +138,7 @@ const styles = StyleSheet.create({
     height: "100%",
     position: "absolute",
     left: 0,
-    justifyContent:'space-between',
+    justifyContent: "space-between",
     backgroundColor: "white",
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
@@ -126,30 +149,34 @@ const styles = StyleSheet.create({
     height: 100,
     width: "100%",
   },
-  
 
-  drawerBody:{
-    width:'100%',
-    paddingHorizontal:15,
-    paddingVertical:50
+  drawerBody: {
+    width: "100%",
+    
+    paddingVertical: 50,
+   
   },
 
-  rowLink:{
-    flexDirection:'row',
+  rowLink: {
+    flexDirection: "row",
+    paddingVertical:12,
+    paddingHorizontal: 15,
+    borderBottomWidth:1,
+    borderColor: "#F4F4F4",
+    
   },
 
-  drawerLink:{
-    fontFamily:'Roboto',
-    fontSize:RFPercentage(2.7),
-    color:'#AAAAAA'
+  drawerLink: {
+    fontSize: RFPercentage(2.7),
+    color: "#AAAAAA",
   },
 
-  icon:{
-    marginRight:20
+  icon: {
+    marginRight: 20,
   },
 
-  deconnexion:{
-    color:GlobalStyles.primary.color,
-    fontSize: RFPercentage(2.9)
-  }
+  deconnexion: {
+    color: GlobalStyles.primary.color,
+    fontSize: RFPercentage(2.9),
+  },
 });

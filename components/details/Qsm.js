@@ -214,6 +214,7 @@ const styles = StyleSheet.create({
     fontFamily: "RobotoL",
     fontSize: RFPercentage(2.5),
     marginVertical: 5,
+    width:290
   },
 
   checkbox: {

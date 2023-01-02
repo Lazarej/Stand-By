@@ -1,14 +1,13 @@
 import { Asset } from "expo-asset";
-import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-SplashScreen.preventAutoHideAsync().catch(() => {});
+import AnimatedSplashScreen from "./AnimatedSplashScreen";
 
 export default function AnimatedAppLoader({ children, image }) {
     const [isSplashReady, setSplashReady] = useState(false);
   
     useEffect(() => {
+      console.log(image.uri)
       async function prepare() {
-        await Asset.fromURI(image.uri).downloadAsync();
         setSplashReady(true);
       }
   

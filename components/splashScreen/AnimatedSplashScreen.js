@@ -13,9 +13,9 @@ export default function AnimatedSplashScreen({ children, image }) {
     const [isAppReady, setAppReady] = useState(false);
     const [isSplashAnimationComplete, setAnimationComplete] = useState(false);
     const [fontsLoaded] = useFonts({
-        RobotoB: require("../assets/fonts/RobotoB.ttf"),
-        RobotoN: require("../assets/fonts/RobotoN.ttf"),
-        RobotoL: require("../assets/fonts/RobotoL.ttf"),
+        RobotoB: require("../../assets/fonts/RobotoB.ttf"),
+        RobotoN: require("../../assets/fonts/RobotoN.ttf"),
+        RobotoL: require("../../assets/fonts/RobotoL.ttf"),
       });
 
   
@@ -32,7 +32,7 @@ export default function AnimatedSplashScreen({ children, image }) {
     const onImageLoaded = useCallback(async () => {
       try {
         await SplashScreen.hideAsync();
-        // Load stuff
+        await Font.loadAsync(fontsLoaded);
         await Promise.all([fontsLoaded]);
       } catch (e) {
         // handle errors

@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-
 import LoginScreen from "../pages/notConnected/Login";
 import ForgotPasswordScreen from "../pages/notConnected/ForgotPassword";
 import SignupScreen from "../pages/notConnected/Signup";
@@ -15,8 +14,11 @@ import BottomTab from "./BottomTab";
 import Details from "../pages/connected/Details";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 import Constants from "expo-constants";
+import { View } from "react-native";
+import SearchScreen from "../pages/connected/Search";
 
 const Stack = createSharedElementStackNavigator();
+
 
 export default function Navigation() {
   const { user } = useContext(UserContext);
@@ -41,7 +43,7 @@ export default function Navigation() {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
-    return null;
+    return null
   }
 
   return (
@@ -49,6 +51,7 @@ export default function Navigation() {
       <Stack.Navigator
         screenOptions={{
           headerShadowVisible: false,
+          headerBackTitleVisible: false,
           initialRouteName: "BottomTab",
           headerStatusBarHeight: 40,
           headerTintColor: GlobalStyles.primary.color,
@@ -69,7 +72,7 @@ export default function Navigation() {
               <Stack.Screen
                 name="Interest"
                 component={InterestScreen}
-                options={{ title: "" }}
+                options={{ title: "", headerBackTitleVisible: false,}}
               />
             )}
 
@@ -78,18 +81,16 @@ export default function Navigation() {
               component={InterestScreen}
               options={{ title: "" }}
             />
-
+              <Stack.Screen
+                name="search"
+                component={SearchScreen}
+                options={{ title: "", headerBackTitleVisible: false,}}
+              />
             <Stack.Screen
               name="Details"
               component={Details}
               options={{ title: "", headerShown: false }}
             />
-
-            {/* <Stack.Screen
-              name="Test"
-              component={Test}
-              options={{ title:"" }}
-            /> */}
           </>
         ) : (
           <>
