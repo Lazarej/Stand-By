@@ -43,7 +43,6 @@ export default function ArticleScreen() {
           const data = await response.data.data[0];
 
           if (data !== undefined) {
-            console.log("push", data);
             userData.push(data);
           }
         } catch (error) {
@@ -56,7 +55,6 @@ export default function ArticleScreen() {
   };
 
   const getArticles = async () => {
-    console.log(index);
     try {
       const response = await axios.get(
         `${_URL}/api/articles?populate=*&filters[interet][type][$contains]=${routes[index].key}`,

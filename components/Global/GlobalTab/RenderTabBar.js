@@ -17,7 +17,7 @@ import {  TabBar } from "react-native-tab-view";
           scrollEnabled={true}
           tabStyle={{ width: "auto" }}
           style={{
-            backgroundColor: "#fff",
+            backgroundColor: "transparent",
             elevation: 0,
             height: 45,
             width: "auto",

@@ -35,8 +35,8 @@ export default function BottomTab() {
         tabBarInactiveTintColor: 'black',
         tabBarActiveTintColor: GlobalStyles.primary.backgroundColor,
         tabBarShowLabel:false,
-        tabBarStyle: { paddingHorizontal:25,
-        height:'10%',
+        headerStyle: {
+        height:100,
        },
       }}
     >
@@ -82,10 +82,22 @@ export default function BottomTab() {
         }}
       />
       <Tab.Screen
-        name="Search"
+        name="Vidéos"
         component={Modules}
         options={{
-          headerShown: false ,
+          headerTitleStyle:{
+             fontSize: RFPercentage(3.5),
+             fontFamily:'RobotoB',
+             textTransform: 'uppercase', 
+             color:'white'
+          },
+          headerStyle:{
+             backgroundColor: GlobalStyles.primary.color,
+             height:100,    
+             borderWidth: 0,
+             elevation: 0,
+             shadowOpacity: 0,
+          },
           tabBarIcon: ({color}) => (
             <MaterialIcons name="ondemand-video" size={28} color={color} />
           ),
