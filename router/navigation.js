@@ -16,6 +16,7 @@ import { createSharedElementStackNavigator } from "react-navigation-shared-eleme
 import Constants from "expo-constants";
 import { View } from "react-native";
 import SearchScreen from "../pages/connected/Search";
+import DetailModule from "../pages/connected/videos/DetailsModule";
 
 const Stack = createSharedElementStackNavigator();
 
@@ -89,6 +90,11 @@ export default function Navigation() {
             <Stack.Screen
               name="Details"
               component={Details}
+              options={{ title: "", headerShown: false }}
+            />
+            <Stack.Screen
+              name="DetailsModule"
+              component={DetailModule}
               options={{ title: "", headerShown: false }}
             />
           </>

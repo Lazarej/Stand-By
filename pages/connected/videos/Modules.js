@@ -10,8 +10,11 @@ import { useContext } from "react";
 import { UserContext } from "../../../store/User";
 import axios from "axios";
 import { _URL } from "../../../globalVar/url";
+import { useNavigation } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Modules() {
+  const navigation = useNavigation();
   const { user } = useContext(UserContext);
   const [index, setIndex] = useState(0); 
   const [modulesState, setModulesState] = useState([]);
@@ -116,7 +119,13 @@ export default function Modules() {
               isLoading={isLoading}
               data={modulesState}
               component={({ item }) => (
-                  <Text>{ item.attributes.title}</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('DetailsModule', {
+                  item: item.attributes
+                })}
+                >
+                  <Text style={{marginVertical:10}}>{ item.attributes.title}</Text>
+                </TouchableOpacity>
               )}
               loader={<Loader />}
               noResult={
