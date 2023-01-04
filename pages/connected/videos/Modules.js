@@ -121,7 +121,8 @@ export default function Modules() {
               component={({ item }) => (
                 <TouchableOpacity
                   onPress={() => navigation.navigate('DetailsModule', {
-                  item: item.attributes
+                    item: item.attributes,
+                    id: item.id
                 })}
                 >
                   <Text style={{marginVertical:10}}>{ item.attributes.title}</Text>

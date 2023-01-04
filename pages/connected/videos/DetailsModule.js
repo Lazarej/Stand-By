@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { SharedElement } from "react-navigation-shared-element";
@@ -10,33 +10,38 @@ import Wrapper from "../../../components/Global/Wrapper";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import Signataire from "../../../components/details/Signataire";
 import axios from "axios";
-import { _URL } from "../../../globalVar/url";
+import { useContext } from "react";
+import { UserContext } from "../../../store/User";
+
+import VideoCard from "../../../components/Global/Card/VideoCard";
 
 export default function DetailModule({ navigation }) {
   const route = useRoute();
 
-    useEffect(() => {
-        console.log('par' ,route.params.item.id)
-       const getModule = async() => {
-          try {
-          const response = await axios.get(
-            `${_URL}/api/modules?populate=*`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${user.token}`,
-              },
-            }
-              );
-              const data = await response.data.data;
-              console.log('data', data)
-        } catch (error) {
-          console.error(error);
-        }
-    
-    setLoading((prev) => (prev = false));
-        }
-        getModule()
+  const { user } = useContext(UserContext);
+  const [video, setVideo] = useState([]);
+
+  useEffect(() => {
+    const getModule = async () => {
+      try {
+        const response = await axios.get(
+          `${_URL}/api/modules/${route.params.id}?populate[video][populate]=*`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        const data = await response.data.data;
+        setVideo(
+          (prev) => (prev = data.attributes.video)
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getModule();
   });
 
   return (
@@ -76,14 +81,11 @@ export default function DetailModule({ navigation }) {
           />
         </View>
         <View>
-           <FlatList
-            style={{ paddingTop: 20 }}
-            showsVerticalScrollIndicator={false}
-            // data={}
-            // renderItem={({ item }) => (
-            // //   <NewsCard element={item} key={item.id}></NewsCard>
-            // )}
-          />
+          {
+            video.map((item, index) => (
+              <VideoCard key={index} item={item} />
+            ))
+         }
         </View>
       </Wrapper>
     </ScrollView>
@@ -142,4 +144,6 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(3.5),
     marginBottom: 15,
   },
+
+
 });
