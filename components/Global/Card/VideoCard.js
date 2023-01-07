@@ -1,69 +1,65 @@
-import { Modal, StyleSheet, Text, View } from "react-native";
+import { Button, Image, Modal, StyleSheet, Text,View } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { ResizeMode, AVPlaybackStatus, Video } from "expo-av";
+import { Video } from "expo-av";
 import { _URL } from "../../../globalVar/url";
 import { useEffect, useRef, useState } from "react";
-import { color } from "react-native-reanimated";
 import GlobalStyles from "../../../style/GlobalStyles";
-import ModalGlobal from "../Modal";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import VideoPlayer from "expo-video-player";
-import { AntDesign } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import Slider from "@react-native-community/slider";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function VideoCard(props) {
   const video = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState({});
-  const [videoTime, setVideoTime] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isBuffering, setIsBuffering] = useState(false);
-  const [videoMilli, setVideoMilli] = useState(0)
+  const [playerOpen, setPlayerOpen] = useState(false)
+  const [videoMilli, setVideoMilli] = useState(0);
   const [progressIndicator, setProgressIndicator] = useState(0);
 
-  useEffect(() => {
-    console.log(((status.positionMillis / status.durationMillis) * 100).toFixed(2))
-    if (status.isLoaded === true) {
-      convertMillisecondsToTime(status.durationMillis);
-    }
-  }, [progressIndicator]);
-
-  const convertMillisecondsToTime = (milliseconds) => {
-    var minutes = Math.floor(milliseconds / 60000);
-    var seconds = ((milliseconds % 60000) / 1000).toFixed(0);
-    if (seconds < 10) {
-      seconds = "0" + seconds;
-    }
-    setVideoTime((prev) => (prev = `${minutes}: ${seconds}`));
-    setLoading((prev) => (prev = false));
-  };
+  useEffect(() => {}, [progressIndicator]);
 
   const quitVideo = () => {
     setProgressIndicator(
-      (prev) => (prev =  ((status.positionMillis / status.durationMillis) * 100).toFixed(2))
+      (prev) =>
+        (prev = ((status.positionMillis / status.durationMillis) * 100).toFixed(
+          2
+        ))
     );
-    setVideoMilli( prev => prev = status.positionMillis)
-   
+    setVideoMilli((prev) => (prev = status.positionMillis));
+
     setIsOpen(false);
   };
 
- const  openVideo = () => {
-   setIsOpen(true)
-   if (isOpen === true) {
-     console.log(status.positionMillis)
-   }
+  const openVideo = () => {
+    setIsOpen(true);
+    if (isOpen === true) {
+      console.log(status.positionMillis);
+    }
+  };
+
+  const updateVideoMilli = (value) => {
+    video.current.playFromPositionAsync(value);
+  };
+
+  const displayPlayer = () => {
+    setPlayerOpen(prev => prev =! prev)
   }
 
   return (
-    <TouchableOpacity onPress={() => openVideo( )} style={styles.card}>
-      <View style={styles.image}></View>
+    <TouchableOpacity onPress={() => openVideo()} style={styles.card}>
+      <Image
+        style={styles.image}
+        source={{
+          uri: `${_URL}${props.item.image.data.attributes.url}`,
+        }}
+      />
       <View style={styles.infoCont}>
         <View>
           <Text style={styles.title}>{props.item.title}</Text>
 
           <Text style={{ ...GlobalStyles.text, fontSize: RFPercentage(2.1) }}>
-            {videoTime} min
+            {props.item.time} min
           </Text>
         </View>
         <View style={styles.progress}>
@@ -77,45 +73,132 @@ export default function VideoCard(props) {
           ></View>
         </View>
       </View>
-      <Modal
+      
+         <Modal
         animationType="fade"
         transparent={true}
         visible={isOpen}
         statusBarTranslucent
+        style={{ position: 'relative' }}
       >
-        <AntDesign
-          onPress={() => quitVideo()}
-          style={{
-            position: "absolute",
-            top: 30,
-            left: 20,
-            zIndex: 10,
-            width: 50,
-            height: 50,
-          }}
-          name="close"
-          size={28}
-          color="white"
-        />
-
-        <Video
+        <TouchableOpacity
+         onPressIn={() => displayPlayer()}
+        >
+              <Video
+          
           ref={video}
           source={{ uri: `${_URL}${props.item.media.data.attributes.url}` }}
           resizeMode="cover"
           fullscreen={false}
           shouldPlay
           positionMillis={videoMilli}
-          useNativeControls
+          useNativeControls={false}
           onError={(error) => console.log(error)}
-          onLoad={() => ''}
-          onLoadStart={() => ''}
+          onLoad={() => console.log("load")}
+          onLoadStart={() => ""}
           onPlaybackStatusUpdate={(status) => {
             setStatus((prev) => (prev = status));
           }}
-          style={styles.video}
+          style={{height: '100%',}}
         />
+      </TouchableOpacity>
+        {
+          playerOpen ? 
+            <View style={styles.player}>
+          <View style={styles.playerTop}>
+            <LinearGradient
+              style={{ height: "100%", width: "100%" }}
+              colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.6)", "rgba(0,0,0,1)"]}
+              start={{ x: 0, y: 1 }}
+              end={{ x: 0, y: 0 }}
+              locations={[0.1, 0.5, 1]}
+            />
+            <Ionicons
+              onPress={() => quitVideo()}
+              style={{
+                position: "absolute",
+                marginLeft: 10,
+              }}
+              name="arrow-back-outline"
+              size={28}
+              color="white"
+            />
+          </View>
+          <View style={styles.playerBottom}>
+            <LinearGradient
+              style={{ height: "100%", width: "100%" }}
+              colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.6)", "rgba(0,0,0,1)"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 0, y: 1 }}
+              locations={[0.1, 0.5, 1]}
+            />
+            <View style={styles.contentBottom}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  width: 150,
+                  height: 35,
+                }}
+              >
+                <Ionicons
+                  name="play-skip-forward"
+                  size={24}
+                  color="white"
+                  style={{ transform: [{ rotateY: "180deg" }] }}
+                  onPress={() =>
+                    video.current.playFromPositionAsync(
+                      status.positionMillis - 5000
+                    )
+                  }
+                />
+
+                {status.isPlaying ? (
+                  <Ionicons
+                    name="pause"
+                    size={36}
+                    color="white"
+                    onPress={() => video.current.pauseAsync()}
+                  />
+                ) : (
+                  <Ionicons
+                    name="play"
+                    size={36}
+                    color="white"
+                    onPress={() => video.current.playAsync()}
+                  />
+                )}
+                <Ionicons
+                  name="play-skip-forward"
+                  size={24}
+                  color="white"
+                  onPress={() =>
+                    video.current.playFromPositionAsync(
+                      status.positionMillis + 5000
+                    )
+                  }
+                />
+              </View>
+              <Slider
+                style={{
+                  width: 300,
+                  height: 40,
+                }}
+                minimumTrackTintColor={GlobalStyles.primary.color}
+                minimumValue={0}
+                maximumValue={status.durationMillis}
+                value={status.positionMillis}
+                onSlidingComplete={(value) => updateVideoMilli(value)}
+                maximumTrackTintColor={"white"}
+                thumbTintColor={"white"}
+              />
+            </View>
+          </View>
+        </View> : null
+        }
       </Modal>
-    </TouchableOpacity>
+      </TouchableOpacity>
   );
 }
 
@@ -164,7 +247,31 @@ const styles = StyleSheet.create({
     // backgroundColor:'#F1F1F1'
   },
 
-  video: {
-    minHeight: "100%",
+  player: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    height: "100%",
+    width: "100%",
+    zIndex: 10,
+    backgroundColor: "rgba(0,0,0,0.2)",
+    justifyContent: "space-between",
+  },
+
+  playerTop: {
+    height: "20%",
+    justifyContent: "center",
+  },
+
+  playerBottom: {
+    height: "20%",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+
+  contentBottom: {
+    position: "absolute",
+    bottom: 30,
+    alignItems: "center",
   },
 });
