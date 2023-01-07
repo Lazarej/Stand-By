@@ -1,4 +1,4 @@
-import { Button, Image, Modal, StyleSheet, Text,View } from "react-native";
+import { Animated, Image, Modal, StyleSheet, Text, View } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Video } from "expo-av";
 import { _URL } from "../../../globalVar/url";
@@ -9,11 +9,13 @@ import { Ionicons } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
 import { LinearGradient } from "expo-linear-gradient";
 
+
 export default function VideoCard(props) {
   const video = useRef(null);
+  const playerAnim = useRef( new Animated.Value(0)).current
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState({});
-  const [playerOpen, setPlayerOpen] = useState(false)
+  const [playerOpen, setPlayerOpen] = useState(false);
   const [videoMilli, setVideoMilli] = useState(0);
   const [progressIndicator, setProgressIndicator] = useState(0);
 
@@ -27,7 +29,7 @@ export default function VideoCard(props) {
         ))
     );
     setVideoMilli((prev) => (prev = status.positionMillis));
-
+     setPlayerOpen(false)
     setIsOpen(false);
   };
 
@@ -43,8 +45,8 @@ export default function VideoCard(props) {
   };
 
   const displayPlayer = () => {
-    setPlayerOpen(prev => prev =! prev)
-  }
+    setPlayerOpen((prev) => (prev = !prev))
+  };
 
   return (
     <TouchableOpacity onPress={() => openVideo()} style={styles.card}>
@@ -73,132 +75,146 @@ export default function VideoCard(props) {
           ></View>
         </View>
       </View>
-      
-         <Modal
+
+      <Modal
         animationType="fade"
         transparent={true}
         visible={isOpen}
         statusBarTranslucent
-        style={{ position: 'relative' }}
+        style={{ position: "relative" }}
       >
-        <TouchableOpacity
-         onPressIn={() => displayPlayer()}
-        >
-              <Video
-          
-          ref={video}
-          source={{ uri: `${_URL}${props.item.media.data.attributes.url}` }}
-          resizeMode="cover"
-          fullscreen={false}
-          shouldPlay
-          positionMillis={videoMilli}
-          useNativeControls={false}
-          onError={(error) => console.log(error)}
-          onLoad={() => console.log("load")}
-          onLoadStart={() => ""}
-          onPlaybackStatusUpdate={(status) => {
-            setStatus((prev) => (prev = status));
-          }}
-          style={{height: '100%',}}
-        />
-      </TouchableOpacity>
-        {
-          playerOpen ? 
-            <View style={styles.player}>
-          <View style={styles.playerTop}>
-            <LinearGradient
-              style={{ height: "100%", width: "100%" }}
-              colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.6)", "rgba(0,0,0,1)"]}
-              start={{ x: 0, y: 1 }}
-              end={{ x: 0, y: 0 }}
-              locations={[0.1, 0.5, 1]}
-            />
-            <Ionicons
-              onPress={() => quitVideo()}
-              style={{
-                position: "absolute",
-                marginLeft: 10,
-              }}
-              name="arrow-back-outline"
-              size={28}
-              color="white"
-            />
-          </View>
-          <View style={styles.playerBottom}>
-            <LinearGradient
-              style={{ height: "100%", width: "100%" }}
-              colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.6)", "rgba(0,0,0,1)"]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              locations={[0.1, 0.5, 1]}
-            />
-            <View style={styles.contentBottom}>
+        <TouchableOpacity onPressIn={() => displayPlayer()}>
+          <Video
+            ref={video}
+            source={{ uri: `${_URL}${props.item.media.data.attributes.url}` }}
+            resizeMode="cover"
+            fullscreen={false}
+            shouldPlay
+            positionMillis={videoMilli}
+            useNativeControls={false}
+            onError={(error) => console.log(error)}
+            onLoad={() => console.log("load")}
+            onLoadStart={() => ""}
+            onPlaybackStatusUpdate={(status) => {
+              setStatus((prev) => (prev = status));
+            }}
+            style={{ height: "100%" }}
+          />
+        </TouchableOpacity>
+        {playerOpen ? (
+          <View style={{...styles.player}}>
+            <TouchableOpacity onPressIn={() => setPlayerOpen(false)}>
               <View
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
+                  height: "100%",
+                  width: "100%",
                   justifyContent: "space-between",
-                  width: 150,
-                  height: 35,
                 }}
               >
-                <Ionicons
-                  name="play-skip-forward"
-                  size={24}
-                  color="white"
-                  style={{ transform: [{ rotateY: "180deg" }] }}
-                  onPress={() =>
-                    video.current.playFromPositionAsync(
-                      status.positionMillis - 5000
-                    )
-                  }
-                />
+                <View style={styles.playerTop}>
+                  <LinearGradient
+                    style={{ height: "100%", width: "100%" }}
+                    colors={[
+                      "rgba(0,0,0,0)",
+                      "rgba(0,0,0,0.6)",
+                      "rgba(0,0,0,1)",
+                    ]}
+                    start={{ x: 0, y: 1 }}
+                    end={{ x: 0, y: 0 }}
+                    locations={[0.1, 0.5, 1]}
+                  />
+                  <Ionicons
+                    onPress={() => quitVideo()}
+                    style={{
+                      position: "absolute",
+                      marginLeft: 10,
+                    }}
+                    name="arrow-back-outline"
+                    size={28}
+                    color="white"
+                  />
+                </View>
+                <View style={styles.playerBottom}>
+                  <LinearGradient
+                    style={{ height: "100%", width: "100%" }}
+                    colors={[
+                      "rgba(0,0,0,0)",
+                      "rgba(0,0,0,0.6)",
+                      "rgba(0,0,0,1)",
+                    ]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 0, y: 1 }}
+                    locations={[0.1, 0.5, 1]}
+                  />
+                  <View style={styles.contentBottom}>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        width: 150,
+                        height: 35,
+                      }}
+                    >
+                      <Ionicons
+                        name="play-skip-forward"
+                        size={24}
+                        color="white"
+                        style={{ transform: [{ rotateY: "180deg" }] }}
+                        onPress={() =>
+                          video.current.playFromPositionAsync(
+                            status.positionMillis - 5000
+                          )
+                        }
+                      />
 
-                {status.isPlaying ? (
-                  <Ionicons
-                    name="pause"
-                    size={36}
-                    color="white"
-                    onPress={() => video.current.pauseAsync()}
-                  />
-                ) : (
-                  <Ionicons
-                    name="play"
-                    size={36}
-                    color="white"
-                    onPress={() => video.current.playAsync()}
-                  />
-                )}
-                <Ionicons
-                  name="play-skip-forward"
-                  size={24}
-                  color="white"
-                  onPress={() =>
-                    video.current.playFromPositionAsync(
-                      status.positionMillis + 5000
-                    )
-                  }
-                />
+                      {status.isPlaying ? (
+                        <Ionicons
+                          name="pause"
+                          size={36}
+                          color="white"
+                          onPress={() => video.current.pauseAsync()}
+                        />
+                      ) : (
+                        <Ionicons
+                          name="play"
+                          size={36}
+                          color="white"
+                          onPress={() => video.current.playAsync()}
+                        />
+                      )}
+                      <Ionicons
+                        name="play-skip-forward"
+                        size={24}
+                        color="white"
+                        onPress={() =>
+                          video.current.playFromPositionAsync(
+                            status.positionMillis + 5000
+                          )
+                        }
+                      />
+                    </View>
+                    <Slider
+                      style={{
+                        width: 300,
+                        height: 40,
+                      }}
+                      minimumTrackTintColor={GlobalStyles.primary.color}
+                      minimumValue={0}
+                      maximumValue={status.durationMillis}
+                      value={status.positionMillis}
+                      onSlidingComplete={(value) => updateVideoMilli(value)}
+                      maximumTrackTintColor={"white"}
+                      thumbTintColor={"white"}
+                    />
+                  </View>
+                </View>
               </View>
-              <Slider
-                style={{
-                  width: 300,
-                  height: 40,
-                }}
-                minimumTrackTintColor={GlobalStyles.primary.color}
-                minimumValue={0}
-                maximumValue={status.durationMillis}
-                value={status.positionMillis}
-                onSlidingComplete={(value) => updateVideoMilli(value)}
-                maximumTrackTintColor={"white"}
-                thumbTintColor={"white"}
-              />
-            </View>
+            </TouchableOpacity>
           </View>
-        </View> : null
-        }
+        ) : null}
       </Modal>
-      </TouchableOpacity>
+    </TouchableOpacity>
   );
 }
 
@@ -255,7 +271,6 @@ const styles = StyleSheet.create({
     width: "100%",
     zIndex: 10,
     backgroundColor: "rgba(0,0,0,0.2)",
-    justifyContent: "space-between",
   },
 
   playerTop: {
