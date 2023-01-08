@@ -1,4 +1,4 @@
-import { Animated, Image, Modal, StyleSheet, Text, View } from "react-native";
+import { Image, Modal, StyleSheet, Text, View } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Video } from "expo-av";
 import { _URL } from "../../../globalVar/url";
@@ -8,12 +8,14 @@ import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
 import { LinearGradient } from "expo-linear-gradient";
-
+import AnimatedLottieView from "lottie-react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 export default function VideoCard(props) {
   const video = useRef(null);
-  const playerAnim = useRef( new Animated.Value(0)).current
   const [isOpen, setIsOpen] = useState(false);
+  const [videoPause, setVideoPause] = useState(false);
   const [status, setStatus] = useState({});
   const [playerOpen, setPlayerOpen] = useState(false);
   const [videoMilli, setVideoMilli] = useState(0);
@@ -29,34 +31,47 @@ export default function VideoCard(props) {
         ))
     );
     setVideoMilli((prev) => (prev = status.positionMillis));
-     setPlayerOpen(false)
+    setPlayerOpen(false);
     setIsOpen(false);
-  };
-
-  const openVideo = () => {
-    setIsOpen(true);
-    if (isOpen === true) {
-      console.log(status.positionMillis);
-    }
   };
 
   const updateVideoMilli = (value) => {
     video.current.playFromPositionAsync(value);
   };
 
+  const onLoad = () => {
+    if (status.durationMillis !== status.positionMillis) {
+      video.current.playFromPositionAsync(videoMilli);
+    } else {
+      video.current.playFromPositionAsync(0);
+    }
+  };
+
   const displayPlayer = () => {
-    setPlayerOpen((prev) => (prev = !prev))
+    setPlayerOpen((prev) => (prev = !prev));
+  };
+
+  const play = async () => {
+    await video.current.playAsync();
+    if (status.isPlaying) {
+      setVideoPause(false);
+    }
+  };
+
+  const pause = () => {
+    setVideoPause(true);
+    video.current.pauseAsync();
   };
 
   return (
-    <TouchableOpacity onPress={() => openVideo()} style={styles.card}>
+    <TouchableOpacity onPress={() => setIsOpen(true)} style={styles.card}>
       <Image
         style={styles.image}
         source={{
           uri: `${_URL}${props.item.image.data.attributes.url}`,
         }}
       />
-      <View style={styles.infoCont}>
+      <View style={{ ...styles.infoCont }}>
         <View>
           <Text style={styles.title}>{props.item.title}</Text>
 
@@ -90,10 +105,9 @@ export default function VideoCard(props) {
             resizeMode="cover"
             fullscreen={false}
             shouldPlay
-            positionMillis={videoMilli}
             useNativeControls={false}
             onError={(error) => console.log(error)}
-            onLoad={() => console.log("load")}
+            onLoad={() => onLoad()}
             onLoadStart={() => ""}
             onPlaybackStatusUpdate={(status) => {
               setStatus((prev) => (prev = status));
@@ -101,8 +115,9 @@ export default function VideoCard(props) {
             style={{ height: "100%" }}
           />
         </TouchableOpacity>
+
         {playerOpen ? (
-          <View style={{...styles.player}}>
+          <View style={{ ...styles.player }}>
             <TouchableOpacity onPressIn={() => setPlayerOpen(false)}>
               <View
                 style={{
@@ -168,21 +183,31 @@ export default function VideoCard(props) {
                         }
                       />
 
-                      {status.isPlaying ? (
-                        <Ionicons
-                          name="pause"
-                          size={36}
-                          color="white"
-                          onPress={() => video.current.pauseAsync()}
-                        />
+                      {status.durationMillis !== status.positionMillis ? (
+                        status.isPlaying ? (
+                          <Ionicons
+                            name="pause"
+                            size={36}
+                            color="white"
+                            onPress={() => pause()}
+                          />
+                        ) : (
+                          <Ionicons
+                            name="play"
+                            size={36}
+                            color="white"
+                            onPress={() => play()}
+                          />
+                        )
                       ) : (
-                        <Ionicons
-                          name="play"
+                        <MaterialCommunityIcons
+                          name="replay"
                           size={36}
                           color="white"
-                          onPress={() => video.current.playAsync()}
+                          onPress={() => video.current.playFromPositionAsync(0)}
                         />
                       )}
+
                       <Ionicons
                         name="play-skip-forward"
                         size={24}
@@ -212,6 +237,16 @@ export default function VideoCard(props) {
               </View>
             </TouchableOpacity>
           </View>
+        ) : null}
+        {status.isPlaying !== true &&
+        videoPause !== true &&
+        status.positionMillis !== status.durationMillis ? (
+          <AnimatedLottieView
+            styles={{ position: "absolute", zIndex: 10000 }}
+            source={require("../../../assets/lotties/97203-loader.json")}
+            autoPlay
+            loop
+          />
         ) : null}
       </Modal>
     </TouchableOpacity>
@@ -270,7 +305,6 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     zIndex: 10,
-    backgroundColor: "rgba(0,0,0,0.2)",
   },
 
   playerTop: {
