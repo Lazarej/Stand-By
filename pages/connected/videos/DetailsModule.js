@@ -12,37 +12,53 @@ import Signataire from "../../../components/details/Signataire";
 import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../../../store/User";
-
+import { Entypo } from '@expo/vector-icons';
 import VideoCard from "../../../components/Global/Card/VideoCard";
+import { isLoading } from "expo-font";
 
 export default function DetailModule({ navigation }) {
   const route = useRoute();
 
   const { user } = useContext(UserContext);
   const [video, setVideo] = useState([]);
+  const [moduleTime, setModuleTime] = useState(``)
+   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const getModule = async () => {
-      try {
-        const response = await axios.get(
-          `${_URL}/api/modules/${route.params.id}?populate[video][populate]=*`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
-        const data = await response.data.data;
-        setVideo(
-          (prev) => (prev = data.attributes.video)
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    };
     getModule();
+    convertMinutesToHours()
   });
+
+  const getModule = async () => {
+    try {
+      const response = await axios.get(
+        `${_URL}/api/modules/${route.params.id}?populate[video][populate]=*`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      const data = await response.data.data;
+      setVideo((prev) => (prev = data.attributes.video));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const convertMinutesToHours = async (minutes) => {
+    const array = video.map((item) => {
+      return parseInt(item.time)
+    })
+    const totalMinutes = array.reduce((prev, next) => {
+      return prev + next
+    })
+    const hours = Math.floor(totalMinutes / 60);
+    const remainingMinutes = totalMinutes % 60;
+    setModuleTime(prev => prev = `${hours}h ${remainingMinutes}`)
+    setLoading(false)
+  }
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -80,12 +96,19 @@ export default function DetailModule({ navigation }) {
             format="mini"
           />
         </View>
+        <View style={styles.rowInfo}>
+          <Text style={styles.videoLength}>{video.length} vidéos</Text>
+    
+          <View style={{ flexDirection:'row', alignItems:'baseline'}}>
+            <Entypo style={{marginRight:5}} name="time-slot" size={18} color="#AAAAAA" />
+            <Text style={{fontSize: RFPercentage(2.2), ...GlobalStyles.text , }}>{moduleTime}</Text> 
+      </View>
+       
+        </View>
         <View>
-          {
-            video.map((item, index) => (
-              <VideoCard key={index} item={item} />
-            ))
-         }
+          {video.map((item, index) => (
+            <VideoCard key={index} item={item} />
+          ))}
         </View>
       </Wrapper>
     </ScrollView>
@@ -145,5 +168,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 
+  rowInfo: {
+    flexDirection: "row",
+    marginVertical: 30,
+    justifyContent: "space-between",
+  },
 
+  videoLength: {
+    fontFamily: "RobotoB",
+    fontSize: RFPercentage(3),
+  },
 });

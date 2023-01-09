@@ -99,7 +99,10 @@ export default function Modules() {
     };
   }, [index]);
     
-    
+
+  const checkIndexIsEven = (n) => {
+    return n % 3 == 0;
+  }
 
     return (
     <View style={{ backgroundColor: GlobalStyles.primary.color, flex: 1 }}>
@@ -118,14 +121,14 @@ export default function Modules() {
               route={route}
               isLoading={isLoading}
               data={modulesState}
-              component={({ item }) => (
+              component={({ item, index }) => (
                 <TouchableOpacity
                   onPress={() => navigation.navigate('DetailsModule', {
                     item: item.attributes,
                     id: item.id
                 })}
                 >
-                  <Text style={{marginVertical:10}}>{ item.attributes.title}</Text>
+                  <Text style={  checkIndexIsEven(index) ? {marginVertical:10, color:'red'} : {marginVertical:10, color:'blue'} }>{ item.attributes.title}</Text>
                 </TouchableOpacity>
               )}
               loader={<Loader />}
