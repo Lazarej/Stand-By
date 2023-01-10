@@ -12,7 +12,8 @@ export default function RenderScene(props) {
           <NoResult title={props.noResult} />
         ) : (
           <FlatList
-            style={{ paddingTop: 20 }}
+      
+             contentContainerStyle={{ paddingVertical: 30 }}
             showsVerticalScrollIndicator={false}
             data={props.data}
             renderItem={props.component}

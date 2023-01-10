@@ -54,7 +54,8 @@ export const UserStore = ({children}) => {
         token: response.data.jwt,
         login: true,
         userLikesCategories:[],
-        favorites:[], 
+        favorites: [], 
+        moduleList:[]
       });
     } catch (e) {
       console.error(e);

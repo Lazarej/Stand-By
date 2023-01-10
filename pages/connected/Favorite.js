@@ -24,7 +24,6 @@ export default function FavoriteScreen() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('fav',user.favorites)
     getUserCat();
     if (index === 0) {
       setFavoritesState((prev) => (prev = user.favorites));

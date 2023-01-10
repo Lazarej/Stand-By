@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, Text, StyleSheet} from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { TabView } from "react-native-tab-view";
 import RenderScene from "../../../components/Global/GlobalTab/RenderScene";
@@ -10,17 +10,16 @@ import { useContext } from "react";
 import { UserContext } from "../../../store/User";
 import axios from "axios";
 import { _URL } from "../../../globalVar/url";
-import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import ModuleCard from "../../../components/Global/Card/ModuleCard";
 
 export default function Modules() {
-  const navigation = useNavigation();
+  const windowWidth = Dimensions.get("window").width;
   const { user } = useContext(UserContext);
-  const [index, setIndex] = useState(0); 
+  const [index, setIndex] = useState(0);
   const [modulesState, setModulesState] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [routes, setRoutes] = useState([
-     {
+    {
       key: "tous",
       title: "Tous",
       color: GlobalStyles.primary.color,
@@ -36,28 +35,26 @@ export default function Modules() {
       color: GlobalStyles.primary.color,
     },
   ]);
-    
-    const getModule = async() => {
-          try {
-          const response = await axios.get(
-            `${_URL}/api/modules?populate=*`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${user.token}`,
-              },
-            }
-              );
-              const data = await response.data.data;
-              setModulesState((prev) => (prev = data));
-        } catch (error) {
-          console.error(error);
-        }
-    
-    setLoading((prev) => (prev = false));
+
+  const getModule = async () => {
+    try {
+      const response = await axios.get(`${_URL}/api/modules?populate=*`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const data = await response.data.data;
+      const chunkedArray = chunkArray(data, 2);
+      setModulesState((prev) => (prev = chunkedArray));
+    } catch (error) {
+      console.error(error);
     }
 
-    const getModulesByInterest = async() => {
+    setLoading((prev) => (prev = false));
+  };
+
+  const getModulesByInterest = async () => {
     let userData = [];
     await Promise.all(
       user.interests.map(async (interest) => {
@@ -81,66 +78,92 @@ export default function Modules() {
         }
       })
     );
-    setModulesState((prev) => (prev = userData));
+    const chunkedArray = chunkArray(userData, 2);
+    setModulesState((prev) => (prev = chunkedArray));
     setLoading((prev) => (prev = false));
-    }
+  };
 
   useEffect(() => {
     if (index === 0) {
-        getModule();  
-      } if (index === 2) {
-        getModulesByInterest() 
-      } else {
-         
+      getModule();
+    }
+    if (index === 2) {
+      getModulesByInterest();
+    } else {
     }
     return () => {
       setModulesState((prev) => (prev = []));
       setLoading((prev) => (prev = true));
     };
   }, [index]);
-    
 
   const checkIndexIsEven = (n) => {
-    return n % 3 == 0;
-  }
+    return n % 2 == 0;
+  };
 
-    return (
+  const chunkArray = (array, chunkSize) => {
+    return array
+      .map((item, index) => {
+        return index % chunkSize === 0
+          ? array.slice(index, index + chunkSize)
+          : null;
+      })
+      .filter((item) => item);
+  };
+
+  return (
     <View style={{ backgroundColor: GlobalStyles.primary.color, flex: 1 }}>
       <View style={styles.headerCont}>
         <Text style={styles.headerTitle}>Prêt pour apprendre ?</Text>
         <Text style={styles.headerText}>Choissisez votre sujet</Text>
       </View>
-      <View style={styles.bodyCont}>
-                <TabView
-                    style={{backgroundColor:'transparent'}}
-          navigationState={{ index, routes }}
-          renderScene={({ route }) => (
-            <RenderScene
-              index={index}
-              routes={routes}
-              route={route}
-              isLoading={isLoading}
-              data={modulesState}
-              component={({ item, index }) => (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('DetailsModule', {
-                    item: item.attributes,
-                    id: item.id
-                })}
-                >
-                  <Text style={  checkIndexIsEven(index) ? {marginVertical:10, color:'red'} : {marginVertical:10, color:'blue'} }>{ item.attributes.title}</Text>
-                </TouchableOpacity>
-              )}
-              loader={<Loader />}
-              noResult={
-                "Oups nous n'avons pas encore de contenu pour cette catégorie"
-              }
-            />
-          )}
-          renderTabBar={(props) => <RenderTabBar {...props} />}
-          onIndexChange={setIndex}    
-        />
-      </View>
+      <TabView
+        style={{
+          backgroundColor: "white",
+          borderTopLeftRadius: 55,
+          borderTopRightRadius: 55,
+        }}
+        navigationState={{ index, routes }}
+        renderScene={({ route }) => (
+          <RenderScene
+            index={index}
+            routes={routes}
+            route={route}
+            isLoading={isLoading}
+            data={modulesState}
+            component={({ item, index }) => (
+              <View
+                style={
+                  checkIndexIsEven(index)
+                    ? {
+                        ...styles.rowOne,
+                        height: windowWidth / 2.5,
+                      }
+                    : {
+                        ...styles.rowTwo,
+                        height: windowWidth / 2.5,
+                      }
+                }
+              >
+                {item.map((mod, index) => (
+                  <ModuleCard
+                    key={index}
+                    index={index}
+                    item={mod}
+                    checkIndexIsEven={(index) => checkIndexIsEven(index)}
+                  />
+                ))}
+              </View>
+            )}
+            loader={<Loader />}
+            noResult={
+              "Oups nous n'avons pas encore de contenu pour cette catégorie"
+            }
+          />
+        )}
+        renderTabBar={(props) => <RenderTabBar {...props} />}
+        onIndexChange={setIndex}
+      />
     </View>
   );
 }
@@ -169,5 +192,19 @@ const styles = StyleSheet.create({
     minHeight: 800,
     borderTopLeftRadius: 55,
     borderTopRightRadius: 55,
+  },
+
+  rowOne: {
+    flexDirection: "row",
+    marginVertical: 10,
+    justifyContent: "space-between",
+  },
+
+  rowTwo: {
+    flexDirection: "row-reverse",
+    alignItems: "flex-end",
+
+    marginVertical: 10,
+    justifyContent: "space-between",
   },
 });

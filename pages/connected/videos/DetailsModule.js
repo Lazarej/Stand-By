@@ -14,11 +14,10 @@ import { useContext } from "react";
 import { UserContext } from "../../../store/User";
 import { Entypo } from '@expo/vector-icons';
 import VideoCard from "../../../components/Global/Card/VideoCard";
-import { isLoading } from "expo-font";
+import AddButton from "../../../components/Global/Button/AddButton";
 
 export default function DetailModule({ navigation }) {
   const route = useRoute();
-
   const { user } = useContext(UserContext);
   const [video, setVideo] = useState([]);
   const [moduleTime, setModuleTime] = useState(``)
@@ -64,13 +63,21 @@ export default function DetailModule({ navigation }) {
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={styles.iconCont}>
         <TouchableOpacity
-          style={styles.backButton}
+          style={{...styles.iconButton, left:20, top: 50, }}
           onPress={() => navigation.goBack()}
         >
           <Ionicons
             name="arrow-back-outline"
             size={24}
             color={GlobalStyles.primary.color}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{...styles.iconButton, right:20, top: 190, }}
+        >
+          <AddButton
+            id={route.params.item.id}
+            item={route.params.item}
           />
         </TouchableOpacity>
       </View>
@@ -119,32 +126,19 @@ const styles = StyleSheet.create({
   iconCont: {
     width: "100%",
     zIndex: 10,
+    position:'relative'
   },
 
   image: {
-    height: 200,
+    height: 250,
     width: "100%",
     marginRight: 10,
     resizeMode: "cover",
   },
 
-  backButton: {
+  iconButton: {
     height: 40,
-    width: 40,
-    top: 50,
-    left: 20,
-    backgroundColor: "#fff",
-    position: "absolute",
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  likeButton: {
-    height: 40,
-    width: 40,
-    top: 50,
-    right: 20,
+    width: 40,  
     backgroundColor: "#fff",
     position: "absolute",
     borderRadius: 50,
