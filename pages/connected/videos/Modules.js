@@ -36,6 +36,24 @@ export default function Modules() {
     },
   ]);
 
+  useEffect(() => {
+    if (index === 0) {
+      getModule();
+    }
+    if (index === 1) {
+      getUserModuleList();
+    }
+    if (index === 2) {
+      getModulesByInterest();
+    }
+
+    return () => {
+      console.log("props", modulesState);
+      setModulesState((prev) => (prev = []));
+      setLoading((prev) => (prev = true));
+    };
+  }, [index]);
+
   const getModule = async () => {
     try {
       const response = await axios.get(`${_URL}/api/modules?populate=*`, {
@@ -45,12 +63,16 @@ export default function Modules() {
         },
       });
       const data = await response.data.data;
-      const chunkedArray = chunkArray(data, 2);
-      setModulesState((prev) => (prev = chunkedArray));
+      setModulesState((prev) => (prev = data));
     } catch (error) {
       console.error(error);
     }
 
+    setLoading((prev) => (prev = false));
+  };
+
+  const getUserModuleList = () => {
+    setModulesState((prev) => (prev = user.moduleList));
     setLoading((prev) => (prev = false));
   };
 
@@ -78,37 +100,8 @@ export default function Modules() {
         }
       })
     );
-    const chunkedArray = chunkArray(userData, 2);
-    setModulesState((prev) => (prev = chunkedArray));
+    setModulesState((prev) => (prev = userData));
     setLoading((prev) => (prev = false));
-  };
-
-  useEffect(() => {
-    if (index === 0) {
-      getModule();
-    }
-    if (index === 2) {
-      getModulesByInterest();
-    } else {
-    }
-    return () => {
-      setModulesState((prev) => (prev = []));
-      setLoading((prev) => (prev = true));
-    };
-  }, [index]);
-
-  const checkIndexIsEven = (n) => {
-    return n % 2 == 0;
-  };
-
-  const chunkArray = (array, chunkSize) => {
-    return array
-      .map((item, index) => {
-        return index % chunkSize === 0
-          ? array.slice(index, index + chunkSize)
-          : null;
-      })
-      .filter((item) => item);
   };
 
   return (
@@ -132,28 +125,12 @@ export default function Modules() {
             isLoading={isLoading}
             data={modulesState}
             component={({ item, index }) => (
-              <View
-                style={
-                  checkIndexIsEven(index)
-                    ? {
-                        ...styles.rowOne,
-                        height: windowWidth / 2.5,
-                      }
-                    : {
-                        ...styles.rowTwo,
-                        height: windowWidth / 2.5,
-                      }
-                }
-              >
-                {item.map((mod, index) => (
-                  <ModuleCard
-                    key={index}
-                    index={index}
-                    item={mod}
-                    checkIndexIsEven={(index) => checkIndexIsEven(index)}
-                  />
-                ))}
-              </View>
+              <ModuleCard
+                key={index}
+                index={index}
+                item={item}
+                checkIndexIsEven={(index) => checkIndexIsEven(index)}
+              />
             )}
             loader={<Loader />}
             noResult={

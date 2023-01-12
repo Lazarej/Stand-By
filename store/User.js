@@ -99,7 +99,8 @@ export const UserStore = ({children}) => {
         {
           interests: user.interests,
           favorites : user.favorites,
-          userLikesCategories: user.userLikesCategories
+          userLikesCategories: user.userLikesCategories,
+          moduleList: user.moduleList
         },
         {
           headers: {

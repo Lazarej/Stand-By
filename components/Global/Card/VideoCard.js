@@ -11,7 +11,7 @@ export default function VideoCard(props) {
   const [progressIndicator, setProgressIndicator] = useState(0);
 
   useEffect(() => { 
-    console.log(props.item)
+    console.log(props.item.image.data.attributes.url)
   }, [progressIndicator]);
   
   const updateProgress = (value) => {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     height: 95,
     backgroundColor: "#fff",
     padding: 10,
-    borderColor: "#F4F4F4",
+    borderColor: "#E6E6E6",
     borderWidth: 1,
     marginBottom: 20,
     borderRadius: 15,

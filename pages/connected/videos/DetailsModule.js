@@ -12,7 +12,7 @@ import Signataire from "../../../components/details/Signataire";
 import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../../../store/User";
-import { Entypo } from '@expo/vector-icons';
+import { Entypo } from "@expo/vector-icons";
 import VideoCard from "../../../components/Global/Card/VideoCard";
 import AddButton from "../../../components/Global/Button/AddButton";
 
@@ -20,13 +20,12 @@ export default function DetailModule({ navigation }) {
   const route = useRoute();
   const { user } = useContext(UserContext);
   const [video, setVideo] = useState([]);
-  const [moduleTime, setModuleTime] = useState(``)
-   const [loading, setLoading] = useState(true)
+  const [moduleTime, setModuleTime] = useState(``);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getModule();
-    convertMinutesToHours()
-  });
+  }, []);
 
   const getModule = async () => {
     try {
@@ -41,29 +40,30 @@ export default function DetailModule({ navigation }) {
       );
       const data = await response.data.data;
       setVideo((prev) => (prev = data.attributes.video));
+      convertMinutesToHours(data.attributes.video);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const convertMinutesToHours = async (minutes) => {
+  const convertMinutesToHours = (video) => {
     const array = video.map((item) => {
-      return parseInt(item.time)
-    })
+      return parseInt(item.time);
+    });
     const totalMinutes = array.reduce((prev, next) => {
-      return prev + next
-    })
+      return prev + next;
+    });
     const hours = Math.floor(totalMinutes / 60);
     const remainingMinutes = totalMinutes % 60;
-    setModuleTime(prev => prev = `${hours}h ${remainingMinutes}`)
-    setLoading(false)
-  }
+    setModuleTime((prev) => (prev = `${hours}h ${remainingMinutes}`));
+    setLoading(false);
+  };
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={styles.iconCont}>
         <TouchableOpacity
-          style={{...styles.iconButton, left:20, top: 50, }}
+          style={{ ...styles.iconButton, left: 20, top: 50 }}
           onPress={() => navigation.goBack()}
         >
           <Ionicons
@@ -72,45 +72,46 @@ export default function DetailModule({ navigation }) {
             color={GlobalStyles.primary.color}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{...styles.iconButton, right:20, top: 190, }}
-        >
-          <AddButton
-            id={route.params.item.id}
-            item={route.params.item}
-          />
+        <TouchableOpacity style={{ ...styles.iconButton, right: 20, top: 190 }}>
+          <AddButton id={route.params.item.id} item={route.params.item} />
         </TouchableOpacity>
       </View>
-      <SharedElement id={route.params.item.image}>
+      <SharedElement id={route.params.item.attributes.image}>
         <Image
           style={styles.image}
           source={{
-            uri: `${_URL}${route.params.item.image.data.attributes.url}`,
+            uri: `${_URL}${route.params.item.attributes.image.data.attributes.url}`,
           }}
         ></Image>
       </SharedElement>
       <Wrapper>
         <View style={styles.bodyHeader}>
           <View style={styles.textCont}>
-            <Text style={styles.title}>{route.params.item.title}</Text>
+            <Text style={styles.title}>{route.params.item.attributes.title}</Text>
             <Text style={{ ...GlobalStyles.text, fontSize: RFPercentage(2.5) }}>
-              {route.params.item.description}
+              {route.params.item.attributes.description}
             </Text>
           </View>
           <Signataire
-            id={route.params.item.signataire.data.id}
-            image={route.params.item.image}
+            id={route.params.item.attributes.signataire.data.id}
+            image={route.params.item.attributes.image}
             format="mini"
           />
         </View>
         <View style={styles.rowInfo}>
           <Text style={styles.videoLength}>{video.length} vidéos</Text>
-    
-          <View style={{ flexDirection:'row', alignItems:'baseline'}}>
-            <Entypo style={{marginRight:5}} name="time-slot" size={18} color="#AAAAAA" />
-            <Text style={{fontSize: RFPercentage(2.2), ...GlobalStyles.text , }}>{moduleTime}</Text> 
-      </View>
-       
+
+          <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+            <Entypo
+              style={{ marginRight: 5 }}
+              name="time-slot"
+              size={18}
+              color="#AAAAAA"
+            />
+            <Text style={{ fontSize: RFPercentage(2.2), ...GlobalStyles.text }}>
+              {moduleTime}
+            </Text>
+          </View>
         </View>
         <View>
           {video.map((item, index) => (
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
   iconCont: {
     width: "100%",
     zIndex: 10,
-    position:'relative'
+    position: "relative",
   },
 
   image: {
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
 
   iconButton: {
     height: 40,
-    width: 40,  
+    width: 40,
     backgroundColor: "#fff",
     position: "absolute",
     borderRadius: 50,

@@ -11,6 +11,7 @@ import NewsCard from "../../components/Global/Card/NewsCard";
 import ArticlesCard from "../../components/Global/Card/ArticlesCard";
 import NoResult from "../../components/Global/NoResult";
 import { _URL } from "../../globalVar/url";
+import ModuleCard from "../../components/Global/Card/ModuleCard";
 
 export default function SearchScreen() {
   const { user, logout } = useContext(UserContext);
@@ -19,29 +20,31 @@ export default function SearchScreen() {
   const [result, setResult] = useState({
     news: [],
     articles: [],
+    modules: [],
   });
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: "first", title: "News" },
     { key: "second", title: "Articles" },
+    { key: "third", title: "Modules" },
   ]);
 
   const oneNews = ({ item }) => {
-    return (
-      <NewsCard
-        element={item}
-        key={item.id}
-      ></NewsCard>
-    );
+    return <NewsCard element={item} key={item.id}></NewsCard>;
   };
 
   const oneArticle = ({ item }) => {
-    return (
-      <ArticlesCard
-      article={item}
-        key={item.id}
+    return <ArticlesCard article={item} key={item.id}></ArticlesCard>;
+  };
 
-      ></ArticlesCard>
+  const oneModule = ({ item, index }) => {
+    return (
+      <ModuleCard
+        key={index}
+        index={index}
+        item={item}
+        checkIndexIsEven={(index) => checkIndexIsEven(index)}
+      ></ModuleCard>
     );
   };
 
@@ -75,6 +78,21 @@ export default function SearchScreen() {
     </View>
   );
 
+  const ModuleRoute = () => (
+    <View>
+      {result.articles.length === 0 ? (
+        <NoResult title={"Aucun résultat"} />
+      ) : (
+        <FlatList
+          style={{ paddingTop: 20 }}
+          showsVerticalScrollIndicator={false}
+          data={result.modules}
+          renderItem={oneModule}
+        />
+      )}
+    </View>
+  );
+
   const renderTabBar = (props) => (
     <TabBar
       {...props}
@@ -102,12 +120,12 @@ export default function SearchScreen() {
   const renderScene = SceneMap({
     first: NewsRoute,
     second: ArticleRoute,
+    third: ModuleRoute,
   });
 
   const getData = async () => {
-    console.log("value", search.length);
     if (search.length === 0) {
-      setResult((prev) => (prev = { news: [], articles: [] }));
+      setResult((prev) => (prev = { news: [], articles: [], modules: [] }));
     } else {
       try {
         const articleResponse = await axios.get(
@@ -128,22 +146,36 @@ export default function SearchScreen() {
             },
           }
         );
-
+        const modulesResponse = await axios.get(
+          `${_URL}/api/modules?filters[title][$contains]=${search}&populate=*`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
         const news = newsResponse.data.data;
         const articles = articleResponse.data.data;
-
-        setResult((prev) => (prev = { news: news, articles: articles }));
+        const modules = modulesResponse.data.data;
+        console.log("modules", modules);
+        setResult(
+          (prev) =>
+            (prev = { news: news, articles: articles, modules: modules })
+        );
       } catch (error) {
         console.error(error);
       }
     }
   };
 
+  const checkIndexIsEven = (n) => {
+    return n % 2 == 0;
+  };
+
   useEffect(() => {
     getData();
   }, [search]);
-
-  console.log("base result", result);
 
   return (
     <Wrapper>

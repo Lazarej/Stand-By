@@ -4,98 +4,79 @@ import { Dimensions, Image, StyleSheet, View, Text } from "react-native";
 import { _URL } from "../../../globalVar/url";
 import { useEffect } from "react";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import AddButton from "../Button/AddButton";
 
 export default function ModuleCard(props) {
   const navigation = useNavigation();
-  const windowWidth = Dimensions.get("window").width;
 
   useEffect(() => {});
 
   return (
     <TouchableOpacity
-      style={
-        props.checkIndexIsEven(props.index)
-          ? {
-              ...styles.cardOne,
-              width: windowWidth / 2.8,
-              height: windowWidth / 2.2,
-            }
-          : {
-              ...styles.cardTwo,
-              height: windowWidth / 2.7,
-              width: windowWidth / 2.2,
-            }
-      }
       onPress={() =>
         navigation.navigate("DetailsModule", {
-          item: props.item.attributes,
+          item: props.item,
           id: props.item.id,
         })
       }
+      style={styles.card}
     >
-      <View
-        style={
-          props.checkIndexIsEven(props.index)
-            ? {}
-            : {
-                flexDirection: "column-reverse",
-              }
-        }
-      >
-        <Image
-          style={styles.image}
-          source={{
-            uri: `${_URL}${props.item.attributes.image.data.attributes.url}`,
-          }}
-        />
-        <View style={styles.infoCont}>
-          <Text style={styles.cardTitle}>{props.item.attributes.title}</Text>
-          <Text style={styles.videoLength}>
-            {props.item.attributes.video.length} vidéos
-          </Text>
-        </View>
+     
+      <Image
+        style={styles.image}
+        resizeMode={"contain"}
+        source={{
+          uri: `${_URL}${props.item.attributes.image.data.attributes.url}`,
+        }}
+      />
+      <Text style={styles.cardTitle}>{props.item.attributes.title}</Text>
+      <Text style={styles.videoLength}>
+        {props.item.attributes.video.length} vidéos
+      </Text>
+       <View style={styles.addCont}>
+        <AddButton  id={props.item.id} item={props.item} />
       </View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  cardOne: {
-    padding: 5,
-    borderColor: "#AAAAAA",
+  card: {
+    height: 190,
     borderWidth: 1,
     borderRadius: 15,
+    borderColor: "#E6E6E6",
+    padding: 15,
+    alignItems: "center",
+    marginBottom: 20,
   },
-
-  cardTwo: {
-    padding: 5,
-
-    borderColor: "#AAAAAA",
-    borderWidth: 1,
-    borderRadius: 15,
-  },
-
-  mainCont: {},
 
   image: {
-    height: "70%",
-    borderRadius: 15,
-  },
-
-  infoCont: {
-    paddingHorizontal: 5,
+    height: 100,
+    width: 150,
+    backgroundColor: "purple",
   },
 
   cardTitle: {
     textAlign: "center",
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(3.2),
     fontFamily: "RobotoB",
+    marginTop: 10,
   },
 
   videoLength: {
     textAlign: "center",
-    fontSize: RFPercentage(2),
+    fontSize: RFPercentage(2.3),
     fontFamily: "RobotoN",
     color: "#AAAAAA",
+  },
+
+  addCont: {
+
+    position: "absolute",
+    top: 10,
+    zIndex:1000,
+    right: 10,
+
   },
 });
