@@ -9,6 +9,7 @@ import GlobalForm from "../../components/Global/Form/Form";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import TitleCont from "../../components/Global/TitleCont";
+import { Button } from "react-native-paper";
 
 export default function LoginScreen() {
   const { login } = useContext(UserContext);
@@ -80,6 +81,7 @@ export default function LoginScreen() {
               size={34}
               color={GlobalStyles.primary.color}
             />
+            
           </View>
           <View style={styles.iconCont}>
             <FontAwesome
@@ -103,6 +105,7 @@ export default function LoginScreen() {
           >
             Créer votre compte
           </Link>
+
         </View>
       </View>
     </Wrapper>

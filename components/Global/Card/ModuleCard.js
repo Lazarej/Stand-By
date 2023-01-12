@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
   image: {
     height: 100,
     width: 150,
-    backgroundColor: "purple",
   },
 
   cardTitle: {

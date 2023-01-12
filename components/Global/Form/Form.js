@@ -38,7 +38,7 @@ export default function GlobalForm(props) {
   };
 
   const validate =  (newObj) => {
-    x = false
+    let x = false
     Object.values(state).map((value)=> {
       
       if (value.name === "email") {
