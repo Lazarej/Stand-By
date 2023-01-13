@@ -10,6 +10,8 @@ import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import TitleCont from "../../components/Global/TitleCont";
 import { Button } from "react-native-paper";
+import { isWeb } from "../../globalVar/os";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 export default function LoginScreen() {
   const { login } = useContext(UserContext);
@@ -42,73 +44,83 @@ export default function LoginScreen() {
   ];
 
   return (
-    <Wrapper paddingV={100}>
-      <View style={{ flex: 2 }}>
-        <TitleCont
-          title={"Se connecter"}
-          text={"Completer cette étape pour accédez à nos services !"}
-        ></TitleCont>
-      </View>
-      <View style={styles.formCont}>
-        <GlobalForm {...form} textButton={"Se connecter"} function={login}>
-          <View style={styles.infoForm}>
-            <Link
-              to={{ screen: "ForgotPassword" }}
-              style={{ fontFamily: "RobotoN" }}
-            >
-              Mot de passe oublié ?
-            </Link>
+    <View style={isWeb ? { alignItems: "center" } : {flex:1}}>
+      <View style={isWeb ? { width: "50%" } :  {flex:1}}>
+        <Wrapper paddingV={100}>
+          <View style={{ flex: 2 }}>
+            <TitleCont
+              title={"Se connecter"}
+              text={"Completer cette étape pour accédez à nos services !"}
+            ></TitleCont>
           </View>
-        </GlobalForm>
-      </View>
-      <View style={styles.separatorCont}>
-        <View style={styles.lineSeparator} />
-        <Text style={styles.textSeparator}>Se connecter avec</Text>
-        <View style={styles.lineSeparator} />
-      </View>
-      <View style={{ flex: 2 }}>
-        <View style={styles.iconsCont}>
-          <View style={styles.iconCont}>
-            <FontAwesome
-              name="facebook-official"
-              size={34}
-              color={GlobalStyles.primary.color}
-            />
+          <View style={styles.formCont}>
+            <GlobalForm {...form} textButton={"Se connecter"} function={login}>
+              <View style={styles.infoForm}>
+                <Link
+                  to={{ screen: "ForgotPassword" }}
+                  style={{ fontFamily: "RobotoN" }}
+                >
+                  Mot de passe oublié ?
+                </Link>
+              </View>
+            </GlobalForm>
           </View>
-          <View style={styles.iconCont}>
-            <FontAwesome
-              name="google"
-              size={34}
-              color={GlobalStyles.primary.color}
-            />
-            
+          <View style={styles.separatorCont}>
+            <View style={styles.lineSeparator} />
+            <Text style={styles.textSeparator}>Se connecter avec</Text>
+            <View style={styles.lineSeparator} />
           </View>
-          <View style={styles.iconCont}>
-            <FontAwesome
-              name="apple"
-              size={34}
-              color={GlobalStyles.primary.color}
-            />
+          <View style={{ flex: 2 }}>
+            <View style={styles.iconsCont}>
+              <View style={styles.iconCont}>
+                <FontAwesome
+                  name="facebook-official"
+                  size={34}
+                  color={GlobalStyles.primary.color}
+                />
+              </View>
+              <View style={styles.iconCont}>
+                <FontAwesome
+                  name="google"
+                  size={34}
+                  color={GlobalStyles.primary.color}
+                />
+              </View>
+              <View style={styles.iconCont}>
+                <FontAwesome
+                  name="apple"
+                  size={34}
+                  color={GlobalStyles.primary.color}
+                />
+              </View>
+            </View>
+            <View style={styles.creationCont}>
+              <Text style={ isWeb ? { ...GlobalStyles.text, marginRight: 5 , fontSize: RFPercentage(1.2) } : { ...GlobalStyles.text, marginRight: 5 }}>
+                Pas de compte ?
+              </Text>
+              <Link
+                to={{ screen: "Signup" }}
+                style={
+                  isWeb
+                    ? {
+                        fontSize: RFPercentage(1.2),
+                        color: GlobalStyles.primary.color,
+                        fontFamily: "RobotoB",
+                      }
+                    : {
+                        ...GlobalStyles.text,
+                        color: GlobalStyles.primary.color,
+                        fontFamily: "RobotoB",
+                      }
+                }
+              >
+                Créer votre compte
+              </Link>
+            </View>
           </View>
-        </View>
-        <View style={styles.creationCont}>
-          <Text style={{ ...GlobalStyles.text, marginRight: 5 }}>
-            Pas de compte ?
-          </Text>
-          <Link
-            to={"/Signup"}
-            style={{
-              ...GlobalStyles.text,
-              color: GlobalStyles.primary.color,
-              fontFamily: "RobotoB",
-            }}
-          >
-            Créer votre compte
-          </Link>
-
-        </View>
+        </Wrapper>
       </View>
-    </Wrapper>
+    </View>
   );
 }
 
@@ -120,7 +132,7 @@ const styles = StyleSheet.create({
 
   infoForm: {
     width: "100%",
-    marginTop:5,
+    marginTop: 5,
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
@@ -166,7 +178,7 @@ const styles = StyleSheet.create({
 
   creationCont: {
     flexDirection: "row",
-    marginTop: "10%",
+    marginTop: 40,
     justifyContent: "center",
   },
 });

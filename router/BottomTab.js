@@ -25,6 +25,7 @@ export default function BottomTab() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
+       sceneContainerStyle={{ backgroundColor: 'white' }}
       screenOptions={{
         headerTitleStyle:{
           fontSize: RFPercentage(3.5),

@@ -17,9 +17,10 @@ import Constants from "expo-constants";
 import { View } from "react-native";
 import SearchScreen from "../pages/connected/Search";
 import DetailModule from "../pages/connected/videos/DetailsModule";
+import { isWeb } from "../globalVar/os";
+import DrawerTab from "./DrawerTab";
 
 const Stack = createSharedElementStackNavigator();
-
 
 export default function Navigation() {
   const { user } = useContext(UserContext);
@@ -28,9 +29,20 @@ export default function Navigation() {
     RobotoN: require("../assets/fonts/RobotoN.ttf"),
     RobotoL: require("../assets/fonts/RobotoL.ttf"),
   });
+  const config = {
+    screens: {
+      Login: "connection",
+      Signup: "inscription",
+      ForgotPassword: "mot-de-passe-oublié",
+    },
+  };
+
+  const linking = {
+    prefixes: ["https://StandBy.com"],
+    config,
+  };
 
   useEffect(() => {
-    console.log('dfzazf',Constants.manifest.splash)
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
     }
@@ -44,15 +56,18 @@ export default function Navigation() {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
-    return null
+    return null;
   }
 
   return (
-    <NavigationContainer onReady={onLayoutRootView}>
+    <NavigationContainer linking={linking} onReady={onLayoutRootView}>
       <Stack.Navigator
         screenOptions={{
           headerShadowVisible: false,
           headerBackTitleVisible: false,
+          cardStyle: {
+            backgroundColor: "#fff",
+          },
           initialRouteName: "BottomTab",
           headerStatusBarHeight: 40,
           headerTintColor: GlobalStyles.primary.color,
@@ -64,7 +79,11 @@ export default function Navigation() {
         {user.login ? (
           <>
             {user.interests ? (
-              <Stack.Screen
+              isWeb ? <Stack.Screen
+                name="DrawerTab"
+                component={DrawerTab}
+                options={{ headerShown: false }}
+              />  : <Stack.Screen
                 name="BottomTab"
                 component={BottomTab}
                 options={{ headerShown: false }}
@@ -73,7 +92,7 @@ export default function Navigation() {
               <Stack.Screen
                 name="Interest"
                 component={InterestScreen}
-                options={{ title: "", headerBackTitleVisible: false,}}
+                options={{ title: "", headerBackTitleVisible: false }}
               />
             )}
 
@@ -82,11 +101,11 @@ export default function Navigation() {
               component={InterestScreen}
               options={{ title: "" }}
             />
-              <Stack.Screen
-                name="search"
-                component={SearchScreen}
-                options={{ title: "", headerBackTitleVisible: false,}}
-              />
+            <Stack.Screen
+              name="search"
+              component={SearchScreen}
+              options={{ title: "", headerBackTitleVisible: false }}
+            />
             <Stack.Screen
               name="Details"
               component={Details}
