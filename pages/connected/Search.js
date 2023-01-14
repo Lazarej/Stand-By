@@ -49,7 +49,7 @@ export default function SearchScreen() {
   };
 
   const NewsRoute = () => (
-    <View>
+    <View style={{flex:1}}>
       {result.news.length === 0 ? (
         <NoResult title={"Aucun résultat"} />
       ) : (
@@ -64,7 +64,7 @@ export default function SearchScreen() {
   );
 
   const ArticleRoute = () => (
-    <View>
+    <View style={{flex:1}}>
       {result.articles.length === 0 ? (
         <NoResult title={"Aucun résultat"} />
       ) : (
@@ -79,7 +79,7 @@ export default function SearchScreen() {
   );
 
   const ModuleRoute = () => (
-    <View>
+    <View style={{flex:1}}>
       {result.articles.length === 0 ? (
         <NoResult title={"Aucun résultat"} />
       ) : (
@@ -192,7 +192,7 @@ export default function SearchScreen() {
         renderTabBar={renderTabBar}
         renderScene={renderScene}
         onIndexChange={setIndex}
-        initialLayout={{ width: "100%" }}
+
       />
     </Wrapper>
   );

@@ -7,7 +7,7 @@ import { Image, StyleSheet } from "react-native";
 import { View } from "react-native-web";
 import { Ionicons } from "@expo/vector-icons";
 import { useContext } from "react";
-import { UserContext } from "../../store/User";
+import { UserContext } from "../../../store/User";
 
 export default function DrawerWeb(props) {
       const { logout } = useContext(UserContext);

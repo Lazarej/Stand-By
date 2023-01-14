@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity, useWindowDimensions } from "react-native";
 import LikeButton from "../Button/LikeButton";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
@@ -13,6 +13,7 @@ export default function NewsCard(props) {
   const [categorie, setCategorie] = useState({});
   const [likeState, setlikeState] = useState(false);
   const navigation = useNavigation();
+  const {width , height} = useWindowDimensions()
 
   useEffect(() => {
     checkLike();
@@ -51,7 +52,7 @@ export default function NewsCard(props) {
         })
       }
     >
-      <View style={styles.newContainer}>
+      <View style={ width < height ? {...styles.newContainer} : {...styles.newContainer, width:'48%'}}>
         <View style={styles.container}>
           <View style={styles.partLeft}>
             <SharedElement

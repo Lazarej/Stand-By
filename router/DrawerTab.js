@@ -8,11 +8,13 @@ import Modules from "../pages/connected/videos/Modules";
 import GlobalStyles from "../style/GlobalStyles";
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
 import { View, } from "react-native";
 import { Button } from "react-native-paper";
 import DrawerWeb from "../components/Global/Drawer/DrawerWeb";
+import SearchScreen from "../pages/connected/Search";
+import InterestScreen from "../pages/connected/UserInterest";
 const Drawer = createDrawerNavigator();
 
 export default function DrawerTab() {
@@ -30,12 +32,25 @@ export default function DrawerTab() {
             ) 
           }} > 
       <Drawer.Screen
-        name="Home"
+        name="Accueil"
         component={HomeScreen}
         options={{
           headerShown: false,
           drawerIcon: ({ color }) => (
             <AntDesign name="home" size={28} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Recherche"
+        component={SearchScreen}
+        options={{
+          drawerIcon: ({ color }) => (
+            <AntDesign
+                    name="search1"
+                    size={28}
+                    color={color}
+                  />
           ),
         }}
       />
@@ -78,6 +93,19 @@ export default function DrawerTab() {
          title:'Modules',
           drawerIcon: ({ color }) => (
             <MaterialIcons name="ondemand-video" size={28} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Interet"
+        component={InterestScreen}
+        options={{
+          drawerIcon: ({ color }) => (
+            <MaterialCommunityIcons
+                    name="checkbox-multiple-blank-outline"
+                    size={28}
+                    color={color}
+                  />
           ),
         }}
       />

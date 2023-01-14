@@ -8,6 +8,7 @@ import { UserContext } from "../../store/User";
 import axios from "axios";
 import NewsCard from "../Global/Card/NewsCard";
 import { _URL } from "../../globalVar/url";
+import { isWeb } from "../../globalVar/os";
 
 export default function NewsSection() {
   const { user } = useContext(UserContext);
@@ -38,7 +39,7 @@ export default function NewsSection() {
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
         <Text style={GlobalStyles.title}>Quoi de neuf ?</Text>
-        <Link style={styles.headerLink} to={"/NewsLetter"}>
+        <Link style={ isWeb ? {...styles.headerLink , fontSize:RFPercentage(1)} : {...styles.headerLink}} to={"/NewsLetter"}>
           Tout voir
         </Link>
       </View>

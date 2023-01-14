@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import axios from "axios";
 import { _URL } from "../../globalVar/url";
+import { isWeb } from "../../globalVar/os";
 
 export default function ArticleSection() {
   const { user, } = useContext(UserContext);
@@ -50,7 +51,7 @@ export default function ArticleSection() {
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
         <Text style={GlobalStyles.title}>Nos petits Articles</Text>
-        <Link style={styles.headerLink} to={"/Article"}>
+        <Link style={ isWeb ? {...styles.headerLink , fontSize:RFPercentage(1)} : {...styles.headerLink}} to={"/Article"}>
           Tout voir
         </Link>
       </View>

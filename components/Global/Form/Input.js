@@ -42,5 +42,6 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 13,
     paddingLeft: 10,
+    outlineStyle: 'none'
   },
 });

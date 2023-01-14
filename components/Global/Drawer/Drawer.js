@@ -97,7 +97,7 @@ export default function Drawer() {
                 <View style={styles.rowLink}>
                   <MaterialCommunityIcons
                     style={styles.icon}
-                    name="checkbox-multiple-blank"
+                    name="checkbox-multiple-blank-outline"
                     size={24}
                     color="#AAAAAA"
                   />

@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity, useWindowDimensions } from "react-native";
 import GlobalStyles from "../../../style/GlobalStyles";
 import {RFPercentage} from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
@@ -8,7 +8,8 @@ import { _URL } from "../../../globalVar/url";
 
 export default function ArticlesCard(props) {
   const navigation = useNavigation();
-
+  const { width, height } = useWindowDimensions ()
+  
   useEffect(()=>{
    console.log('props',props.article.attributes)
   },[])
@@ -29,7 +30,7 @@ export default function ArticlesCard(props) {
       interest: props.article.attributes.interet
     })}
     >
-      <View style={styles.container}>
+      <View style={ width < height ? {...styles.container} : {...styles.container, width:'48%'}}>
       <SharedElement id={props.article.attributes.image.data.attributes.url}>
       <Image
         resizeMode="cover"

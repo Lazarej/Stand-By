@@ -14,7 +14,7 @@ import BottomTab from "./BottomTab";
 import Details from "../pages/connected/Details";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 import Constants from "expo-constants";
-import { View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 import SearchScreen from "../pages/connected/Search";
 import DetailModule from "../pages/connected/videos/DetailsModule";
 import { isWeb } from "../globalVar/os";
@@ -24,6 +24,7 @@ const Stack = createSharedElementStackNavigator();
 
 export default function Navigation() {
   const { user } = useContext(UserContext);
+  const {height , width} = useWindowDimensions()
   const [fontsLoaded] = useFonts({
     RobotoB: require("../assets/fonts/RobotoB.ttf"),
     RobotoN: require("../assets/fonts/RobotoN.ttf"),
@@ -36,6 +37,9 @@ export default function Navigation() {
       ForgotPassword: "mot-de-passe-oublié",
       BottomTab: "Stand-By",
       DrawerTab: "StandBy",
+      search: "Recherche",
+      InterestOnLog: "Interet",
+      Interest: "Choice",
     },
   };
 
@@ -81,7 +85,7 @@ export default function Navigation() {
         {user.login ? (
           <>
             {user.interests ? (
-              isWeb ? <Stack.Screen
+              height < width ? <Stack.Screen
                 name="DrawerTab"
                 component={DrawerTab}
                 options={{ headerShown: false }}

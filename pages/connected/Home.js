@@ -1,4 +1,4 @@
-import { Text, View, ScrollView, StyleSheet } from "react-native";
+import { Text, View, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
 import Wrapper from "../../components/Global/Wrapper";
 import GlobalStyles from "../../style/GlobalStyles";
 import { useContext, useEffect } from "react";
@@ -8,7 +8,10 @@ import { Feather } from "@expo/vector-icons";
 import NewsSection from "../../components/home/NewsSection";
 import ArticleSection from "../../components/home/ArticleSection";
 import Drawer from "../../components/Global/Drawer/Drawer"
+import { isWeb } from "../../globalVar/os";
 export default function HomeScreen() {
+
+  const {width , height} = useWindowDimensions()
 
   useEffect(()=>{
   },[])
@@ -19,7 +22,12 @@ export default function HomeScreen() {
       contentContainerStyle={{ minHeight: "100%" }}
     >
       <View
-        style={{
+        style={ isWeb ? {
+          width: "100%",
+          height:350,
+          justifyContent: "space-evenly",
+          backgroundColor: GlobalStyles.primary.backgroundColor,
+        }  : {
           width: "100%",
           flex: 1,
           height:450,
@@ -27,12 +35,14 @@ export default function HomeScreen() {
           backgroundColor: GlobalStyles.primary.backgroundColor,
         }}
       >
-        <Drawer/>
+        {
+          height > width ? <Drawer/> : null
+        }
         <View style={styles.titleContentCont}>
-          <Text style={styles.tilteText}>Les</Text>
-          <Text style={styles.tilteText}>News</Text>
-          <Text style={styles.tilteText}>Du</Text>
-          <Text style={styles.tilteText}>Moment !</Text>
+          <Text style={isWeb ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>Les</Text>
+          <Text style={isWeb ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>News</Text>
+          <Text style={isWeb ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>Du</Text>
+          <Text style={isWeb ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>Moment !</Text>
         </View>
       </View>
 
