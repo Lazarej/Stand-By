@@ -34,6 +34,8 @@ export default function Navigation() {
       Login: "connection",
       Signup: "inscription",
       ForgotPassword: "mot-de-passe-oublié",
+      BottomTab: "Stand-By",
+      DrawerTab: "StandBy",
     },
   };
 

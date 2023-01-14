@@ -7,7 +7,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import { Feather } from "@expo/vector-icons";
 import NewsSection from "../../components/home/NewsSection";
 import ArticleSection from "../../components/home/ArticleSection";
-import Drawer from "../../components/home/Drawer"
+import Drawer from "../../components/Global/Drawer/Drawer"
 export default function HomeScreen() {
 
   useEffect(()=>{

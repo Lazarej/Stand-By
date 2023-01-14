@@ -11,14 +11,23 @@ import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
 import { View, } from "react-native";
+import { Button } from "react-native-paper";
+import DrawerWeb from "../components/Global/Drawer/DrawerWeb";
 const Drawer = createDrawerNavigator();
 
 export default function DrawerTab() {
   return (
-      <Drawer.Navigator initialRouteName="Home"
+    <Drawer.Navigator initialRouteName="Home"
+      drawerContent={props => <DrawerWeb {...props} /> }
           screenOptions={{
-              drawerType: 'permanent',
-               drawerActiveTintColor: GlobalStyles.primary.backgroundColor,
+            drawerType: 'permanent',
+            drawerActiveTintColor: GlobalStyles.primary.backgroundColor,
+            drawerStyle: {
+            justifyContent:'space-between'
+    },
+            headerLeft: () => (
+              null
+            ) 
           }} > 
       <Drawer.Screen
         name="Home"
@@ -66,19 +75,7 @@ export default function DrawerTab() {
         name="Vidéos"
         component={Modules}
         options={{
-          headerTitleStyle: {
-            fontSize: RFPercentage(3.5),
-            fontFamily: "RobotoB",
-            textTransform: "uppercase",
-            color: "white",
-          },
-          headerStyle: {
-            backgroundColor: GlobalStyles.primary.color,
-            height: 100,
-            borderWidth: 0,
-            elevation: 0,
-            shadowOpacity: 0,
-          },
+         title:'Modules',
           drawerIcon: ({ color }) => (
             <MaterialIcons name="ondemand-video" size={28} color={color} />
           ),

@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import GlobalStyles from "../../style/GlobalStyles";
-import { UserContext } from "../../store/User";
+import GlobalStyles from "../../../style/GlobalStyles";
+import { UserContext } from "../../../store/User";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Link } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
