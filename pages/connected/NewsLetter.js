@@ -1,4 +1,4 @@
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, useWindowDimensions, View } from "react-native";
 import Wrapper from "../../components/Global/Wrapper";
 import { memo, useEffect, useState } from "react";
 import { useContext } from "react";
@@ -9,7 +9,9 @@ import { _URL } from "../../globalVar/url";
 
 export default function NewsLetterScreen() {
   const { user } = useContext(UserContext);
+    const { width, height } = useWindowDimensions()
   const [newsState, setNewsState] = useState([]);
+
   const getData = async () => {
     try {
       const response = await axios.get(
@@ -35,7 +37,8 @@ export default function NewsLetterScreen() {
   return (
     <Wrapper>
       <FlatList
-        style={{ paddingTop: 20 }}
+         style={ width > height  ? { paddingTop: 20, flexWrap: 'wrap' } : { paddingTop: 20}}
+            numColumns={ width > height ? 2 : 1}
         showsVerticalScrollIndicator={false}
         data={newsState}
         renderItem={({ item }) => (

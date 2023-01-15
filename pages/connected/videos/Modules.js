@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, useWindowDimensions } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { TabView } from "react-native-tab-view";
 import RenderScene from "../../../components/Global/GlobalTab/RenderScene";
@@ -18,6 +18,7 @@ export default function Modules() {
   const [index, setIndex] = useState(0);
   const [modulesState, setModulesState] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const {width , height} = useWindowDimensions()
   const [routes, setRoutes] = useState([
     {
       key: "tous",
@@ -106,9 +107,9 @@ export default function Modules() {
 
   return (
     <View style={{ backgroundColor: GlobalStyles.primary.color, flex: 1 }}>
-      <View style={styles.headerCont}>
+      <View style={width < height ? {...styles.headerCont} : {...styles.headerCont, marginTop:50 , marginBottom:50}}>
         <Text style={styles.headerTitle}>Prêt pour apprendre ?</Text>
-        <Text style={styles.headerText}>Choissisez votre sujet</Text>
+        <Text style={width < height ? {...styles.headerText} : {...styles.headerText, fontSize:RFPercentage(1.5)}}>Choissisez votre sujet</Text>
       </View>
       <TabView
         style={{

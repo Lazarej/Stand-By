@@ -30,7 +30,7 @@ export default function ArticlesCard(props) {
       interest: props.article.attributes.interet
     })}
     >
-      <View style={ width < height ? {...styles.container} : {...styles.container, width:'48%'}}>
+      <View style={ width < height ? {...styles.container} : {...styles.container, width:450}}>
       <SharedElement id={props.article.attributes.image.data.attributes.url}>
       <Image
         resizeMode="cover"
@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
     borderRadius: 15,
     borderColor:'#E6E6E6',
-    borderWidth:1
+    borderWidth: 1,
+    marginRight:20
   },
   image: {
     width: "100%",

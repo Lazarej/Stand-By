@@ -91,7 +91,6 @@ export const UserStore = ({children}) => {
   };
 
   const logout = async () => {
-    console.log(user.token)
     try {
       await AsyncStorage.removeItem('appliUser')
       await axios.put(

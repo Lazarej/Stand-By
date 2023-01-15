@@ -1,5 +1,5 @@
 import { Link } from "@react-navigation/native";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, useWindowDimensions } from "react-native";
 import GlobalStyles from "../../style/GlobalStyles";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { useEffect, useState } from "react";
@@ -13,7 +13,8 @@ import { isWeb } from "../../globalVar/os";
 export default function NewsSection() {
   const { user } = useContext(UserContext);
   const [newsState, setNewsState] = useState([]);
-
+  const { width, height } = useWindowDimensions()
+  
   useEffect(() => {
     const getData = async () => {
       try {
@@ -43,7 +44,7 @@ export default function NewsSection() {
           Tout voir
         </Link>
       </View>
-      <View>
+      <View style={ height < width ? {flexDirection:'row', flexWrap:'wrap', justifyContent:'space-between'} : null}>
         {Object.values(newsState).map((e) => (
           <NewsCard
             element={e}

@@ -90,7 +90,7 @@ export default function Drawer() {
                     size={24}
                     color="#AAAAAA"
                   />
-                  <Link style={styles.drawerLink} to={"/search"}>
+                  <Link style={styles.drawerLink} to={{ screen: "search"}}>
                     Recherche...
                   </Link>
                 </View>
@@ -101,7 +101,7 @@ export default function Drawer() {
                     size={24}
                     color="#AAAAAA"
                   />
-                  <Link style={styles.drawerLink} to={"/InterestOnLog"}>
+                  <Link style={styles.drawerLink} to={{ screen: "/InterestOnLog"}}>
                     Vos intéréts
                   </Link>
                 </View>

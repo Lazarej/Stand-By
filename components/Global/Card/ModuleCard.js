@@ -1,14 +1,15 @@
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import { Dimensions, Image, StyleSheet, View, Text } from "react-native";
+import { Dimensions, Image, StyleSheet, View, Text, useWindowDimensions } from "react-native";
 import { _URL } from "../../../globalVar/url";
 import { useEffect } from "react";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import AddButton from "../Button/AddButton";
+import { isWeb } from "../../../globalVar/os";
 
 export default function ModuleCard(props) {
   const navigation = useNavigation();
-
+  const {width , height} = useWindowDimensions()
   useEffect(() => {});
 
   return (
@@ -19,7 +20,7 @@ export default function ModuleCard(props) {
           id: props.item.id,
         })
       }
-      style={styles.card}
+      style={ width < height ? {...styles.card} : {...styles.card, width:450}}
     >
      
       <Image
@@ -29,8 +30,8 @@ export default function ModuleCard(props) {
           uri: `${_URL}${props.item.attributes.image.data.attributes.url}`,
         }}
       />
-      <Text style={styles.cardTitle}>{props.item.attributes.title}</Text>
-      <Text style={styles.videoLength}>
+      <Text style={isWeb ? {...styles.cardTitle, fontSize:24} : {...styles.cardTitle}}>{props.item.attributes.title}</Text>
+      <Text style={isWeb ? {...styles.videoLength, fontSize: 15} : {...styles.videoLength}}>
         {props.item.attributes.video.length} vidéos
       </Text>
        <View style={styles.addCont}>

@@ -27,7 +27,7 @@ export default function DrawerWeb(props) {
           <DrawerItem
               activeTintColor="red"
               inactiveTintColor="red"
-              onPress={() => logout}
+              onPress={() => logout()}
               label={'Déconnexion'}
               icon={() =>  <Ionicons name="exit-outline" size={30} color="red" />}
           />

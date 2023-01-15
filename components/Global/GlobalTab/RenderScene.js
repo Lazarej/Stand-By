@@ -1,8 +1,10 @@
 import Wrapper from "../Wrapper";
-import { FlatList } from "react-native";
+import { FlatList, useWindowDimensions } from "react-native";
 import NoResult from "../NoResult";
 
 export default function RenderScene(props) {
+  const { width, height } = useWindowDimensions()
+  
   if (props.route.key === props.routes[props.index].key) {
     return (
       <Wrapper>
@@ -12,9 +14,12 @@ export default function RenderScene(props) {
           <NoResult title={props.noResult} />
         ) : (
           <FlatList
-             contentContainerStyle={{ paddingVertical: 30, }}
+                contentContainerStyle={{ paddingVertical: 30, }}
+                 style={ width > height  ? { paddingTop: 20, flexWrap: 'wrap' } : { paddingTop: 20}}
+            numColumns={ width > height ? 2 : 1}
             showsVerticalScrollIndicator={false}
-            data={props.data}
+                data={props.data}
+                 columnWrapperStyle={width > height  ? {justifyContent: 'space-between'} : null} 
             renderItem={props.component}
           />
         )}

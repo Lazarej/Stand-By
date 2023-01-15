@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, useWindowDimensions } from "react-native";
 import GlobalStyles from "../../style/GlobalStyles";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Link } from "@react-navigation/native";
@@ -13,7 +13,8 @@ import { isWeb } from "../../globalVar/os";
 export default function ArticleSection() {
   const { user, } = useContext(UserContext);
   const [articlesState, setArticlesState] = useState([]);
-
+  const { width, height } = useWindowDimensions()
+  
   const getData = () => {
     
     user.interests.map(async (interest) => {
@@ -55,7 +56,7 @@ export default function ArticleSection() {
           Tout voir
         </Link>
       </View>
-      <View>
+      <View style={ height < width ? {flexDirection:'row', flexWrap:'wrap', justifyContent:'space-between'} : null}>
         {articlesState.map((article) => (
           <ArticlesCard
             article={article}

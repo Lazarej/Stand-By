@@ -1,4 +1,4 @@
-import { Text, View, FlatList } from "react-native";
+import { Text, View, FlatList, useWindowDimensions } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
@@ -15,7 +15,7 @@ import ModuleCard from "../../components/Global/Card/ModuleCard";
 
 export default function SearchScreen() {
   const { user, logout } = useContext(UserContext);
-
+  const { width, height } = useWindowDimensions()
   const [search, setSearch] = useState("");
   const [result, setResult] = useState({
     news: [],
@@ -54,7 +54,9 @@ export default function SearchScreen() {
         <NoResult title={"Aucun résultat"} />
       ) : (
         <FlatList
-          style={{ paddingTop: 20 }}
+            style={ width > height  ? { paddingTop: 20, flexWrap: 'wrap' } : { paddingTop: 20}}
+            numColumns={width > height ? 2 : 1}
+              columnWrapperStyle={width > height  ? {justifyContent: 'space-between'} : null} 
           showsVerticalScrollIndicator={false}
           data={result.news}
           renderItem={oneNews}
@@ -69,7 +71,9 @@ export default function SearchScreen() {
         <NoResult title={"Aucun résultat"} />
       ) : (
         <FlatList
-          style={{ paddingTop: 20 }}
+           style={ width > height  ? { paddingTop: 20, flexWrap: 'wrap' } : { paddingTop: 20}}
+            numColumns={width > height ? 2 : 1}
+              columnWrapperStyle={width > height  ? {justifyContent: 'space-between'} : null} 
           showsVerticalScrollIndicator={false}
           data={result.articles}
           renderItem={oneArticle}
@@ -84,7 +88,9 @@ export default function SearchScreen() {
         <NoResult title={"Aucun résultat"} />
       ) : (
         <FlatList
-          style={{ paddingTop: 20 }}
+           style={ width > height  ? { paddingTop: 20, flexWrap: 'wrap' } : { paddingTop: 20}}
+            numColumns={width > height ? 2 : 1}
+              columnWrapperStyle={width > height  ? {justifyContent: 'space-between'} : null} 
           showsVerticalScrollIndicator={false}
           data={result.modules}
           renderItem={oneModule}

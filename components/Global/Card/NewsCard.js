@@ -52,7 +52,7 @@ export default function NewsCard(props) {
         })
       }
     >
-      <View style={ width < height ? {...styles.newContainer} : {...styles.newContainer, width:'48%'}}>
+      <View style={ width < height ? {...styles.newContainer} : {...styles.newContainer, width:450}}>
         <View style={styles.container}>
           <View style={styles.partLeft}>
             <SharedElement
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     borderColor: "#E6E6E6",
     borderWidth: 1,
     marginBottom: 20,
+    marginRight:10,
     borderRadius: 15,
   },
 
