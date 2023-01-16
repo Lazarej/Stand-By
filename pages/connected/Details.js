@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Animated,
+  useWindowDimensions,
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import Wrapper from "../../components/Global/Wrapper";
@@ -19,11 +20,13 @@ import { SharedElement } from "react-navigation-shared-element";
 import { useEffect, useRef } from "react";
 import { _URL } from "../../globalVar/url";
 import Signataire from "../../components/details/Signataire";
+import { isWeb } from "../../globalVar/os";
 
 export default function Details({ navigation }) {
   const route = useRoute();
   const opacity = useRef(new Animated.Value(0)).current;
-
+  const { width, height } = useWindowDimensions()
+  
   useEffect(() => {
     Animation();
   }, []);
@@ -66,7 +69,7 @@ export default function Details({ navigation }) {
         ></Image>
       </SharedElement>
       <Wrapper>
-        <Animated.View style={{ opacity: opacity }}>
+        <Animated.View style={{ opacity: opacity, }}>
           <View
             style={{
               marginVertical: 60,
@@ -127,12 +130,17 @@ export default function Details({ navigation }) {
               <Text style={{ fontWeight: "600" }}>{route.params.date}</Text>
             </Text>
           </View>
-          <View style={{ marginBottom: 60 }}>
-          {route.params.text.map((el, index) => (
-            <View key={index} style={{ marginBottom: 30 }}>
-              <Text style={{...GlobalStyles.title , marginBottom:15}}>{el.Title} </Text>
+          <View style={width > height  ? { paddingHorizontal:100 , marginBottom: 60 , borderLeftWidth:1 , borderLeftColor:'#E6E6E6'} : {  marginBottom: 60}}>
+            {route.params.text.map((el, index) => (
+            <View key={index} style={{ marginBottom: 30}}>
+              {
+                el.Title !== null ? <Text style={ isWeb ? {...GlobalStyles.title , marginBottom:15 , fontSize:RFPercentage(3) } : {...GlobalStyles.title , marginBottom:15 }}>{el.Title}</Text> : null
+              }
               <Text
-                style={{
+                style={ isWeb ? {
+                  ...GlobalStyles.text,
+                  fontSize: RFPercentage(1.4),
+                } : {
                   ...GlobalStyles.text,
                   fontSize: RFPercentage(2.5),
                 }}

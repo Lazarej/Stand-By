@@ -15,6 +15,7 @@ import { Button } from "react-native-paper";
 import DrawerWeb from "../components/Global/Drawer/DrawerWeb";
 import SearchScreen from "../pages/connected/Search";
 import InterestScreen from "../pages/connected/UserInterest";
+import Details from "../pages/connected/Details";
 const Drawer = createDrawerNavigator();
 
 export default function DrawerTab() {
