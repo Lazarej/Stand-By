@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { _URL } from "../../globalVar/url";
 import GlobalStyles from "../../style/GlobalStyles";
+import { isWeb } from "../../globalVar/os";
 
 export default function PlayerVideo(props) {
   const video = useRef(null);
@@ -79,7 +80,14 @@ export default function PlayerVideo(props) {
       style={{ position: "relative" }}
     >
       <TouchableOpacity onPressIn={() => displayPlayer()}>
-        <Video
+        {
+          isWeb ?
+            <video
+              src={`${_URL}${props.video}`}
+              controls
+            >
+
+          </video> : <Video
           ref={video}
           source={{ uri: `${_URL}${props.video}` }}
           resizeMode="cover"
@@ -89,11 +97,13 @@ export default function PlayerVideo(props) {
           onError={(error) => console.log(error)}
           onLoad={() => onLoad()}
           onLoadStart={() => ""}
+          videoStyle={{height: "100%"}}
           onPlaybackStatusUpdate={(status) => {
             setStatus((prev) => (prev = status));
           }}
-          style={{ height: "100%" }}
+        
         />
+        }
       </TouchableOpacity>
       {playerOpen ? (
         <Animated.View style={{ ...styles.player, opacity: fade }}>
@@ -209,7 +219,7 @@ export default function PlayerVideo(props) {
           </TouchableOpacity>
         </Animated.View>
       ) : null}
-      {status.isPlaying !== true &&
+      {/* {status.isPlaying !== true &&
       videoPause !== true &&
       status.positionMillis !== status.durationMillis ? (
         <AnimatedLottieView
@@ -218,7 +228,7 @@ export default function PlayerVideo(props) {
           autoPlay
           loop
         />
-      ) : null}
+      ) : null} */}
     </Modal>
   );
 }

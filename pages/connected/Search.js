@@ -14,7 +14,7 @@ import { _URL } from "../../globalVar/url";
 import ModuleCard from "../../components/Global/Card/ModuleCard";
 
 export default function SearchScreen() {
-  const { user, logout } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { width, height } = useWindowDimensions()
   const [search, setSearch] = useState("");
   const [result, setResult] = useState({

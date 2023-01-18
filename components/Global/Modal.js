@@ -2,13 +2,15 @@ import {
     View,
     TouchableOpacity,
     Modal,
-    StyleSheet
+    StyleSheet,
+    useWindowDimensions
   } from "react-native";
   import { Ionicons } from "@expo/vector-icons";
   import {  Snackbar } from 'react-native-paper';
 
 export default function ModalGlobal(props){
-
+  const { width, height } = useWindowDimensions()
+  
     return(
         <Modal
         animationType="fade"
@@ -17,7 +19,7 @@ export default function ModalGlobal(props){
         statusBarTranslucent
       >
         <View style={styles.modal}>
-          <View style={styles.categoriesContainer}>
+          <View style={ width > height ? {...styles.categoriesContainer , width:400} : {...styles.categoriesContainer}}>
             <TouchableOpacity
               style={{ position: "absolute", zIndex:10, top: 10, right: 10 }}
               onPress={props.close}

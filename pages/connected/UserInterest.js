@@ -102,7 +102,7 @@ export default function InterestScreen() {
 
   return (
     <>
-    <Wrapper>
+    <Wrapper paddingV={50}>
       <TitleCont
         title={"Vos centres d'intéret"}
         text={
@@ -130,7 +130,7 @@ export default function InterestScreen() {
             </Text>
           </TouchableOpacity>
         ))}
-        </View>
+        </View >
         <GlobalButton  title={"Continuer"} onPress={updateInterest}></GlobalButton>      
       </View>
       

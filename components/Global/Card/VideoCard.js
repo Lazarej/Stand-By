@@ -1,4 +1,4 @@
-import { Animated, Image, Modal, StyleSheet, Text, View } from "react-native";
+import { Animated, Image, Modal, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { _URL } from "../../../globalVar/url";
 import { useEffect, useRef, useState } from "react";
@@ -9,6 +9,7 @@ import PlayerVideo from "../PlayerVideo";
 export default function VideoCard(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [progressIndicator, setProgressIndicator] = useState(0);
+  const { width, height } = useWindowDimensions()
 
   useEffect(() => { 
     console.log(props.item.image.data.attributes.url)
@@ -23,7 +24,7 @@ export default function VideoCard(props) {
   }
 
   return (
-    <TouchableOpacity onPress={() => setIsOpen(true)} style={styles.card}>
+    <TouchableOpacity onPress={() => setIsOpen(true)} style={width >  height ? {...styles.card , width:"45%"} : {...styles.card}}>
       <Image
         style={styles.image}
         source={{
@@ -32,9 +33,9 @@ export default function VideoCard(props) {
       />
       <View style={{ ...styles.infoCont }}>
         <View>
-          <Text style={styles.title}>{props.item.title}</Text>
+          <Text style={width >  height ? {...styles.title, fontSize:20} : {...styles.title}}>{props.item.title}</Text>
 
-          <Text style={{ ...GlobalStyles.text, fontSize: RFPercentage(2.1) }}>
+          <Text style={width >  height ?{ ...GlobalStyles.text, fontSize: 16 } :{ ...GlobalStyles.text, fontSize: RFPercentage(2.1) }  }>
             {props.item.time} min
           </Text>
         </View>

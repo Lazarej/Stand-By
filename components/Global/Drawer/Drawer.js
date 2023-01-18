@@ -101,7 +101,7 @@ export default function Drawer() {
                     size={24}
                     color="#AAAAAA"
                   />
-                  <Link style={styles.drawerLink} to={{ screen: "/InterestOnLog"}}>
+                  <Link style={styles.drawerLink} to={{ screen: "InterestOnLog"}}>
                     Vos intéréts
                   </Link>
                 </View>

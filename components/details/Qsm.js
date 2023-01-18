@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, useWindowDimensions } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import GlobalStyles from "../../style/GlobalStyles";
 import Checkbox from "expo-checkbox";
 import GlobalButton from "../Global/Button/Button";
 import { AntDesign } from "@expo/vector-icons";
+import { isWeb } from "../../globalVar/os";
 
 export default function Qsm(props) {
   const [qsm, setQsm] = useState([]);
   const [loading, setloading] = useState(true);
   const [messages, setMessages] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-
+  const { width, height } = useWindowDimensions()
 
   useEffect(() => {
     ReorganizeData();
@@ -151,7 +152,7 @@ export default function Qsm(props) {
       <View style={isOpen ? { marginBottom: 20, height:'100%', overflow:'hidden' } : { marginBottom: 20, height:0,overflow:'hidden' }}>
         {qsm.map((question) => (
           <View style={styles.QsmCont} key={question.id}>
-            <Text style={styles.QsmQuestion}>{question.question}</Text>
+            <Text style={ isWeb ? {...styles.QsmQuestion, fontSize:RFPercentage(2.5)} : {...styles.QsmQuestion}}>{question.question}</Text>
             <View>
               {question.responses.map((response) => (
                 <View key={response.id} style={styles.checkRow}>
@@ -165,7 +166,7 @@ export default function Qsm(props) {
                         : undefined
                     }
                   />
-                  <Text style={styles.QsmResponse}>{response.response}</Text>
+                  <Text style={ isWeb ? {...styles.QsmResponse, fontSize:RFPercentage(1.8)} : {...styles.QsmResponse}}>{response.response}</Text>
                 </View>
               ))}
             </View>

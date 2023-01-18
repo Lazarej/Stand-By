@@ -134,10 +134,10 @@ export default function Details({ navigation }) {
             {route.params.text.map((el, index) => (
             <View key={index} style={{ marginBottom: 30}}>
               {
-                el.Title !== null ? <Text style={ isWeb ? {...GlobalStyles.title , marginBottom:15 , fontSize:RFPercentage(3) } : {...GlobalStyles.title , marginBottom:15 }}>{el.Title}</Text> : null
+                el.Title !== null ? <Text style={ width > height ? {...GlobalStyles.title , marginBottom:15 , fontSize:RFPercentage(3) } : {...GlobalStyles.title , marginBottom:15 }}>{el.Title}</Text> : null
               }
               <Text
-                style={ isWeb ? {
+                style={ width > height? {
                   ...GlobalStyles.text,
                   fontSize: RFPercentage(1.4),
                 } : {

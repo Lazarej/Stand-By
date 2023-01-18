@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import ArticlesCard from "../Global/Card/ArticlesCard";
 import GlobalStyles from "../../style/GlobalStyles";
+import { _URL } from "../../globalVar/url";
 
 export default function OtherArticle(props) {
   const { user } = useContext(UserContext);
@@ -17,7 +18,7 @@ export default function OtherArticle(props) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://192.168.0.50:1337/api/articles?populate=*&filters[interet][type][$contains]=${props.interest.data.attributes.type}`,
+        `${_URL}/api/articles?populate=*&filters[interet][type][$contains]=${props.interest.data.attributes.type}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -31,6 +32,7 @@ export default function OtherArticle(props) {
       const shuffled = [...data].sort(() => 0.5 - Math.random());
       const slice = shuffled.slice(0, 2);
       setRandomArticle((prev) => (prev = slice));
+      console.log('data' , slice)
     } catch (error) {
       console.error(error);
     }
@@ -57,8 +59,7 @@ export default function OtherArticle(props) {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 60,
-    borderTopWidth: 1,
-    borderTopColor: "#E6E6E6",
+   
     marginBottom: 60,
   },
 });

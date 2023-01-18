@@ -11,6 +11,7 @@ import { UserContext } from "../../store/User";
 
 export default function UserCategories(props) {
   const { user, saveUser } = useContext(UserContext);
+   
   const [index, setIndex] = useState(0);
   const [validation, setValidation] = useState({
     error: false,

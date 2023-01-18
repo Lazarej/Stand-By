@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
@@ -18,6 +18,7 @@ import AddButton from "../../../components/Global/Button/AddButton";
 
 export default function DetailModule({ navigation }) {
   const route = useRoute();
+  const { width, height } = useWindowDimensions()
   const { user } = useContext(UserContext);
   const [video, setVideo] = useState([]);
   const [moduleTime, setModuleTime] = useState(``);
@@ -88,7 +89,7 @@ export default function DetailModule({ navigation }) {
         <View style={styles.bodyHeader}>
           <View style={styles.textCont}>
             <Text style={styles.title}>{route.params.item.attributes.title}</Text>
-            <Text style={{ ...GlobalStyles.text, fontSize: RFPercentage(2.5) }}>
+            <Text style={ width >  height ? { ...GlobalStyles.text, fontSize: 18 } : { ...GlobalStyles.text, fontSize: RFPercentage(2.5) }}>
               {route.params.item.attributes.description}
             </Text>
           </View>
@@ -99,7 +100,7 @@ export default function DetailModule({ navigation }) {
           />
         </View>
         <View style={styles.rowInfo}>
-          <Text style={styles.videoLength}>{video.length} vidéos</Text>
+          <Text style={ width >  height ? {... styles.videoLength , fontSize:24} : { ...styles.videoLength}}>{video.length} vidéos</Text>
 
           <View style={{ flexDirection: "row", alignItems: "baseline" }}>
             <Entypo
@@ -108,12 +109,12 @@ export default function DetailModule({ navigation }) {
               size={18}
               color="#AAAAAA"
             />
-            <Text style={{ fontSize: RFPercentage(2.2), ...GlobalStyles.text }}>
+            <Text style={ width >  height ?  {...GlobalStyles.text , fontSize:20} : {fontSize: RFPercentage(2.2), ...GlobalStyles.text}}>
               {moduleTime}
             </Text>
           </View>
         </View>
-        <View>
+        <View style={ width >  height ? {flexWrap:'wrap' , justifyContent:'space-between' , flexDirection:'row'} : null }>
           {video.map((item, index) => (
             <VideoCard key={index} item={item} />
           ))}
