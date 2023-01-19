@@ -40,7 +40,7 @@ export default function NewsSection() {
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
         <Text style={GlobalStyles.title}>Quoi de neuf ?</Text>
-        <Link style={ isWeb ? {...styles.headerLink , fontSize:RFPercentage(1)} : {...styles.headerLink}} to={"/NewsLetter"}>
+        <Link style={ height < width ? {...styles.headerLink , fontSize:RFPercentage(1)} : {...styles.headerLink}} to={"/NewsLetter"}>
           Tout voir
         </Link>
       </View>

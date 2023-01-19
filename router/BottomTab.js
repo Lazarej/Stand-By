@@ -97,7 +97,8 @@ export default function BottomTab() {
              height:100,    
              borderWidth: 0,
              elevation: 0,
-             shadowOpacity: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0
           },
           tabBarIcon: ({color}) => (
             <MaterialIcons name="ondemand-video" size={28} color={color} />

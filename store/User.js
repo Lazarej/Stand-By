@@ -22,7 +22,7 @@ export const UserStore = ({children}) => {
       })
       
     } catch (error) {
-      console.log(error)
+      
     }
   }
 
@@ -34,7 +34,7 @@ export const UserStore = ({children}) => {
     } catch (error) {
       console.error(error)
     }
-    console.log(user)
+    
   };
 
   const signup = async (value) => {
@@ -64,7 +64,7 @@ export const UserStore = ({children}) => {
   };
 
   const login = async (value) => {
-    console.log(value)
+    
     try {
       const response = await axios.post(
         `${_URL}/api/auth/local?populate=*`,
@@ -79,7 +79,7 @@ export const UserStore = ({children}) => {
           Authorization: `Bearer ${response.data.jwt}`,
         },
       })
-      console.log('login data',userPop)
+      
       saveUser({
         token: response.data.jwt,
         login: true,

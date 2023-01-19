@@ -164,7 +164,7 @@ export default function SearchScreen() {
         const news = newsResponse.data.data;
         const articles = articleResponse.data.data;
         const modules = modulesResponse.data.data;
-        console.log("modules", modules);
+        
         setResult(
           (prev) =>
             (prev = { news: news, articles: articles, modules: modules })

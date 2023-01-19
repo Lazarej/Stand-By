@@ -20,8 +20,7 @@ import { AntDesign } from '@expo/vector-icons';
 export default function Drawer() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useContext(UserContext);
-  const layout = Math.floor(useWindowDimensions().width - 80);
-  const SlideIn = useRef(new Animated.Value(-layout)).current;
+  const SlideIn = useRef(new Animated.Value(-300)).current;
 
   useEffect(() => {}, []);
 
@@ -36,7 +35,7 @@ export default function Drawer() {
 
   const SlideOutAnim = () => {
     Animated.timing(SlideIn, {
-      toValue: -layout,
+      toValue: -300,
       duration: 300,
       useNativeDriver: true,
     }).start(() => {
@@ -47,7 +46,7 @@ export default function Drawer() {
   return (
     <View>
       <Feather
-        style={{ marginLeft: "10%" }}
+        style={{ marginLeft: "10%", marginTop:50 }}
         onPress={() => SlideInAnim()}
         name="menu"
         size={44}
@@ -63,7 +62,7 @@ export default function Drawer() {
           <Animated.View
             style={{
               ...styles.drawer,
-              width: layout,
+              width: 300,
               transform: [{ translateX: SlideIn }],
             }}
           >
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
   },
 
   drawerLink: {
-    fontSize: RFPercentage(2.7),
+    fontSize:20,
     color: "#AAAAAA",
   },
 
@@ -177,6 +176,6 @@ const styles = StyleSheet.create({
 
   deconnexion: {
     color: GlobalStyles.primary.color,
-    fontSize: RFPercentage(2.9),
+    fontSize: 24,
   },
 });

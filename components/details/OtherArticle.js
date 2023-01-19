@@ -32,7 +32,7 @@ export default function OtherArticle(props) {
       const shuffled = [...data].sort(() => 0.5 - Math.random());
       const slice = shuffled.slice(0, 2);
       setRandomArticle((prev) => (prev = slice));
-      console.log('data' , slice)
+      
     } catch (error) {
       console.error(error);
     }

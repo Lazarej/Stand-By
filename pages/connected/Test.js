@@ -14,7 +14,7 @@ function TestButton (props){
 
 
     useEffect(() =>{
-            // console.log('test', props.id)
+            // 
            const Liked = ()=>{
             const isLiked = user.favorites.some((fav) => {
                 return fav.id === props.id;
@@ -81,7 +81,7 @@ function CardTest (props){
     
     
     useEffect(() =>{
-        console.log('re render card' , props.element)
+        
 
     },)
 
@@ -99,7 +99,7 @@ export default function Test() {
     const [state, setState] = useState() 
 
     useEffect(() =>{
-        console.log('re render page' )
+        
        setState( prev => prev =  user.favorites)
 
     }, )

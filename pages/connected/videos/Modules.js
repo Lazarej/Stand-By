@@ -49,7 +49,7 @@ export default function Modules() {
     }
 
     return () => {
-      console.log("props", modulesState);
+      
       setModulesState((prev) => (prev = []));
       setLoading((prev) => (prev = true));
     };

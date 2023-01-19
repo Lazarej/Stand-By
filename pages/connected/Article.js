@@ -92,7 +92,7 @@ export default function ArticleScreen() {
           color: GlobalStyles.primary.color,
         };
       });
-      console.log(routesValue , data, response)
+      
       const set = [routes[0], ...routesValue];
       setRoutes((prev) => (prev = set));
     } catch (error) {

@@ -22,15 +22,7 @@ export default function HomeScreen() {
       contentContainerStyle={{ minHeight: "100%" }}
     >
       <View
-        style={ isWeb ? {
-          width: "100%",
-          height:350,
-          justifyContent: "space-evenly",
-          backgroundColor: GlobalStyles.primary.backgroundColor,
-        }  : {
-          width: "100%",
-          flex: 1,
-          height:450,
+        style={ {
           justifyContent: "space-evenly",
           backgroundColor: GlobalStyles.primary.backgroundColor,
         }}
@@ -39,10 +31,10 @@ export default function HomeScreen() {
           height > width ? <Drawer/> : null
         }
         <View style={styles.titleContentCont}>
-          <Text style={isWeb ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>Les</Text>
-          <Text style={isWeb ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>News</Text>
-          <Text style={isWeb ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>Du</Text>
-          <Text style={isWeb ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>Moment !</Text>
+          <Text style={height < width ?  {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>Les</Text>
+          <Text style={height < width ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>News</Text>
+          <Text style={height < width ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>Du</Text>
+          <Text style={height < width ? {...styles.tilteText, fontSize:RFPercentage(5), lineHeight: RFPercentage(4)} : {...styles.tilteText}}>Moment !</Text>
         </View>
       </View>
 
@@ -59,14 +51,15 @@ const styles = StyleSheet.create({
   titleContentCont: {
     width: "100%",
     marginLeft: "10%",
+    marginVertical:'5%'
   },
 
   tilteText: {
     fontFamily: "RobotoB",
     color: "#fff",
-    fontSize: RFPercentage(9),
+    fontSize: RFPercentage(7),
     textTransform: "uppercase",
-    lineHeight: RFPercentage(8.8),
+    lineHeight: RFPercentage(6.7),
     letterSpacing: -3,
   },
 

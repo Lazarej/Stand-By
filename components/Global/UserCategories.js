@@ -72,7 +72,7 @@ export default function UserCategories(props) {
         });
       }
       setIndex(0);
-      console.log(index);
+      
     }
   };
 

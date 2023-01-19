@@ -4,15 +4,16 @@ import { _URL } from "../../../globalVar/url";
 import { useEffect, useRef, useState } from "react";
 import GlobalStyles from "../../../style/GlobalStyles";
 import { TouchableOpacity } from "react-native";
-import PlayerVideo from "../PlayerVideo";
-
+import PlayerVideo from "../Players/PlayerVideo";
+import { isWeb } from "../../../globalVar/os";
+import PlayerWeb from "../Players/PlayerWeb";
 export default function VideoCard(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [progressIndicator, setProgressIndicator] = useState(0);
   const { width, height } = useWindowDimensions()
 
   useEffect(() => { 
-    console.log(props.item.image.data.attributes.url)
+    
   }, [progressIndicator]);
   
   const updateProgress = (value) => {
@@ -50,11 +51,17 @@ export default function VideoCard(props) {
           ></View>
         </View>
       </View>
-      <PlayerVideo
+      {
+        isWeb ? <PlayerWeb
+        isOpen={isOpen}
+        video={props.item.media.data.attributes.url}
+        updateProgress={(value) =>updateProgress(value)}
+        /> : <PlayerVideo
         isOpen={isOpen}
         video={props.item.media.data.attributes.url}
         updateProgress={(value) =>updateProgress(value)}
       />
+      }
     </TouchableOpacity>
   );
 }

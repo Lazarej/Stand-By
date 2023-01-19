@@ -23,7 +23,7 @@ export default function InterestScreen() {
   }, []);
 
   const userAlreadyHaveData = (data) => {
-    console.log(user.interests)
+    
 
     if (user.interests.length !== 0) {
       const userInterests = data.map((interest) => {

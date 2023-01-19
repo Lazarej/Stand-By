@@ -29,7 +29,7 @@ export default function ArticleSection() {
           }
         );
         const data = await response.data.data[0];
-        console.log(data)
+        
         if (data !== undefined) {
           setArticlesState((prev) => [...prev, data]);
         }
@@ -52,7 +52,7 @@ export default function ArticleSection() {
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
         <Text style={GlobalStyles.title}>Nos petits Articles</Text>
-        <Link style={ isWeb ? {...styles.headerLink , fontSize:RFPercentage(1)} : {...styles.headerLink}} to={"/Article"}>
+        <Link style={ height < width? {...styles.headerLink , fontSize:RFPercentage(1)} : {...styles.headerLink}} to={"/Article"}>
           Tout voir
         </Link>
       </View>

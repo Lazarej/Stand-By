@@ -17,7 +17,7 @@ import Constants from "expo-constants";
 import { useWindowDimensions, View } from "react-native";
 import SearchScreen from "../pages/connected/Search";
 import DetailModule from "../pages/connected/videos/DetailsModule";
-import { isWeb } from "../globalVar/os";
+
 import DrawerTab from "./DrawerTab";
 
 const Stack = createSharedElementStackNavigator();

@@ -11,7 +11,7 @@ export default function ArticlesCard(props) {
   const { width, height } = useWindowDimensions ()
   
   useEffect(()=>{
-   console.log('props',props.article.attributes)
+   
   },[])
 
   return (
