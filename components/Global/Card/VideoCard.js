@@ -13,7 +13,7 @@ export default function VideoCard(props) {
   const { width, height } = useWindowDimensions()
 
   useEffect(() => { 
-    
+    console.log(props.item.image.data.attributes.url)
   }, [progressIndicator]);
   
   const updateProgress = (value) => {
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 
   image: {
     height: 75,
-    width: 75,
+    width:75,
     marginRight: 10,
     resizeMode: "cover",
     borderRadius: 15,

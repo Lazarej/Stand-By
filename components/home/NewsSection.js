@@ -40,11 +40,11 @@ export default function NewsSection() {
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
         <Text style={GlobalStyles.title}>Quoi de neuf ?</Text>
-        <Link style={ height < width ? {...styles.headerLink , fontSize:RFPercentage(1)} : {...styles.headerLink}} to={"/NewsLetter"}>
+        <Link style={ height < width ? {...styles.headerLink , fontSize:RFPercentage(1)} : {...styles.headerLink}} to={{ screen: "NewsLetter"}}>
           Tout voir
         </Link>
       </View>
-      <View style={ height < width ? {flexDirection:'row', flexWrap:'wrap', justifyContent:'space-between'} : null}>
+      <View style={ height < width ? {flexDirection:'row', flexWrap:'wrap', justifyContent:'center'} : null}>
         {Object.values(newsState).map((e) => (
           <NewsCard
             element={e}

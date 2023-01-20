@@ -30,18 +30,16 @@ export default function ArticlesCard(props) {
       interest: props.article.attributes.interet
     })}
     >
-      <View style={ width < height ? {...styles.container} : {...styles.container, width:450}}>
-      <SharedElement id={props.article.attributes.image.data.attributes.url}>
+      <View style={ width < height ? {...styles.container} : {...styles.container, width:"30vw" , height:'17vw' , margin:'0.5vw'}}>
       <Image
         resizeMode="cover"
         style={styles.image}
         source={{ uri: `${_URL}${props.article.attributes.image.data.attributes.url}` }}
       />
-      </SharedElement>
       <View style={styles.infoCont}>
         <View style={{marginLeft:10}}>
-        <Text style={styles.infoContTitle}>{props.article.attributes.title}</Text>
-        <Text style={{...GlobalStyles.text, fontSize:16}}>
+        <Text style={width < height ?  {...styles.infoContTitle} : {...styles.infoContTitle , fontSize:RFPercentage(1.4)}}>{props.article.attributes.title}</Text>
+        <Text style={width < height ? {...GlobalStyles.text, fontSize:16} : {...GlobalStyles.text, fontSize:RFPercentage(1)}}>
           {props.article.attributes.text[0].text.substring(0, 79)}...
         </Text>
         </View>
@@ -64,7 +62,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height:100,
+    height:'60%',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },

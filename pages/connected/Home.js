@@ -9,6 +9,7 @@ import NewsSection from "../../components/home/NewsSection";
 import ArticleSection from "../../components/home/ArticleSection";
 import Drawer from "../../components/Global/Drawer/Drawer"
 import { isWeb } from "../../globalVar/os";
+import ModuleSection from "../../components/home/ModuleSection";
 export default function HomeScreen() {
 
   const {width , height} = useWindowDimensions()
@@ -42,6 +43,8 @@ export default function HomeScreen() {
         <NewsSection></NewsSection>
         <View style={styles.line}></View>
         <ArticleSection></ArticleSection>
+        <View style={styles.line}></View>
+        <ModuleSection/>
       </Wrapper>
     </ScrollView>
   );

@@ -52,11 +52,11 @@ export default function ArticleSection() {
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
         <Text style={GlobalStyles.title}>Nos petits Articles</Text>
-        <Link style={ height < width? {...styles.headerLink , fontSize:RFPercentage(1)} : {...styles.headerLink}} to={"/Article"}>
+        <Link style={ height < width? {...styles.headerLink , fontSize:RFPercentage(1)} : {...styles.headerLink}} to={{ screen: "Article"}}>
           Tout voir
         </Link>
       </View>
-      <View style={ height < width ? {flexDirection:'row', flexWrap:'wrap', justifyContent:'space-between'} : null}>
+      <View style={ height < width ? {flexDirection:'row', flexWrap:'wrap', justifyContent:'center'} : null}>
         {articlesState.map((article) => (
           <ArticlesCard
             article={article}

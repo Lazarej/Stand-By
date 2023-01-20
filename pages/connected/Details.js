@@ -41,7 +41,7 @@ export default function Details({ navigation }) {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
-      <Animated.View style={{ ...styles.iconCont, opacity: opacity }}>
+      <View style={styles.iconCon }>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
@@ -61,13 +61,13 @@ export default function Details({ navigation }) {
             ></LikeButton>
           </View>
         ) : null}
-      </Animated.View>
-      <SharedElement id={route.params.image}>
+      </View>
+
         <Image
           style={styles.image}
           source={{ uri: `${_URL}${route.params.image}` }}
         ></Image>
-      </SharedElement>
+
       <Wrapper>
         <Animated.View style={{ opacity: opacity, }}>
           <View

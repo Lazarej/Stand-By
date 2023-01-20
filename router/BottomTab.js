@@ -76,7 +76,7 @@ export default function BottomTab() {
         name="Favorite"
         component={FavoriteScreen}
         options={{
-          title:'Favorits',
+          title:'Favoris',
           tabBarIcon: ({color}) => (
             <MaterialIcons name="favorite-outline" size={28} color={color}  />
           ),

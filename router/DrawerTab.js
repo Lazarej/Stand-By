@@ -81,7 +81,7 @@ export default function DrawerTab() {
         name="Favorite"
         component={FavoriteScreen}
         options={{
-          title: "Favorits",
+          title: "Favoris",
           drawerIcon: ({ color }) => (
             <MaterialIcons name="favorite-outline" size={28} color={color} />
           ),

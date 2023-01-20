@@ -52,19 +52,15 @@ export default function NewsCard(props) {
         })
       }
     >
-      <View style={ width < height ? {...styles.newContainer} : {...styles.newContainer, width:450}}>
+      <View style={ width < height ? {...styles.newContainer} : {...styles.newContainer, width:'30vw' , minWidth:350, maxWidth:500}}>
         <View style={styles.container}>
           <View style={styles.partLeft}>
-            <SharedElement
-              id={props.element.attributes.image.data.attributes.url}
-            >
               <Image
                 style={styles.image}
                 source={{
                   uri: `${_URL}${props.element.attributes.image.data.attributes.formats.small.url}`,
                 }}
               />
-            </SharedElement>
             <View
               style={{
                 justifyContent: "space-between",

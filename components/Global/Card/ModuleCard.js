@@ -20,7 +20,7 @@ export default function ModuleCard(props) {
           id: props.item.id,
         })
       }
-      style={ width < height ? {...styles.card} : {...styles.card, width:450}}
+      style={ width < height ? {...styles.card} : {...styles.card, width:"30vw" , height:'17vw' , margin:'0.5vw'}}
     >
      
       <Image
@@ -30,8 +30,8 @@ export default function ModuleCard(props) {
           uri: `${_URL}${props.item.attributes.image.data.attributes.url}`,
         }}
       />
-      <Text style={isWeb ? {...styles.cardTitle, fontSize:24} : {...styles.cardTitle}}>{props.item.attributes.title}</Text>
-      <Text style={isWeb ? {...styles.videoLength, fontSize: 15} : {...styles.videoLength}}>
+      <Text style={width >  height  ? {...styles.cardTitle, fontSize:RFPercentage(1.7)} : {...styles.cardTitle}}>{props.item.attributes.title}</Text>
+      <Text style={width > height ? {...styles.videoLength, fontSize: RFPercentage(1)} : {...styles.videoLength}}>
         {props.item.attributes.video.length} vidéos
       </Text>
        <View style={styles.addCont}>
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    height: 100,
-    width: 150,
+    height: '60%',
+    width: '70%',
   },
 
   cardTitle: {

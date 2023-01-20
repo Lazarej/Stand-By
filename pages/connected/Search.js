@@ -43,7 +43,6 @@ export default function SearchScreen() {
         key={index}
         index={index}
         item={item}
-        checkIndexIsEven={(index) => checkIndexIsEven(index)}
       ></ModuleCard>
     );
   };
@@ -56,7 +55,7 @@ export default function SearchScreen() {
         <FlatList
             style={ width > height  ? { paddingTop: 20, flexWrap: 'wrap' } : { paddingTop: 20}}
             numColumns={width > height ? 2 : 1}
-              columnWrapperStyle={width > height  ? {justifyContent: 'space-between'} : null} 
+              columnWrapperStyle={width > height  ? {justifyContent: 'center'} : null} 
           showsVerticalScrollIndicator={false}
           data={result.news}
           renderItem={oneNews}
@@ -73,7 +72,7 @@ export default function SearchScreen() {
         <FlatList
            style={ width > height  ? { paddingTop: 20, flexWrap: 'wrap' } : { paddingTop: 20}}
             numColumns={width > height ? 2 : 1}
-              columnWrapperStyle={width > height  ? {justifyContent: 'space-between'} : null} 
+              columnWrapperStyle={width > height  ? {justifyContent: 'center'} : null} 
           showsVerticalScrollIndicator={false}
           data={result.articles}
           renderItem={oneArticle}
@@ -90,7 +89,7 @@ export default function SearchScreen() {
         <FlatList
            style={ width > height  ? { paddingTop: 20, flexWrap: 'wrap' } : { paddingTop: 20}}
             numColumns={width > height ? 2 : 1}
-              columnWrapperStyle={width > height  ? {justifyContent: 'space-between'} : null} 
+              columnWrapperStyle={width > height  ? {justifyContent: 'center'} : null} 
           showsVerticalScrollIndicator={false}
           data={result.modules}
           renderItem={oneModule}

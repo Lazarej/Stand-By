@@ -15,11 +15,11 @@ export default function RenderScene(props) {
         ) : (
           <FlatList
                 contentContainerStyle={{ paddingVertical: 30, }}
-                 style={ width > height  ? { paddingTop: 20, flexWrap: 'wrap' } : { paddingTop: 20}}
+                 style={ width > height  ? { paddingTop: 20,  } : { paddingTop: 20}}
             numColumns={ width > height ? 2 : 1}
             showsVerticalScrollIndicator={false}
                 data={props.data}
-                 columnWrapperStyle={width > height  ? {justifyContent: 'space-between'} : null} 
+                 columnWrapperStyle={width > height  ? {flexWrap: 'wrap', justifyContent:'center'} : null} 
             renderItem={props.component}
           />
         )}

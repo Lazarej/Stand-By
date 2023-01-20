@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     height: 250,
     width: "100%",
     marginRight: 10,
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
 
   iconButton: {

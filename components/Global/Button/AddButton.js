@@ -45,13 +45,13 @@ export default function AddButton(props) {
       {isAdded ? (
         <MaterialIcons
           name="remove"
-          size={28}
+          size={24}
           color={GlobalStyles.primary.color}
         />
       ) : (
         <MaterialIcons
           name="add"
-          size={28}
+          size={24}
           color={GlobalStyles.primary.color}
         />
       )}
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "#E6E6E6",
     borderWidth: 1,
+    zIndex:20,
     borderRadius: 50,
     height: 40,
     width: 40,

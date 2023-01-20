@@ -42,7 +42,7 @@ export default function NewsLetterScreen() {
         showsVerticalScrollIndicator={false}
         data={newsState}
         columnWrapperStyle={
-          width > height ? { justifyContent: "space-between" } : null
+          width > height ? { justifyContent: "center" } : null
         }
         renderItem={({ item }) => (
           <NewsCard element={item} key={item.id}></NewsCard>

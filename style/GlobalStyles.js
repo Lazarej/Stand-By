@@ -9,6 +9,7 @@ export default StyleSheet.create({
 
   title:{  
     fontSize: RFPercentage(3.5),
+    letterSpacing:RFPercentage(-0.2),
     fontFamily:'RobotoB',
     textTransform: 'uppercase',
     marginBottom:5
