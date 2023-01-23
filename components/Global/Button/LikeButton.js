@@ -10,27 +10,27 @@ export default function LikeButton(props) {
 
   useEffect(() => {
     Liked();
-  });
+  },[likeState]);
 
   const Liked = () => {
-    if (user.favorites) {
+ 
       const isLiked = user.favorites.some((fav) => {
         return fav.id === props.id;
       });
       setlikeState((prev) => (prev = isLiked));
-    }
   };
 
   const Like = () => {
-
-    if (likeState !== true) {
       const newFavArray = [...user.favorites, props.element];
       saveUser({
         ...user,
         favorites: newFavArray,
       });
-    } else {
-      const removeFav = user.favorites.filter((fav) => {
+    
+  };
+
+  const Remove = () => {
+    const removeFav = user.favorites.filter((fav) => {
         return fav.id !== props.id;
       });
       const removeCat = user.userLikesCategories.map((cat) => {
@@ -51,11 +51,10 @@ export default function LikeButton(props) {
         favorites: removeFav,
         userLikesCategories: removeCat,
       });
-    }
-  };
+  }
 
   return (
-    <TouchableOpacity style={styles.cont} onPress={Like}>
+    <TouchableOpacity style={styles.cont} onPress={likeState ? Remove : Like }>
       {likeState ? (
         <Ionicons
           name="heart-sharp"

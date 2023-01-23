@@ -41,7 +41,7 @@ export default function Details({ navigation }) {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
-      <View style={styles.iconCon }>
+      <View style={styles.iconCont }>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
@@ -132,7 +132,7 @@ export default function Details({ navigation }) {
           </View>
           <View style={width > height  ? { paddingHorizontal:100 , marginBottom: 60 , borderLeftWidth:1 , borderLeftColor:'#E6E6E6'} : {  marginBottom: 60}}>
             {route.params.text.map((el, index) => (
-            <View key={index} style={{ marginBottom: 30}}>
+            <View key={index} style={{ marginBottom: 50}}>
               {
                 el.Title !== null ? <Text style={ width > height ? {...GlobalStyles.title , marginBottom:15 , fontSize:RFPercentage(3) } : {...GlobalStyles.title , marginBottom:15 }}>{el.Title}</Text> : null
               }

@@ -187,6 +187,7 @@ export default function Qsm(props) {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 60,
+    backgroundColor:'red',
     borderTopWidth: 1,
     borderTopColor: "#E6E6E6",
     marginBottom: 60,

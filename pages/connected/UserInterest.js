@@ -109,7 +109,8 @@ export default function InterestScreen() {
           "Selectionner vos centres d’interet pour obtenir du contenu personnalisé."
         }
       ></TitleCont>
-      <View style={styles.toggleCont}>
+        <View style={{alignItems:'center'}}>
+          <View style={styles.toggleCont}>
         <View style={styles.interestCont}>
         {interestState.map((interest) => (
           <TouchableOpacity
@@ -133,6 +134,7 @@ export default function InterestScreen() {
         </View >
         <GlobalButton  title={"Continuer"} onPress={updateInterest}></GlobalButton>      
       </View>
+      </View>
       
       
     </Wrapper>
@@ -152,8 +154,8 @@ export default function InterestScreen() {
 
 const styles = StyleSheet.create({
   toggleCont: {
-   
-    flex:1,
+    width:'100%',
+    maxWidth: 600,
     justifyContent:'space-between',
     marginBottom:70
     
