@@ -13,17 +13,21 @@ export default function NewsCard(props) {
   const [categorie, setCategorie] = useState({});
   const [likeState, setlikeState] = useState(false);
   const navigation = useNavigation();
+  const [loading , setLoading] = useState(true)
   const {width , height} = useWindowDimensions()
 
   useEffect(() => {
     checkLike();
     IsOnCategorie();
-  }, [user.userLikesCategories, user.favorites]);
-
+    setLoading(false)
+  },[likeState]);
+  
+  
   const checkLike = () => {
     const isLiked = user.favorites.some((fav) => {
       return fav.id === props.element.id;
     });
+    console.log('render card', isLiked , props.element.attributes.title)
     setlikeState((prev) => (prev = isLiked));
   };
 
@@ -104,11 +108,15 @@ export default function NewsCard(props) {
           <View
             style={{ justifyContent: "space-between", alignItems: "flex-end" }}
           >
-            <LikeButton
+            {
+              loading ? null :  <LikeButton
+              isLiked={likeState}
+              setIsLiked={setlikeState}
               size={24}
               id={props.element.id}
               element={props.element}
             ></LikeButton>
+            }
             {likeState ? (
               <CatButton
                 id={props.element.id}

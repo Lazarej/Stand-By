@@ -9,16 +9,10 @@ export default function LikeButton(props) {
   const [likeState, setlikeState] = useState(false);
 
   useEffect(() => {
-    Liked();
-  },[likeState]);
-
-  const Liked = () => {
- 
-      const isLiked = user.favorites.some((fav) => {
-        return fav.id === props.id;
-      });
-      setlikeState((prev) => (prev = isLiked));
-  };
+    setlikeState(prev => prev = props.isLiked)
+    console.log("props", props.isLiked)
+    console.log("likeState" , likeState)
+  },[])
 
   const Like = () => {
       const newFavArray = [...user.favorites, props.element];
@@ -26,7 +20,8 @@ export default function LikeButton(props) {
         ...user,
         favorites: newFavArray,
       });
-    
+    setlikeState((prev) => (prev = true));
+    props.setIsLiked((prev) => (prev = true))
   };
 
   const Remove = () => {
@@ -51,6 +46,8 @@ export default function LikeButton(props) {
         favorites: removeFav,
         userLikesCategories: removeCat,
       });
+    setlikeState((prev) => (prev = false));
+    props.setIsLiked((prev) => (prev = false))
   }
 
   return (
