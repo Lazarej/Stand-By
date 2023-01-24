@@ -55,6 +55,8 @@ export default function Details({ navigation }) {
         {route.params.from === "news" ? (
           <View style={styles.likeButton}>
             <LikeButton
+              isLiked={route.params.isLiked}
+              setIsLiked={() => route.params.setIsLiked()}
               size={24}
               id={route.params.id}
               element={route.params.element}

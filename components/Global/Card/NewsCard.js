@@ -20,14 +20,14 @@ export default function NewsCard(props) {
     checkLike();
     IsOnCategorie();
     setLoading(false)
-  },[likeState]);
+  },[likeState, categorie]);
   
   
   const checkLike = () => {
     const isLiked = user.favorites.some((fav) => {
       return fav.id === props.element.id;
     });
-    console.log('render card', isLiked , props.element.attributes.title)
+    
     setlikeState((prev) => (prev = isLiked));
   };
 
@@ -53,6 +53,8 @@ export default function NewsCard(props) {
           from: "news",
           categorie: categorie,
           element: props.element,
+          isLiked:likeState,
+              setIsLiked: setlikeState
         })
       }
     >

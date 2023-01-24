@@ -13,7 +13,7 @@ export default function VideoCard(props) {
   const { width, height } = useWindowDimensions()
 
   useEffect(() => { 
-    console.log(props.item.image.data.attributes.url)
+    
   }, [progressIndicator]);
   
   const updateProgress = (value) => {

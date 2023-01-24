@@ -10,8 +10,8 @@ export default function LikeButton(props) {
 
   useEffect(() => {
     setlikeState(prev => prev = props.isLiked)
-    console.log("props", props.isLiked)
-    console.log("likeState" , likeState)
+    
+    
   },[])
 
   const Like = () => {

@@ -31,7 +31,7 @@ export default function ModuleSection() {
         if (data !== undefined) {
           setModulesState((prev) => [...prev, data]);
           }
-          console.log(modulesState)
+          
         setModulesState((prev) => prev.slice(0, 2));
       } catch (error) {
         console.error(error);
