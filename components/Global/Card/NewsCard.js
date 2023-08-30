@@ -1,12 +1,11 @@
 import { View, StyleSheet, Text, Image, TouchableOpacity, useWindowDimensions } from "react-native";
 import LikeButton from "../Button/LikeButton";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../../store/User";
 import CatButton from "../Button/CatButton";
-import { useNavigation } from "@react-navigation/native";
-import { SharedElement } from "react-navigation-shared-element";
-import { _URL } from "../../../globalVar/url";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 
 export default function NewsCard(props) {
   const { user, saveUser } = useContext(UserContext);
@@ -15,19 +14,21 @@ export default function NewsCard(props) {
   const navigation = useNavigation();
   const [loading , setLoading] = useState(true)
   const {width , height} = useWindowDimensions()
-
   useEffect(() => {
+    
     checkLike();
     IsOnCategorie();
     setLoading(false)
-  },[likeState, categorie]);
+    // console.log('card', user.favorites, user.favorites.includes(props.element.id))
+
+  },[user.favorites,user.userLikesCategories]);
   
   
   const checkLike = () => {
     const isLiked = user.favorites.some((fav) => {
       return fav.id === props.element.id;
     });
-    
+    console.log('check' , isLiked , props.element.id)
     setlikeState((prev) => (prev = isLiked));
   };
 
@@ -64,7 +65,7 @@ export default function NewsCard(props) {
               <Image
                 style={styles.image}
                 source={{
-                  uri: `${_URL}${props.element.attributes.image.data.attributes.formats.small.url}`,
+                  uri: `${process.env._URL}${props.element.attributes.image.data.attributes.formats.small.url}`,
                 }}
               />
             <View

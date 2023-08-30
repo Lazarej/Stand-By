@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { _URL } from "../globalVar/url";
+
 
 export const UserContext = createContext({});
 
@@ -40,7 +40,7 @@ export const UserStore = ({children}) => {
   const signup = async (value) => {
     try {
       const response = await axios.post(
-        `${_URL}/api/auth/local/register?populate=*`,
+        `${process.env._URL}/api/auth/local/register?populate=*`,
         {
           username: value.email,
           email: value.email,
@@ -67,13 +67,13 @@ export const UserStore = ({children}) => {
     
     try {
       const response = await axios.post(
-        `${_URL}/api/auth/local?populate=*`,
+        `${process.env._URL}/api/auth/local?populate=*`,
         {
           identifier: value.email,
           password: value.password,
         }
       );
-      const userPop = await axios.get(`${_URL}/api/users/me?populate=*` ,{
+      const userPop = await axios.get(`${process.env._URL}/api/users/me?populate=*` ,{
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${response.data.jwt}`,
@@ -94,7 +94,7 @@ export const UserStore = ({children}) => {
     try {
       await AsyncStorage.removeItem('appliUser')
       await axios.put(
-        `${_URL}/api/users/${user.id}`,
+        `${process.env._URL}/api/users/${user.id}`,
         {
           interests: user.interests,
           favorites : user.favorites,

@@ -7,7 +7,6 @@ import { Video } from "expo-av";
 import { Animated, Modal, StyleSheet, View } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { _URL } from "../../../globalVar/url";
 import GlobalStyles from "../../../style/GlobalStyles";
 
 export default function PlayerVideo(props) {
@@ -81,7 +80,7 @@ export default function PlayerVideo(props) {
       <TouchableOpacity onPressIn={() => displayPlayer()}>
         <Video
           ref={video}
-          source={{ uri: `${_URL}${props.video}` }}
+          source={{ uri: `${process.env._URL}${props.video}` }}
           resizeMode="cover"
           fullscreen={false}
           shouldPlay

@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import axios from "axios";
 import NewsCard from "../../components/Global/Card/NewsCard";
-import { _URL } from "../../globalVar/url";
 
 export default function NewsLetterScreen() {
   const { user } = useContext(UserContext);
@@ -14,7 +13,7 @@ export default function NewsLetterScreen() {
 
   const getData = async () => {
     try {
-      const response = await axios.get(`${_URL}/api/news?populate=*`, {
+      const response = await axios.get(`${process.env._URL}/api/news?populate=*`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
@@ -27,8 +26,9 @@ export default function NewsLetterScreen() {
     }
   };
   useEffect(() => {
+    console.log('news',user.favorites)
     getData();
-  }, []);
+  },[]);
 
   return (
     <Wrapper>

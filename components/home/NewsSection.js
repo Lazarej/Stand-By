@@ -7,8 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import axios from "axios";
 import NewsCard from "../Global/Card/NewsCard";
-import { _URL } from "../../globalVar/url";
-import { isWeb } from "../../globalVar/os";
+
 
 export default function NewsSection() {
   const { user } = useContext(UserContext);
@@ -19,7 +18,7 @@ export default function NewsSection() {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `${_URL}/api/news?populate=*`,
+          `${process.env._URL}/api/news?populate=*`,
           {
             headers: {
               "Content-Type": "application/json",

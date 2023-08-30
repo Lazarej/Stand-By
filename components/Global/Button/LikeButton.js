@@ -6,13 +6,9 @@ import GlobalStyles from "../../../style/GlobalStyles";
 
 export default function LikeButton(props) {
   const { user, saveUser } = useContext(UserContext);
-  const [likeState, setlikeState] = useState(false);
 
   useEffect(() => {
-    setlikeState(prev => prev = props.isLiked)
-    
-    
-  },[])
+  },[props.isLiked])
 
   const Like = () => {
       const newFavArray = [...user.favorites, props.element];
@@ -20,7 +16,6 @@ export default function LikeButton(props) {
         ...user,
         favorites: newFavArray,
       });
-    setlikeState((prev) => (prev = true));
     props.setIsLiked((prev) => (prev = true))
   };
 
@@ -46,13 +41,12 @@ export default function LikeButton(props) {
         favorites: removeFav,
         userLikesCategories: removeCat,
       });
-    setlikeState((prev) => (prev = false));
     props.setIsLiked((prev) => (prev = false))
   }
 
   return (
-    <TouchableOpacity style={styles.cont} onPress={likeState ? Remove : Like }>
-      {likeState ? (
+    <TouchableOpacity style={styles.cont} onPress={props.isLiked ? Remove : Like }>
+      {props.isLiked ? (
         <Ionicons
           name="heart-sharp"
           size={props.size}

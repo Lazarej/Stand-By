@@ -10,7 +10,6 @@ import GlobalStyles from "../../style/GlobalStyles";
 import NewsCard from "../../components/Global/Card/NewsCard";
 import ArticlesCard from "../../components/Global/Card/ArticlesCard";
 import NoResult from "../../components/Global/NoResult";
-import { _URL } from "../../globalVar/url";
 import ModuleCard from "../../components/Global/Card/ModuleCard";
 
 export default function SearchScreen() {
@@ -134,7 +133,7 @@ export default function SearchScreen() {
     } else {
       try {
         const articleResponse = await axios.get(
-          `${_URL}/api/articles?filters[title][$contains]=${search}&populate=*`,
+          `${process.env._URL}/api/articles?filters[title][$contains]=${search}&populate=*`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -143,7 +142,7 @@ export default function SearchScreen() {
           }
         );
         const newsResponse = await axios.get(
-          `${_URL}/api/news?filters[title][$contains]=${search}&populate=*`,
+          `${process.env._URL}/api/news?filters[title][$contains]=${search}&populate=*`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -152,7 +151,7 @@ export default function SearchScreen() {
           }
         );
         const modulesResponse = await axios.get(
-          `${_URL}/api/modules?filters[title][$contains]=${search}&populate=*`,
+          `${process.env._URL}/api/modules?filters[title][$contains]=${search}&populate=*`,
           {
             headers: {
               "Content-Type": "application/json",

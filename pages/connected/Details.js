@@ -16,11 +16,11 @@ import { Ionicons } from "@expo/vector-icons";
 import LikeButton from "../../components/Global/Button/LikeButton";
 import OtherArticle from "../../components/details/OtherArticle";
 import Qsm from "../../components/details/Qsm";
-import { SharedElement } from "react-navigation-shared-element";
+
 import { useEffect, useRef } from "react";
-import { _URL } from "../../globalVar/url";
+
 import Signataire from "../../components/details/Signataire";
-import { isWeb } from "../../globalVar/os";
+
 
 export default function Details({ navigation }) {
   const route = useRoute();
@@ -67,7 +67,7 @@ export default function Details({ navigation }) {
 
         <Image
           style={styles.image}
-          source={{ uri: `${_URL}${route.params.image}` }}
+          source={{ uri: `${process.env._URL}${route.params.image}` }}
         ></Image>
 
       <Wrapper>

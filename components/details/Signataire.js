@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { View, Text, Image } from "react-native";
-import { _URL } from "../../globalVar/url";
+
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import { Avatar } from "react-native-paper";
@@ -18,7 +18,7 @@ export default function Signataire(props) {
   const getSignataire = async () => {
     try {
       const response = await axios.get(
-        `${_URL}/api/signataires/${props.id}?populate=*`,
+        `${process.env._URL}/api/signataires/${props.id}?populate=*`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export default function Signataire(props) {
             style={props.format === 'mini' ?  {marginRight:7} :{ marginBottom: 20 }}
             size={props.format === 'mini' ? 50 : 80}
             source={{
-              uri: `${_URL}${state.attributes.image.data.attributes.formats.small.url}`,
+              uri: `${process.env._URL}${state.attributes.image.data.attributes.formats.small.url}`,
             }}
           ></Avatar.Image>
           <View>

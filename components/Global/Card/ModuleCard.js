@@ -1,7 +1,6 @@
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { Dimensions, Image, StyleSheet, View, Text, useWindowDimensions } from "react-native";
-import { _URL } from "../../../globalVar/url";
 import { useEffect } from "react";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import AddButton from "../Button/AddButton";
@@ -27,7 +26,7 @@ export default function ModuleCard(props) {
         style={styles.image}
         resizeMode={"contain"}
         source={{
-          uri: `${_URL}${props.item.attributes.image.data.attributes.url}`,
+          uri: `${process.env._URL}${props.item.attributes.image.data.attributes.url}`,
         }}
       />
       <Text style={width >  height  ? {...styles.cardTitle, fontSize:RFPercentage(1.7)} : {...styles.cardTitle}}>{props.item.attributes.title}</Text>

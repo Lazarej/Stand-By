@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import axios from "axios";
-import { _URL } from "../../globalVar/url";
-import { isWeb } from "../../globalVar/os";
 
 export default function ArticleSection() {
   const { user, } = useContext(UserContext);
@@ -20,7 +18,7 @@ export default function ArticleSection() {
     user.interests.map(async (interest) => {
       try {
         const response = await axios.get(
-          `${_URL}/api/articles?populate=*&filters[interet][type][$contains]=${interest.type}`,
+          `${process.env._URL}/api/articles?populate=*&filters[interet][type][$contains]=${interest.type}`,
           {
             headers: {
               "Content-Type": "application/json",

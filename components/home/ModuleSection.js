@@ -18,7 +18,7 @@ export default function ModuleSection() {
     user.interests.map(async (interest) => {
       try {
         const response = await axios.get(
-          `${_URL}/api/modules?populate=*&filters[interet][type][$contains]=${interest.type}`,
+          `${process.env._URL}/api/modules?populate=*&filters[interet][type][$contains]=${interest.type}`,
           {
             headers: {
               "Content-Type": "application/json",

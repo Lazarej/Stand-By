@@ -149,7 +149,7 @@ export default function Qsm(props) {
         />
       </View>
       </TouchableOpacity>
-      <View style={isOpen ? { marginBottom: 20, height:'100%', overflow:'hidden' } : { marginBottom: 20, height:0,overflow:'hidden' }}>
+      <View style={isOpen ? { marginBottom: 20,  overflow:'hidden' } : { marginBottom: 20, height:0,overflow:'hidden' }}>
         {qsm.map((question) => (
           <View style={styles.QsmCont} key={question.id}>
             <Text style={ isWeb ? {...styles.QsmQuestion, fontSize:RFPercentage(2.5)} : {...styles.QsmQuestion}}>{question.question}</Text>
@@ -187,15 +187,13 @@ export default function Qsm(props) {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 60,
-    backgroundColor:'red',
     borderTopWidth: 1,
     borderTopColor: "#E6E6E6",
-    marginBottom: 60,
+     borderBottomWidth: 1,
+    borderBottomColor: "#E6E6E6",
   },
 
   rowToggle:{
-    borderBottomWidth: 1,
-    borderBottomColor: "#E6E6E6",
     paddingBottom: 20,
     marginBottom: 5,
     justifyContent:'space-between',

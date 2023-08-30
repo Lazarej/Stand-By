@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import ArticlesCard from "../Global/Card/ArticlesCard";
 import GlobalStyles from "../../style/GlobalStyles";
-import { _URL } from "../../globalVar/url";
+
 
 export default function OtherArticle(props) {
   const { user } = useContext(UserContext);
@@ -18,7 +18,7 @@ export default function OtherArticle(props) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `${_URL}/api/articles?populate=*&filters[interet][type][$contains]=${props.interest.data.attributes.type}`,
+        `${process.env._URL}/api/articles?populate=*&filters[interet][type][$contains]=${props.interest.data.attributes.type}`,
         {
           headers: {
             "Content-Type": "application/json",

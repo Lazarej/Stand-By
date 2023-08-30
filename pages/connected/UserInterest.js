@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../../store/User";
 import GlobalButton from "../../components/Global/Button/Button";
 import GlobalStyles from "../../style/GlobalStyles";
-import { _URL } from "../../globalVar/url";
+
 import {  Snackbar } from 'react-native-paper';
 
 export default function InterestScreen() {
@@ -45,7 +45,7 @@ export default function InterestScreen() {
 
   const getData = async () => {
     try {
-      const response = await axios.get(`${_URL}/api/interets`, {
+      const response = await axios.get(`${process.env._URL}/api/interets`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,

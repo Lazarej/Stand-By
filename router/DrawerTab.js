@@ -1,5 +1,4 @@
 import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer";
-import { RFPercentage } from "react-native-responsive-fontsize";
 import ArticleScreen from "../pages/connected/Article";
 import FavoriteScreen from "../pages/connected/Favorite";
 import HomeScreen from "../pages/connected/Home";
@@ -10,12 +9,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
-import { View, } from "react-native";
-import { Button } from "react-native-paper";
 import DrawerWeb from "../components/Global/Drawer/DrawerWeb";
 import SearchScreen from "../pages/connected/Search";
 import InterestScreen from "../pages/connected/UserInterest";
-import Details from "../pages/connected/Details";
 const Drawer = createDrawerNavigator();
 
 export default function DrawerTab() {

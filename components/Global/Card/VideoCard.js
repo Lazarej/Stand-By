@@ -1,6 +1,6 @@
 import { Animated, Image, Modal, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { _URL } from "../../../globalVar/url";
+
 import { useEffect, useRef, useState } from "react";
 import GlobalStyles from "../../../style/GlobalStyles";
 import { TouchableOpacity } from "react-native";
@@ -29,7 +29,7 @@ export default function VideoCard(props) {
       <Image
         style={styles.image}
         source={{
-          uri: `${_URL}${props.item.image.data.attributes.url}`,
+          uri: `${process.env._URL}${props.item.image.data.attributes.url}`,
         }}
       />
       <View style={{ ...styles.infoCont }}>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Modal, StyleSheet, useWindowDimensions } from "react-native";
 import { View } from "react-native-web";
-import { _URL } from "../../../globalVar/url";
+
 import { Ionicons } from "@expo/vector-icons";
 
 export default function PlayerWeb(props) {
@@ -39,7 +39,7 @@ export default function PlayerWeb(props) {
         <video
           ref={video}
           style={width < height ? { width: "90%" } : { height: "80%" }}
-          src={`${_URL}${props.video}`}
+          src={`${process.env._URL}${props.video}`}
           controls
           autoPlay
           onPlay={() => onLoad()}

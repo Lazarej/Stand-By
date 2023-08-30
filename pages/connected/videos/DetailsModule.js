@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { SharedElement } from "react-navigation-shared-element";
-import { _URL } from "../../../globalVar/url";
+
 import GlobalStyles from "../../../style/GlobalStyles";
 import Wrapper from "../../../components/Global/Wrapper";
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -31,7 +31,7 @@ export default function DetailModule({ navigation }) {
   const getModule = async () => {
     try {
       const response = await axios.get(
-        `${_URL}/api/modules/${route.params.id}?populate[video][populate]=*`,
+        `${process.env._URL}/api/modules/${route.params.id}?populate[video][populate]=*`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -81,7 +81,7 @@ export default function DetailModule({ navigation }) {
         <Image
           style={styles.image}
           source={{
-            uri: `${_URL}${route.params.item.attributes.image.data.attributes.url}`,
+            uri: `${process.env._URL}${route.params.item.attributes.image.data.attributes.url}`,
           }}
         ></Image>
       </SharedElement>

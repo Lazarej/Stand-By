@@ -9,7 +9,7 @@ import GlobalStyles from "../../../style/GlobalStyles";
 import { useContext } from "react";
 import { UserContext } from "../../../store/User";
 import axios from "axios";
-import { _URL } from "../../../globalVar/url";
+
 import ModuleCard from "../../../components/Global/Card/ModuleCard";
 
 export default function Modules() {
@@ -57,7 +57,7 @@ export default function Modules() {
 
   const getModule = async () => {
     try {
-      const response = await axios.get(`${_URL}/api/modules?populate=*`, {
+      const response = await axios.get(`${process.env._URL}/api/modules?populate=*`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
@@ -83,7 +83,7 @@ export default function Modules() {
       user.interests.map(async (interest) => {
         try {
           const response = await axios.get(
-            `${_URL}/api/modules?populate=*&filters[interet][type][$contains]=${interest.type}`,
+            `${process.env._URL}/api/modules?populate=*&filters[interet][type][$contains]=${interest.type}`,
             {
               headers: {
                 "Content-Type": "application/json",
